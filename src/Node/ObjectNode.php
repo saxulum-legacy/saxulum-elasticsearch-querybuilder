@@ -34,7 +34,7 @@ class ObjectNode implements NodeInterface
      * @param NodeInterface $node
      * @return $this
      */
-    public function addChild(NodeInterface $node)
+    public function add(NodeInterface $node)
     {
         if (isset($this->children[$node->getName()])) {
             throw new \InvalidArgumentException(sprintf('There is already a child with name: %s', $node->getName()));
@@ -49,7 +49,7 @@ class ObjectNode implements NodeInterface
      * @param NodeInterface $node
      * @return $this
      */
-    public function removeChild(NodeInterface $node)
+    public function remove(NodeInterface $node)
     {
         if (isset($this->children[$node->getName()])) {
             unset($this->children[$node->getName()]);

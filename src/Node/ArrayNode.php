@@ -34,7 +34,7 @@ class ArrayNode implements NodeInterface
      * @param NodeInterface $node
      * @return $this
      */
-    public function addChild(NodeInterface $node)
+    public function add(NodeInterface $node)
     {
         if (false !== $index = array_search($node, $this->children, true)) {
             throw new \InvalidArgumentException(sprintf('Child already added index: %d', $index));
@@ -49,7 +49,7 @@ class ArrayNode implements NodeInterface
      * @param NodeInterface $node
      * @return $this
      */
-    public function removeChild(NodeInterface $node)
+    public function remove(NodeInterface $node)
     {
         if (false !== $index = array_search($node, $this->children, true)) {
             unset($this->children[$index]);

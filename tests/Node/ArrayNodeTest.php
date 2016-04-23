@@ -39,8 +39,8 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     public function testSerializeWithScalarChild()
     {
         $node = (new ArrayNode('name1'))
-            ->addChild(new ScalarNode('name11', 'value11'))
-            ->addChild(new ScalarNode('name12', 'value12'))
+            ->add(new ScalarNode('name11', 'value11'))
+            ->add(new ScalarNode('name12', 'value12'))
         ;
 
         $serialized = new \stdClass();
@@ -59,15 +59,15 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     public function testSerializeWithObjectChild()
     {
         $node = (new ArrayNode('name1'))
-            ->addChild(
+            ->add(
                 (new ObjectNode('name11'))
-                    ->addChild(new ScalarNode('name111', 'value111'))
-                    ->addChild(new ScalarNode('name112', 'value112'))
+                    ->add(new ScalarNode('name111', 'value111'))
+                    ->add(new ScalarNode('name112', 'value112'))
             )
-            ->addChild(
+            ->add(
                 (new ObjectNode('name12'))
-                    ->addChild(new ScalarNode('name121', 'value121'))
-                    ->addChild(new ScalarNode('name122', 'value122'))
+                    ->add(new ScalarNode('name121', 'value121'))
+                    ->add(new ScalarNode('name122', 'value122'))
             )
         ;
 

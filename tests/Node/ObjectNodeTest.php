@@ -39,8 +39,8 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     public function testSerializeWithScalarChild()
     {
         $node = (new ObjectNode('name1'))
-            ->addChild(new ScalarNode('name11', 'value11'))
-            ->addChild(new ScalarNode('name12', 'value12'))
+            ->add(new ScalarNode('name11', 'value11'))
+            ->add(new ScalarNode('name12', 'value12'))
         ;
 
 
@@ -58,15 +58,15 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     public function testSerializeWithObjectChild()
     {
         $node = (new ObjectNode('name1'))
-            ->addChild(
+            ->add(
                 (new ObjectNode('name11'))
-                    ->addChild(new ScalarNode('name111', 'value111'))
-                    ->addChild(new ScalarNode('name112', 'value112'))
+                    ->add(new ScalarNode('name111', 'value111'))
+                    ->add(new ScalarNode('name112', 'value112'))
             )
-            ->addChild(
+            ->add(
                 (new ObjectNode('name12'))
-                    ->addChild(new ScalarNode('name121', 'value121'))
-                    ->addChild(new ScalarNode('name122', 'value122'))
+                    ->add(new ScalarNode('name121', 'value121'))
+                    ->add(new ScalarNode('name122', 'value122'))
             )
         ;
 
@@ -88,17 +88,17 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     public function testSerializeWithArrayChild()
     {
         $node = (new ObjectNode('name1'))
-            ->addChild(
+            ->add(
                 (new ArrayNode('name11'))
-                    ->addChild(
+                    ->add(
                         (new ObjectNode('name111'))
-                            ->addChild(new ScalarNode('name1111', 'value1111'))
-                            ->addChild(new ScalarNode('name1112', 'value1112'))
+                            ->add(new ScalarNode('name1111', 'value1111'))
+                            ->add(new ScalarNode('name1112', 'value1112'))
                     )
-                    ->addChild(
+                    ->add(
                         (new ObjectNode('name112'))
-                            ->addChild(new ScalarNode('name1121', 'value1121'))
-                            ->addChild(new ScalarNode('name1122', 'value1122'))
+                            ->add(new ScalarNode('name1121', 'value1121'))
+                            ->add(new ScalarNode('name1122', 'value1122'))
                     )
             )
         ;
