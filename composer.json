@@ -1,5 +1,5 @@
 {
-  "name": "saxulum/elasticsearch-querybuilder",
+  "name": "saxulum/saxulum-elasticsearch-querybuilder",
   "type": "library",
   "description": "A query builder for elasticsearch",
   "keywords": ["elasticsearch", "querybuilder", "query"],
