@@ -1,6 +1,6 @@
 <?php
 
-namespace Saxulum\ElasticSearchQueryBuilder\Tests\Node;
+namespace Saxulum\Tests\ElasticSearchQueryBuilder\Node;
 
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
