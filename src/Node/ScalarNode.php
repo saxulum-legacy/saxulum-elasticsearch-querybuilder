@@ -36,6 +36,9 @@ class ScalarNode implements NodeInterface
      */
     public function serialize()
     {
-        return [$this->getName() => $this->value];
+        $serialized = new \stdClass();
+        $serialized->{$this->getName()} = $this->value;
+
+        return $serialized;
     }
 }

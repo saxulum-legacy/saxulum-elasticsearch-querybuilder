@@ -10,7 +10,7 @@ interface NodeInterface
     public function getName();
     
     /**
-     * @return array
+     * @return \stdClass
      */
     public function serialize();
 }

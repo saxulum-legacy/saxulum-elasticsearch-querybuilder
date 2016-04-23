@@ -25,7 +25,12 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     {
         $node = new ArrayNode('name');
 
-        self::assertSame(['name' => []], $node->serialize());
+        self::assertInstanceOf(\stdClass::class, $node->serialize());
+
+        $serialized = new \stdClass();
+        $serialized->name = [];
+
+        self::assertEquals($serialized, $node->serialize());
     }
 
     /**
@@ -38,15 +43,14 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
             ->addChild(new ScalarNode('name12', 'value12'))
         ;
 
-        self::assertSame(
-            [
-                'name1' => [
-                    ['name11' => 'value11'],
-                    ['name12' => 'value12']
-                ]
-            ],
-            $node->serialize()
-        );
+        $serialized = new \stdClass();
+        $serialized->name1 = [];
+        $serialized->name1[0] = new \stdClass();
+        $serialized->name1[0]->name11 = 'value11';
+        $serialized->name1[1] = new \stdClass();
+        $serialized->name1[1]->name12 = 'value12';
+
+        self::assertEquals($serialized, $node->serialize());
     }
 
     /**
@@ -67,63 +71,18 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
             )
         ;
 
-        self::assertSame(
-            [
-                'name1' => [
-                    [
-                        'name11' => [
-                            'name111' => 'value111',
-                            'name112' => 'value112'
-                        ]
-                    ],
-                    [
-                        'name12' => [
-                            'name121' => 'value121',
-                            'name122' => 'value122'
-                        ]
-                    ]
-                ]
-            ],
-            $node->serialize()
-        );
-    }
+        $serialized = new \stdClass();
+        $serialized->name1 = [];
+        $serialized->name1[0] = new \stdClass();
+        $serialized->name1[0]->name11 = new \stdClass();
+        $serialized->name1[0]->name11->name111 = 'value111';
+        $serialized->name1[0]->name11->name112 = 'value112';
 
-    /**
-     * @return void
-     */
-    public function testSerializeWithArrayChild()
-    {
-        $node = (new ArrayNode('name1'))
-            ->addChild(
-                (new ArrayNode('name11'))
-                    ->addChild(new ScalarNode('name111', 'value111'))
-                    ->addChild(new ScalarNode('name112', 'value112'))
-            )
-            ->addChild(
-                (new ArrayNode('name12'))
-                    ->addChild(new ScalarNode('name121', 'value121'))
-                    ->addChild(new ScalarNode('name122', 'value122'))
-            )
-        ;
+        $serialized->name1[1] = new \stdClass();
+        $serialized->name1[1]->name12 = new \stdClass();
+        $serialized->name1[1]->name12->name121 = 'value121';
+        $serialized->name1[1]->name12->name122 = 'value122';
 
-        self::assertSame(
-            [
-                'name1' => [
-                    [
-                        'name11' => [
-                            ['name111' => 'value111'],
-                            ['name112' => 'value112']
-                        ]
-                    ],
-                    [
-                        'name12' => [
-                            ['name121' => 'value121'],
-                            ['name122' => 'value122']
-                        ]
-                    ]
-                ]
-            ],
-            $node->serialize()
-        );
+        self::assertEquals($serialized, $node->serialize());
     }
 }

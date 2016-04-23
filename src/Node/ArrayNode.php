@@ -63,11 +63,14 @@ class ArrayNode implements NodeInterface
      */
     public function serialize()
     {
-        $value = [];
+        $serialzedChildren = [];
         foreach ($this->children as $child) {
-            $value[] = $child->serialize();
+            $serialzedChildren[] = $child->serialize();
         }
 
-        return [$this->getName() => $value];
+        $serialized = new \stdClass();
+        $serialized->{$this->getName()} = $serialzedChildren;
+
+        return $serialized;
     }
 }

@@ -59,15 +59,18 @@ class ObjectNode implements NodeInterface
     }
 
     /**
-     * @return array
+     * @return \stdClass
      */
     public function serialize()
     {
-        $value = [];
+        $serialzedChildren = new \stdClass();
         foreach ($this->children as $child) {
-            $value[$child->getName()] = $child->serialize()[$child->getName()];
+            $serialzedChildren->{$child->getName()} = $child->serialize()->{$child->getName()};
         }
         
-        return [$this->getName() => $value];
+        $serialized = new \stdClass();
+        $serialized->{$this->getName()} = $serialzedChildren;
+        
+        return $serialized;
     }
 }
