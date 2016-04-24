@@ -15,12 +15,20 @@ class ScalarNode implements NodeInterface
     protected $value;
 
     /**
-     * @param string $name
+     * @var boolean
      */
-    public function __construct($name, $value)
+    protected $allowNull;
+
+    /**
+     * @param string $name
+     * @param string|float|integer|null $value
+     * @param boolean $allowNull
+     */
+    public function __construct($name, $value, $allowNull = false)
     {
         $this->name = $name;
         $this->value = $value;
+        $this->allowNull = $allowNull;
     }
 
     /**
@@ -30,12 +38,16 @@ class ScalarNode implements NodeInterface
     {
         return $this->name;
     }
-    
+
     /**
-     * @return array
+     * @return \stdClass|null
      */
     public function serialize()
     {
+        if (null === $this->value && !$this->allowNull) {
+            return null;
+        }
+
         $serialized = new \stdClass();
         $serialized->{$this->getName()} = $this->value;
 

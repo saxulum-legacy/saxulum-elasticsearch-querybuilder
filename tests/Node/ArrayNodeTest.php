@@ -25,6 +25,16 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     {
         $node = new ArrayNode('name');
 
+        self::assertNull($node->serialize());
+    }
+
+    /**
+     * @return void
+     */
+    public function testSerializeWithoutChildrenAndAllowNoChildren()
+    {
+        $node = new ArrayNode('name', true);
+
         self::assertInstanceOf(\stdClass::class, $node->serialize());
 
         $serialized = new \stdClass();
@@ -32,6 +42,7 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals($serialized, $node->serialize());
     }
+
 
     /**
      * @return void
@@ -51,6 +62,19 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         $serialized->name1[1]->name12 = 'value12';
 
         self::assertEquals($serialized, $node->serialize());
+    }
+
+    /**
+     * @return void
+     */
+    public function testSerializeWithScalarWithNullChild()
+    {
+        $node = (new ArrayNode('name1'))
+            ->add(new ScalarNode('name11', null))
+            ->add(new ScalarNode('name12', null))
+        ;
+
+        self::assertNull($node->serialize());
     }
 
     /**
@@ -82,6 +106,52 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         $serialized->name1[1]->name12 = new \stdClass();
         $serialized->name1[1]->name12->name121 = 'value121';
         $serialized->name1[1]->name12->name122 = 'value122';
+
+        self::assertEquals($serialized, $node->serialize());
+    }
+
+
+    /**
+     * @return void
+     */
+    public function testSerializeWithObjectChildWithNullChild()
+    {
+        $node = (new ArrayNode('name1'))
+            ->add(
+                (new ObjectNode('name11'))
+                    ->add(new ScalarNode('name111', null))
+                    ->add(new ScalarNode('name112', null))
+            )
+            ->add(
+                (new ObjectNode('name12'))
+                    ->add(new ScalarNode('name121', null))
+                    ->add(new ScalarNode('name122', null))
+            )
+        ;
+
+        self::assertNull($node->serialize());
+    }
+
+    /**
+     * @return void
+     */
+    public function testSerializeWithObjectChildWithNullChildAllowNoChildren()
+    {
+        $node = (new ArrayNode('name1', true))
+            ->add(
+                (new ObjectNode('name11'))
+                    ->add(new ScalarNode('name111', null))
+                    ->add(new ScalarNode('name112', null))
+            )
+            ->add(
+                (new ObjectNode('name12'))
+                    ->add(new ScalarNode('name121', null))
+                    ->add(new ScalarNode('name122', null))
+            )
+        ;
+
+        $serialized = new \stdClass();
+        $serialized->name1 = [];
 
         self::assertEquals($serialized, $node->serialize());
     }

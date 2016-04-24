@@ -15,11 +15,18 @@ class ArrayNode implements NodeInterface
     protected $children = [];
 
     /**
-     * @param string $name
+     * @var boolean
      */
-    public function __construct($name)
+    protected $allowNoChildren;
+
+    /**
+     * @param string $name
+     * @param boolean $allowNoChildren
+     */
+    public function __construct($name, $allowNoChildren = false)
     {
         $this->name = $name;
+        $this->allowNoChildren = $allowNoChildren;
     }
 
     /**
@@ -59,13 +66,21 @@ class ArrayNode implements NodeInterface
     }
 
     /**
-     * @return array
+     * @return \stdClass|null
      */
     public function serialize()
     {
         $serialzedChildren = [];
+        $serialzedChildrenCount = 0;
         foreach ($this->children as $child) {
-            $serialzedChildren[] = $child->serialize();
+            if (null !== $serialzedChild = $child->serialize()) {
+                $serialzedChildren[] = $serialzedChild;
+                $serialzedChildrenCount++;
+            }
+        }
+
+        if (0 === $serialzedChildrenCount && !$this->allowNoChildren) {
+            return null;
         }
 
         $serialized = new \stdClass();

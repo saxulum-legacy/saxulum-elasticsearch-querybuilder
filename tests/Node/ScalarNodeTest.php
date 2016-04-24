@@ -30,4 +30,29 @@ class ScalarNodeTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals($serialized, $node->serialize());
     }
+
+    /**
+     * @return void
+     */
+    public function testSerializeWithValueNull()
+    {
+        $node = new ScalarNode('name', null);
+
+        self::assertNull($node->serialize());
+    }
+
+    /**
+     * @return void
+     */
+    public function testSerializeWithValueNullAndAllowNull()
+    {
+        $node = new ScalarNode('name', null, true);
+
+        self::assertInstanceOf(\stdClass::class, $node->serialize());
+
+        $serialized = new \stdClass();
+        $serialized->name = null;
+
+        self::assertEquals($serialized, $node->serialize());
+    }
 }
