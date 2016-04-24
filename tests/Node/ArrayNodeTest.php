@@ -10,6 +10,26 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
+    public function testAllowNullFalse()
+    {
+        $node = new ArrayNode();
+
+        self::assertFalse($node->allowNull());
+    }
+
+    /**
+     * @return void
+     */
+    public function testAllowNullTrue()
+    {
+        $node = new ArrayNode(true);
+
+        self::assertTrue($node->allowNull());
+    }
+
+    /**
+     * @return void
+     */
     public function testSerialize()
     {
         $node = new ArrayNode();
@@ -63,7 +83,22 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         $node = new ArrayNode(true);
         $node->add(new ScalarNode(null));
         $node->add(new ScalarNode(null));
-        
+
         self::assertEquals([], $node->serialize());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Node already got a parent!
+     * @return void
+     */
+    public function testAddSameNodeTwice()
+    {
+        $node = new ArrayNode();
+
+        $subNode = new ScalarNode('value');
+
+        $node->add($subNode);
+        $node->add($subNode);
     }
 }

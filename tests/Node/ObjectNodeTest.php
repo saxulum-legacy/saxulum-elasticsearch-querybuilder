@@ -10,6 +10,26 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
+    public function testAllowNullFalse()
+    {
+        $node = new ObjectNode();
+
+        self::assertFalse($node->allowNull());
+    }
+
+    /**
+     * @return void
+     */
+    public function testAllowNullTrue()
+    {
+        $node = new ObjectNode(true);
+
+        self::assertTrue($node->allowNull());
+    }
+
+    /**
+     * @return void
+     */
     public function testSerialize()
     {
         $node = new ObjectNode();
@@ -65,5 +85,36 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
         $node->add('key2', new ScalarNode(null));
 
         self::assertEquals(new \stdClass(), $node->serialize());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Node already got a parent!
+     * @return void
+     */
+    public function testAddSameNodeTwice()
+    {
+        $node = new ObjectNode();
+
+        $subNode = new ScalarNode('value');
+
+        $node->add('key1', $subNode);
+        $node->add('key2', $subNode);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage There is already a node with name key1!
+     * @return void
+     */
+    public function testAddSameNameTwice()
+    {
+        $node = new ObjectNode();
+
+        $subNode1 = new ScalarNode('value1');
+        $subNode2 = new ScalarNode('value2');
+
+        $node->add('key1', $subNode1);
+        $node->add('key1', $subNode2);
     }
 }
