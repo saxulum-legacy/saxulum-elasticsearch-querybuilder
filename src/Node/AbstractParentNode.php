@@ -25,8 +25,12 @@ abstract class AbstractParentNode extends AbstractNode
     public function __construct($allowEmpty = false)
     {
         $this->allowEmpty = $allowEmpty;
-        
-        $this->reflectionProperty = new \ReflectionProperty(AbstractNode::class, 'parent');
+
+        $this->reflectionProperty = new \ReflectionProperty(
+            'Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode',
+            'parent'
+        )
+        ;
         $this->reflectionProperty->setAccessible(true);
     }
 }
