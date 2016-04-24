@@ -10,11 +10,7 @@ class ArrayNode extends AbstractParentNode
      */
     public function add(AbstractNode $node)
     {
-        if (null !== $this->reflectionProperty->getValue($node)) {
-            throw new \InvalidArgumentException('Node already got a parent!');
-        }
-
-        $this->reflectionProperty->setValue($node, $this);
+        $this->setParent($node);
 
         $this->children[] = $node;
 

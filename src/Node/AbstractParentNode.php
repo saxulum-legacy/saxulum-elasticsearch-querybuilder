@@ -26,11 +26,20 @@ abstract class AbstractParentNode extends AbstractNode
     {
         $this->allowEmpty = $allowEmpty;
 
-        $this->reflectionProperty = new \ReflectionProperty(
-            'Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode',
-            'parent'
-        )
-        ;
+        $this->reflectionProperty = new \ReflectionProperty(AbstractNode::classname, 'parent');
         $this->reflectionProperty->setAccessible(true);
+    }
+
+    /**
+     * @param AbstractNode $node
+     * @return void
+     */
+    protected function setParent(AbstractNode $node)
+    {
+        if (null !== $this->reflectionProperty->getValue($node)) {
+            throw new \InvalidArgumentException('Node already got a parent!');
+        }
+
+        $this->reflectionProperty->setValue($node, $this);
     }
 }

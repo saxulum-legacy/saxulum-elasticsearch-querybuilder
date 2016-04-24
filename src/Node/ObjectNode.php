@@ -15,11 +15,7 @@ class ObjectNode extends AbstractParentNode
             throw new \InvalidArgumentException('Node already got a parent!');
         }
 
-        if (array_key_exists($name, $this->children)) {
-            throw new \InvalidArgumentException(sprintf('There is allready a child for name %s', $name));
-        }
-
-        $this->reflectionProperty->setValue($node, $this);
+        $this->setParent($node);
         
         $this->children[$name] = $node;
 
