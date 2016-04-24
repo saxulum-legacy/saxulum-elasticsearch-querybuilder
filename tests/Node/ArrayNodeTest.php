@@ -35,7 +35,7 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     {
         $node = new ArrayNode('name', true);
 
-        self::assertInstanceOf(\stdClass::class, $node->serialize());
+        self::assertInstanceOf('\stdClass', $node->serialize());
 
         $serialized = new \stdClass();
         $serialized->name = [];

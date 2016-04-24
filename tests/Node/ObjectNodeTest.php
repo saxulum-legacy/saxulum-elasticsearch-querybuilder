@@ -35,7 +35,7 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     {
         $node = new ObjectNode('name', true);
 
-        self::assertInstanceOf(\stdClass::class, $node->serialize());
+        self::assertInstanceOf('\stdClass', $node->serialize());
 
         $serialized = new \stdClass();
         $serialized->name = new \stdClass();

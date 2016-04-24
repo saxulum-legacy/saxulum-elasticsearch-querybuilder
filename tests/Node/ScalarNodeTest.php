@@ -23,7 +23,7 @@ class ScalarNodeTest extends \PHPUnit_Framework_TestCase
     {
         $node = new ScalarNode('name', 'value');
 
-        self::assertInstanceOf(\stdClass::class, $node->serialize());
+        self::assertInstanceOf('\stdClass', $node->serialize());
 
         $serialized = new \stdClass();
         $serialized->name = 'value';
@@ -48,7 +48,7 @@ class ScalarNodeTest extends \PHPUnit_Framework_TestCase
     {
         $node = new ScalarNode('name', null, true);
 
-        self::assertInstanceOf(\stdClass::class, $node->serialize());
+        self::assertInstanceOf('\stdClass', $node->serialize());
 
         $serialized = new \stdClass();
         $serialized->name = null;
