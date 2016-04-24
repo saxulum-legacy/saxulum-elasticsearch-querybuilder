@@ -2,65 +2,26 @@
 
 namespace Saxulum\ElasticSearchQueryBuilder\Node;
 
-class ObjectNode implements NodeInterface
+class ObjectNode extends AbstractParentNode
 {
     /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var NodeInterface[]|array
-     */
-    protected $children = [];
-
-    /**
-     * @var boolean
-     */
-    protected $allowNoChildren;
-
-    /**
      * @param string $name
-     * @param boolean $allowNoChildren
-     */
-    public function __construct($name, $allowNoChildren = false)
-    {
-        $this->name = $name;
-        $this->allowNoChildren = $allowNoChildren;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param NodeInterface $node
+     * @param AbstractNode $node
      * @return $this
      */
-    public function add(NodeInterface $node)
+    public function add($name, AbstractNode $node)
     {
-        if (isset($this->children[$node->getName()])) {
-            throw new \InvalidArgumentException(sprintf('There is already a child with name: %s', $node->getName()));
+        if (null !== $this->reflectionProperty->getValue($node)) {
+            throw new \InvalidArgumentException('Node already got a parent!');
         }
 
-        $this->children[$node->getName()] = $node;
-
-        return $this;
-    }
-
-    /**
-     * @param NodeInterface $node
-     * @return $this
-     */
-    public function remove(NodeInterface $node)
-    {
-        if (isset($this->children[$node->getName()])) {
-            unset($this->children[$node->getName()]);
+        if (array_key_exists($name, $this->children)) {
+            throw new \InvalidArgumentException(sprintf('There is allready a child for name %s', $name));
         }
+
+        $this->reflectionProperty->setValue($node, $this);
+        
+        $this->children[$name] = $node;
 
         return $this;
     }
@@ -70,19 +31,16 @@ class ObjectNode implements NodeInterface
      */
     public function serialize()
     {
-        $serializedChildren = new \stdClass();
-        foreach ($this->children as $child) {
+        $serialized = new \stdClass();
+        foreach ($this->children as $name => $child) {
             if (null !== $serializedChild = $child->serialize()) {
-                $serializedChildren->{$child->getName()} = $serializedChild->{$child->getName()};
+                $serialized->$name = $serializedChild;
             }
         }
 
-        if ([] === (array) $serializedChildren && !$this->allowNoChildren) {
+        if (!$this->allowEmpty && [] === (array) $serialized) {
             return null;
         }
-
-        $serialized = new \stdClass();
-        $serialized->{$this->getName()} = $serializedChildren;
 
         return $serialized;
     }

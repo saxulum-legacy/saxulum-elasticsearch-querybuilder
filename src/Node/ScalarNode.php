@@ -2,55 +2,26 @@
 
 namespace Saxulum\ElasticSearchQueryBuilder\Node;
 
-class ScalarNode implements NodeInterface
+class ScalarNode extends AbstractNode
 {
     /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var string|float|integer|null
+     * @var string|float|integer|boolean|null
      */
     protected $value;
 
     /**
-     * @var boolean
+     * @param string|float|integer|boolean|null $value
      */
-    protected $allowNull;
-
-    /**
-     * @param string $name
-     * @param string|float|integer|null $value
-     * @param boolean $allowNull
-     */
-    public function __construct($name, $value, $allowNull = false)
+    public function __construct($value)
     {
-        $this->name = $name;
         $this->value = $value;
-        $this->allowNull = $allowNull;
     }
 
     /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return \stdClass|null
+     * @return string|float|integer|boolean|null
      */
     public function serialize()
     {
-        if (null === $this->value && !$this->allowNull) {
-            return null;
-        }
-
-        $serialized = new \stdClass();
-        $serialized->{$this->getName()} = $this->value;
-
-        return $serialized;
+        return $this->value;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Node;
 
-use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
@@ -11,19 +10,9 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    public function testGetName()
+    public function testSerialize()
     {
-        $node = new ObjectNode('name');
-
-        self::assertSame('name', $node->getName());
-    }
-
-    /**
-     * @return void
-     */
-    public function testSerializeWithoutChildren()
-    {
-        $node = new ObjectNode('name');
+        $node = new ObjectNode();
 
         self::assertNull($node->serialize());
     }
@@ -31,45 +20,37 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    public function testSerializeWithoutChildrenAndAllowNoChildren()
+    public function testSerializeWithAllowEmpty()
     {
-        $node = new ObjectNode('name', true);
+        $node = new ObjectNode(true);
 
-        self::assertInstanceOf('\stdClass', $node->serialize());
-
-        $serialized = new \stdClass();
-        $serialized->name = new \stdClass();
-
-        self::assertEquals($serialized, $node->serialize());
+        self::assertEquals(new \stdClass(), $node->serialize());
     }
 
     /**
      * @return void
      */
-    public function testSerializeWithScalarChild()
+    public function testSerializeWithScalarChildren()
     {
-        $node = (new ObjectNode('name1'))
-            ->add(new ScalarNode('name11', 'value11'))
-            ->add(new ScalarNode('name12', 'value12'))
-        ;
+        $node = new ObjectNode();
+        $node->add('key1', new ScalarNode('value1'));
+        $node->add('key2', new ScalarNode('value2'));
 
-        $serialized = new \stdClass();
-        $serialized->name1 = new \stdClass();
-        $serialized->name1->name11 = 'value11';
-        $serialized->name1->name12 = 'value12';
+        $serialzed = new \stdClass();
+        $serialzed->key1 = 'value1';
+        $serialzed->key2 = 'value2';
 
-        self::assertEquals($serialized, $node->serialize());
+        self::assertEquals($serialzed, $node->serialize());
     }
 
     /**
      * @return void
      */
-    public function testSerializeWithScalarWithNullChild()
+    public function testSerializeWithScalarChildrenWithNullValue()
     {
-        $node = (new ObjectNode('name1'))
-            ->add(new ScalarNode('name11', null))
-            ->add(new ScalarNode('name12', null))
-        ;
+        $node = new ObjectNode();
+        $node->add('key1', new ScalarNode(null));
+        $node->add('key2', new ScalarNode(null));
 
         self::assertNull($node->serialize());
     }
@@ -77,112 +58,12 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    public function testSerializeWithObjectChild()
+    public function testSerializeWithScalarChildrenWithNullValueAllowEmpty()
     {
-        $node = (new ObjectNode('name1'))
-            ->add(
-                (new ObjectNode('name11'))
-                    ->add(new ScalarNode('name111', 'value111'))
-                    ->add(new ScalarNode('name112', 'value112'))
-            )
-            ->add(
-                (new ObjectNode('name12'))
-                    ->add(new ScalarNode('name121', 'value121'))
-                    ->add(new ScalarNode('name122', 'value122'))
-            )
-        ;
+        $node = new ObjectNode(true);
+        $node->add('key1', new ScalarNode(null));
+        $node->add('key2', new ScalarNode(null));
 
-        $serialized = new \stdClass();
-        $serialized->name1 = new \stdClass();
-        $serialized->name1->name11 = new \stdClass();
-        $serialized->name1->name11->name111 = 'value111';
-        $serialized->name1->name11->name112 = 'value112';
-        $serialized->name1->name12 = new \stdClass();
-        $serialized->name1->name12->name121 = 'value121';
-        $serialized->name1->name12->name122 = 'value122';
-
-        self::assertEquals($serialized, $node->serialize());
-    }
-
-    /**
-     * @return void
-     */
-    public function testSerializeWithObjectChildWithNullChild()
-    {
-        $node = (new ObjectNode('name1'))
-            ->add(
-                (new ObjectNode('name11'))
-                    ->add(new ScalarNode('name111', null))
-                    ->add(new ScalarNode('name112', null))
-            )
-            ->add(
-                (new ObjectNode('name12'))
-                    ->add(new ScalarNode('name121', null))
-                    ->add(new ScalarNode('name122', null))
-            )
-        ;
-
-        self::assertNull($node->serialize());
-    }
-
-    /**
-     * @return void
-     */
-    public function testSerializeWithObjectChildWithNullChildAllowNoChildren()
-    {
-        $node = (new ObjectNode('name1', true))
-            ->add(
-                (new ObjectNode('name11'))
-                    ->add(new ScalarNode('name111', null))
-                    ->add(new ScalarNode('name112', null))
-            )
-            ->add(
-                (new ObjectNode('name12'))
-                    ->add(new ScalarNode('name121', null))
-                    ->add(new ScalarNode('name122', null))
-            )
-        ;
-
-        $serialized = new \stdClass();
-        $serialized->name1 = new \stdClass();
-
-        self::assertEquals($serialized, $node->serialize());
-    }
-
-    /**
-     * @return void
-     */
-    public function testSerializeWithArrayChild()
-    {
-        $node = (new ObjectNode('name1'))
-            ->add(
-                (new ArrayNode('name11'))
-                    ->add(
-                        (new ObjectNode('name111'))
-                            ->add(new ScalarNode('name1111', 'value1111'))
-                            ->add(new ScalarNode('name1112', 'value1112'))
-                    )
-                    ->add(
-                        (new ObjectNode('name112'))
-                            ->add(new ScalarNode('name1121', 'value1121'))
-                            ->add(new ScalarNode('name1122', 'value1122'))
-                    )
-            )
-        ;
-
-        $serialized = new \stdClass();
-        $serialized->name1 = new \stdClass();
-        $serialized->name1->name11 = [];
-        $serialized->name1->name11[0] = new \stdClass();
-        $serialized->name1->name11[0]->name111 = new \stdClass();
-        $serialized->name1->name11[0]->name111->name1111 = 'value1111';
-        $serialized->name1->name11[0]->name111->name1112 = 'value1112';
-
-        $serialized->name1->name11[1] = new \stdClass();
-        $serialized->name1->name11[1]->name112 = new \stdClass();
-        $serialized->name1->name11[1]->name112->name1121 = 'value1121';
-        $serialized->name1->name11[1]->name112->name1122 = 'value1122';
-
-        self::assertEquals($serialized, $node->serialize());
+        self::assertEquals(new \stdClass(), $node->serialize());
     }
 }

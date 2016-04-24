@@ -9,50 +9,40 @@ class ScalarNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    public function testGetName()
+    public function testSerializeWithString()
     {
-        $node = new ScalarNode('name', 'value');
-        
-        self::assertSame('name', $node->getName());
+        $node = new ScalarNode('string');
+
+        self::assertSame('string', $node->serialize());
     }
 
     /**
      * @return void
      */
-    public function testSerialize()
+    public function testSerializeWithFloat()
     {
-        $node = new ScalarNode('name', 'value');
+        $node = new ScalarNode(3.14159);
 
-        self::assertInstanceOf('\stdClass', $node->serialize());
-
-        $serialized = new \stdClass();
-        $serialized->name = 'value';
-
-        self::assertEquals($serialized, $node->serialize());
+        self::assertSame(3.14159, $node->serialize());
     }
 
     /**
      * @return void
      */
-    public function testSerializeWithValueNull()
+    public function testSerializeWithInteger()
     {
-        $node = new ScalarNode('name', null);
+        $node = new ScalarNode(3);
 
-        self::assertNull($node->serialize());
+        self::assertSame(3, $node->serialize());
     }
 
     /**
      * @return void
      */
-    public function testSerializeWithValueNullAndAllowNull()
+    public function testSerializeWithBoolean()
     {
-        $node = new ScalarNode('name', null, true);
+        $node = new ScalarNode(true);
 
-        self::assertInstanceOf('\stdClass', $node->serialize());
-
-        $serialized = new \stdClass();
-        $serialized->name = null;
-
-        self::assertEquals($serialized, $node->serialize());
+        self::assertTrue($node->serialize());
     }
 }
