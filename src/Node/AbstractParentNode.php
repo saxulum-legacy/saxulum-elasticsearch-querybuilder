@@ -34,7 +34,7 @@ abstract class AbstractParentNode extends AbstractNode
      * @param AbstractNode $node
      * @return void
      */
-    protected function setParent(AbstractNode $node)
+    protected function assignParent(AbstractNode $node)
     {
         if (null !== $this->reflectionProperty->getValue($node)) {
             throw new \InvalidArgumentException('Node already got a parent!');

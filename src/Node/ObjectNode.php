@@ -15,7 +15,7 @@ class ObjectNode extends AbstractParentNode
             throw new \InvalidArgumentException('Node already got a parent!');
         }
 
-        $this->setParent($node);
+        $this->assignParent($node);
         
         $this->children[$name] = $node;
 

@@ -10,7 +10,7 @@ class ArrayNode extends AbstractParentNode
      */
     public function add(AbstractNode $node)
     {
-        $this->setParent($node);
+        $this->assignParent($node);
 
         $this->children[] = $node;
 
