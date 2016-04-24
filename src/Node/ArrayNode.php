@@ -70,21 +70,19 @@ class ArrayNode implements NodeInterface
      */
     public function serialize()
     {
-        $serialzedChildren = [];
-        $serialzedChildrenCount = 0;
+        $serializedChildren = [];
         foreach ($this->children as $child) {
-            if (null !== $serialzedChild = $child->serialize()) {
-                $serialzedChildren[] = $serialzedChild;
-                $serialzedChildrenCount++;
+            if (null !== $serializedChild = $child->serialize()) {
+                $serializedChildren[] = $serializedChild;
             }
         }
 
-        if (0 === $serialzedChildrenCount && !$this->allowNoChildren) {
+        if ([] === $serializedChildren && !$this->allowNoChildren) {
             return null;
         }
 
         $serialized = new \stdClass();
-        $serialized->{$this->getName()} = $serialzedChildren;
+        $serialized->{$this->getName()} = $serializedChildren;
 
         return $serialized;
     }

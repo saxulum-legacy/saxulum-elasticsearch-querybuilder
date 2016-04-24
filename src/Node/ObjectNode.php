@@ -70,21 +70,19 @@ class ObjectNode implements NodeInterface
      */
     public function serialize()
     {
-        $serialzedChildren = new \stdClass();
-        $serialzedChildrenCount = 0;
+        $serializedChildren = new \stdClass();
         foreach ($this->children as $child) {
-            if (null !== $serialzedChild = $child->serialize()) {
-                $serialzedChildren->{$child->getName()} = $serialzedChild->{$child->getName()};
-                $serialzedChildrenCount++;
+            if (null !== $serializedChild = $child->serialize()) {
+                $serializedChildren->{$child->getName()} = $serializedChild->{$child->getName()};
             }
         }
 
-        if (0 === $serialzedChildrenCount && !$this->allowNoChildren) {
+        if ([] === (array) $serializedChildren && !$this->allowNoChildren) {
             return null;
         }
 
         $serialized = new \stdClass();
-        $serialized->{$this->getName()} = $serialzedChildren;
+        $serialized->{$this->getName()} = $serializedChildren;
 
         return $serialized;
     }
