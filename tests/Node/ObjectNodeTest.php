@@ -67,17 +67,6 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(new \stdClass(), $node->serialize());
     }
 
-    public function testSerializeWithEmptyObjectChild()
-    {
-        $node = new ObjectNode();
-        $node->add('match', (new ObjectNode(true))->add('title', new ScalarNode(null)), 'match_all');
-
-        $serialzed = new \stdClass();
-        $serialzed->match_all = new \stdClass();
-
-        self::assertEquals($serialzed, $node->serialize());
-    }
-
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Node already got a parent!

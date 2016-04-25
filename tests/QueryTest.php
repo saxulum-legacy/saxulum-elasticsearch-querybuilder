@@ -41,24 +41,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    public function testMatchWithNull()
-    {
-        $query = (new ObjectNode())
-            ->add('query', (new ObjectNode())
-                ->add(
-                    'match',
-                    (new ObjectNode(true))->add('title', new ScalarNode(null)),
-                    'match_all'
-                )
-            )
-        ;
-
-        self::assertSame('{"query":{"match_all":{}}}', json_encode($query->serialize()));
-    }
-
-    /**
-     * @return void
-     */
     public function testRange()
     {
         $query = (new ObjectNode())

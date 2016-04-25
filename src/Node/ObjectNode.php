@@ -5,17 +5,11 @@ namespace Saxulum\ElasticSearchQueryBuilder\Node;
 class ObjectNode extends AbstractParentNode
 {
     /**
-     * @var array
-     */
-    protected $emptyNameMapping = [];
-
-    /**
      * @param string $name
      * @param AbstractNode $node
-     * @param string|null $emptyName
      * @return $this
      */
-    public function add($name, AbstractNode $node, $emptyName = null)
+    public function add($name, AbstractNode $node)
     {
         $this->assignParent($node);
 
@@ -24,10 +18,6 @@ class ObjectNode extends AbstractParentNode
         }
 
         $this->children[$name] = $node;
-
-        if (null !== $emptyName) {
-            $this->emptyNameMapping[$name] = $emptyName;
-        }
 
         return $this;
     }
@@ -40,11 +30,7 @@ class ObjectNode extends AbstractParentNode
         $serialized = new \stdClass();
         foreach ($this->children as $name => $child) {
             if (null !== $serializedChild = $child->serialize()) {
-                if ([] === (array) $serializedChild && isset($this->emptyNameMapping[$name])) {
-                    $serialized->{$this->emptyNameMapping[$name]} = $serializedChild;
-                } else {
-                    $serialized->$name = $serializedChild;
-                }
+                $serialized->$name = $serializedChild;
             }
         }
 
