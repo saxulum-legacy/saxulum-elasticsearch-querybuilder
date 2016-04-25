@@ -10,6 +10,26 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
+    public function testAllowNullFalse()
+    {
+        $node = new ArrayNode();
+
+        self::assertFalse($node->allowNull());
+    }
+
+    /**
+     * @return void
+     */
+    public function testAllowNullTrue()
+    {
+        $node = new ArrayNode(true);
+
+        self::assertTrue($node->allowNull());
+    }
+
+    /**
+     * @return void
+     */
     public function testSerialize()
     {
         $node = new ArrayNode();

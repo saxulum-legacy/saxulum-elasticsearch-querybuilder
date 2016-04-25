@@ -9,6 +9,26 @@ class ScalarNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
+    public function testAllowNullFalse()
+    {
+        $node = new ScalarNode(null);
+
+        self::assertFalse($node->allowNull());
+    }
+
+    /**
+     * @return void
+     */
+    public function testAllowNullTrue()
+    {
+        $node = new ScalarNode(null, true);
+
+        self::assertTrue($node->allowNull());
+    }
+
+    /**
+     * @return void
+     */
     public function testSerializeWithString()
     {
         $node = new ScalarNode('string');

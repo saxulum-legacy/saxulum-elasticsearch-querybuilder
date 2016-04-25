@@ -10,6 +10,26 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
+    public function testAllowNullFalse()
+    {
+        $node = new ObjectNode();
+
+        self::assertFalse($node->allowNull());
+    }
+
+    /**
+     * @return void
+     */
+    public function testAllowNullTrue()
+    {
+        $node = new ObjectNode(true);
+
+        self::assertTrue($node->allowNull());
+    }
+
+    /**
+     * @return void
+     */
     public function testSerialize()
     {
         $node = new ObjectNode();

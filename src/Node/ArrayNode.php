@@ -24,7 +24,8 @@ class ArrayNode extends AbstractParentNode
     {
         $serialized = [];
         foreach ($this->children as $child) {
-            if (null !== $serializedChild = $child->serialize()) {
+            $serializedChild = $child->serialize();
+            if (null !== $serializedChild || $child->allowNull()) {
                 $serialized[] = $serializedChild;
             }
         }

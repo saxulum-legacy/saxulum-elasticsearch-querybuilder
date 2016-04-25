@@ -15,6 +15,19 @@ abstract class AbstractNode
     protected $parent;
 
     /**
+     * @var boolean
+     */
+    protected $allowNull;
+
+    /**
+     * @return boolean
+     */
+    public function allowNull()
+    {
+        return $this->allowNull;
+    }
+
+    /**
      * @return \stdClass|array|string|float|integer|boolean|null
      */
     abstract public function serialize();
