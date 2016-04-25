@@ -20,7 +20,7 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    public function testSerializeWithAllowEmpty()
+    public function testSerializeWithAllowDefault()
     {
         $node = new ArrayNode(true);
 
@@ -58,13 +58,25 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    public function testSerializeWithScalarChildrenWithNullValueAllowEmpty()
+    public function testSerializeWithScalarChildrenWithNullValueAllowDefault()
     {
         $node = new ArrayNode(true);
         $node->add(new ScalarNode(null));
         $node->add(new ScalarNode(null));
 
         self::assertEquals([], $node->serialize());
+    }
+
+    /**
+     * @return void
+     */
+    public function testSerializeWithScalarChildrenWithNullValueAllowChildDefault()
+    {
+        $node = new ArrayNode();
+        $node->add(new ScalarNode(null, true));
+        $node->add(new ScalarNode(null, true));
+
+        self::assertEquals([null, null], $node->serialize());
     }
 
     /**
