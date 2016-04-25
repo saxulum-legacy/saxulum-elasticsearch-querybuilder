@@ -29,12 +29,13 @@ class ObjectNode extends AbstractParentNode
     {
         $serialized = new \stdClass();
         foreach ($this->children as $name => $child) {
-            if (null !== $serializedChild = $child->serialize()) {
+            $serializedChild = $child->serialize();
+            if (null !== $serializedChild || $this->allowDefaultReflection->getValue($child)) {
                 $serialized->$name = $serializedChild;
             }
         }
 
-        if (!$this->allowEmpty && [] === (array) $serialized) {
+        if (!$this->allowDefault && [] === (array) $serialized) {
             return null;
         }
 

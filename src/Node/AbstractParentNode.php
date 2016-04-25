@@ -10,24 +10,27 @@ abstract class AbstractParentNode extends AbstractNode
     protected $children = [];
 
     /**
-     * @var boolean
+     * @var \ReflectionProperty
      */
-    protected $allowEmpty;
+    protected $parentReflection;
 
     /**
      * @var \ReflectionProperty
      */
-    protected $reflectionProperty;
+    protected $allowDefaultReflection;
 
     /**
-     * @param boolean $allowEmpty
+     * @param boolean $allowDefault
      */
-    public function __construct($allowEmpty = false)
+    public function __construct($allowDefault = false)
     {
-        $this->allowEmpty = $allowEmpty;
+        $this->allowDefault = $allowDefault;
 
-        $this->reflectionProperty = new \ReflectionProperty(AbstractNode::classname, 'parent');
-        $this->reflectionProperty->setAccessible(true);
+        $this->parentReflection = new \ReflectionProperty(AbstractNode::classname, 'parent');
+        $this->parentReflection->setAccessible(true);
+
+        $this->allowDefaultReflection = new \ReflectionProperty(AbstractNode::classname, 'allowDefault');
+        $this->allowDefaultReflection->setAccessible(true);
     }
 
     /**
@@ -37,10 +40,10 @@ abstract class AbstractParentNode extends AbstractNode
      */
     protected function assignParent(AbstractNode $node)
     {
-        if (null !== $this->reflectionProperty->getValue($node)) {
+        if (null !== $this->parentReflection->getValue($node)) {
             throw new \InvalidArgumentException('Node already got a parent!');
         }
 
-        $this->reflectionProperty->setValue($node, $this);
+        $this->parentReflection->setValue($node, $this);
     }
 }
