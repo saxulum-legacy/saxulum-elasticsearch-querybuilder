@@ -9,7 +9,7 @@
 
 ## Requirements
 
- * php: ~5.4|~7.0
+ * php: ~5.5|~7.0
 
 ## Installation
 

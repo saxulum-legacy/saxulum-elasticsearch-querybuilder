@@ -26,10 +26,10 @@ abstract class AbstractParentNode extends AbstractNode
     {
         $this->allowDefault = $allowDefault;
 
-        $this->parentReflection = new \ReflectionProperty(AbstractNode::classname, 'parent');
+        $this->parentReflection = new \ReflectionProperty(AbstractNode::class, 'parent');
         $this->parentReflection->setAccessible(true);
 
-        $this->allowDefaultReflection = new \ReflectionProperty(AbstractNode::classname, 'allowDefault');
+        $this->allowDefaultReflection = new \ReflectionProperty(AbstractNode::class, 'allowDefault');
         $this->allowDefaultReflection->setAccessible(true);
     }
 
