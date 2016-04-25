@@ -34,7 +34,7 @@ class ObjectNode extends AbstractParentNode
             }
         }
 
-        if (!$this->allowNull && [] === (array) $serialized) {
+        if (!$this->allowEmpty && [] === (array) $serialized) {
             return null;
         }
 

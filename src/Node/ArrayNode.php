@@ -29,7 +29,7 @@ class ArrayNode extends AbstractParentNode
             }
         }
 
-        if (!$this->allowNull && [] === $serialized) {
+        if (!$this->allowEmpty && [] === $serialized) {
             return null;
         }
 
