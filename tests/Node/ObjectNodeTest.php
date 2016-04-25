@@ -2,6 +2,7 @@
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Node;
 
+use Saxulum\ElasticSearchQueryBuilder\Node\CallbackNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
@@ -75,6 +76,34 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
         $node = new ObjectNode();
         $node->add('key1', new ScalarNode(null, true));
         $node->add('key2', new ScalarNode(null, true));
+
+        $serialzed = new \stdClass();
+        $serialzed->key1 = null;
+        $serialzed->key2 = null;
+
+        self::assertEquals($serialzed, $node->serialize());
+    }
+
+    /**
+     * @return void
+     */
+    public function testSerializeWithCallbackChildrenWithNullValueAllowDefault()
+    {
+        $node = new ObjectNode(true);
+        $node->add('key1', new CallbackNode(function () {}));
+        $node->add('key2', new CallbackNode(function () {}));
+
+        self::assertEquals(new \stdClass(), $node->serialize());
+    }
+
+    /**
+     * @return void
+     */
+    public function testSerializeWithCallbackChildrenWithNullValueAllowChildDefault()
+    {
+        $node = new ObjectNode();
+        $node->add('key1', new CallbackNode(function () {}, true));
+        $node->add('key2', new CallbackNode(function () {}, true));
 
         $serialzed = new \stdClass();
         $serialzed->key1 = null;

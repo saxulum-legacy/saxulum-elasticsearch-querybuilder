@@ -3,6 +3,7 @@
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Node;
 
 use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\CallbackNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 class ArrayNodeTest extends \PHPUnit_Framework_TestCase
@@ -75,6 +76,34 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         $node = new ArrayNode();
         $node->add(new ScalarNode(null, true));
         $node->add(new ScalarNode(null, true));
+
+        self::assertEquals([null, null], $node->serialize());
+    }
+
+    /**
+     * @return void
+     */
+    public function testSerializeWithCallbackChildrenWithNullValueAllowDefault()
+    {
+        $node = new ArrayNode(true);
+        $node->add(new CallbackNode(function () {}));
+        $node->add(new CallbackNode(function () {}));
+
+        self::assertEquals([], $node->serialize());
+    }
+
+    /**
+     * @return void
+     */
+    public function testSerializeWithCallbackChildrenWithNullValueAllowChildDefault()
+    {
+        $node = new ArrayNode();
+        $node->add(new CallbackNode(function () {}, true));
+        $node->add(new CallbackNode(function () {}, true));
+
+        $serialzed = new \stdClass();
+        $serialzed->key1 = null;
+        $serialzed->key2 = null;
 
         self::assertEquals([null, null], $node->serialize());
     }
