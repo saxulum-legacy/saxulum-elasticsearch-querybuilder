@@ -11,12 +11,12 @@ class ScalarNode extends AbstractNode
 
     /**
      * @param string|float|integer|boolean|null $value
-     * @param boolean $allowNull
+     * @param boolean $allowEmpty
      */
-    public function __construct($value, $allowNull = false)
+    public function __construct($value, $allowEmpty = false)
     {
         $this->value = $value;
-        $this->allowNull = $allowNull;
+        $this->allowEmpty = $allowEmpty;
     }
 
     /**

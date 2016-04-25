@@ -12,7 +12,7 @@ abstract class AbstractParentNode extends AbstractNode
     /**
      * @var boolean
      */
-    protected $allowNull;
+    protected $allowEmpty;
 
     /**
      * @var \ReflectionProperty
@@ -20,11 +20,11 @@ abstract class AbstractParentNode extends AbstractNode
     protected $reflectionProperty;
 
     /**
-     * @param boolean $allowNull
+     * @param boolean $allowEmpty
      */
-    public function __construct($allowNull = false)
+    public function __construct($allowEmpty = false)
     {
-        $this->allowNull = $allowNull;
+        $this->allowEmpty = $allowEmpty;
 
         $this->reflectionProperty = new \ReflectionProperty(AbstractNode::classname, 'parent');
         $this->reflectionProperty->setAccessible(true);
@@ -33,6 +33,7 @@ abstract class AbstractParentNode extends AbstractNode
     /**
      * @param AbstractNode $node
      * @return void
+     * @throws \InvalidArgumentException
      */
     protected function assignParent(AbstractNode $node)
     {

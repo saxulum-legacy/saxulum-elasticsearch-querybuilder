@@ -24,13 +24,12 @@ class ArrayNode extends AbstractParentNode
     {
         $serialized = [];
         foreach ($this->children as $child) {
-            $serializedChild = $child->serialize();
-            if (null !== $serializedChild || $child->allowNull()) {
+            if (null !== $serializedChild = $child->serialize()) {
                 $serialized[] = $serializedChild;
             }
         }
 
-        if (!$this->allowNull && [] === $serialized) {
+        if (!$this->allowEmpty && [] === $serialized) {
             return null;
         }
 
