@@ -12,7 +12,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     {
         $query = (new ObjectNode())
             ->add('query', (new ObjectNode())
-                ->add('match_all', new ObjectNode(true))
+                ->add('match_all', new ObjectNode(), true)
             )
         ;
 

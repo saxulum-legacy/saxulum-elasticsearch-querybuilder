@@ -10,6 +10,11 @@ abstract class AbstractParentNode extends AbstractNode
     protected $children = [];
 
     /**
+     * @var bool[]|array
+     */
+    protected $allowDefault = [];
+
+    /**
      * @param bool $allowAddDefault
      */
     public function __construct($allowAddDefault = false)

@@ -39,7 +39,7 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
 
     public function testSerializeWithScalarChildrenWithNullValueAllowDefault()
     {
-        $node = new ObjectNode(true);
+        $node = new ObjectNode();
         $node->add('key1', new ScalarNode(null));
         $node->add('key2', new ScalarNode(null));
 
@@ -49,8 +49,8 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     public function testSerializeWithScalarChildrenWithNullValueAllowChildDefault()
     {
         $node = new ObjectNode();
-        $node->add('key1', new ScalarNode(null, true));
-        $node->add('key2', new ScalarNode(null, true));
+        $node->add('key1', new ScalarNode(null), true);
+        $node->add('key2', new ScalarNode(null), true);
 
         $serialzed = new \stdClass();
         $serialzed->key1 = null;
@@ -61,7 +61,7 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
 
     public function testSerializeWithCallbackChildrenWithNullValueAllowDefault()
     {
-        $node = new ObjectNode(true);
+        $node = new ObjectNode();
         $node->add('key1', new CallbackNode(function () {}));
         $node->add('key2', new CallbackNode(function () {}));
 
@@ -71,8 +71,8 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     public function testSerializeWithCallbackChildrenWithNullValueAllowChildDefault()
     {
         $node = new ObjectNode();
-        $node->add('key1', new CallbackNode(function () {}, true));
-        $node->add('key2', new CallbackNode(function () {}, true));
+        $node->add('key1', new CallbackNode(function () {}), true);
+        $node->add('key2', new CallbackNode(function () {}), true);
 
         $serialzed = new \stdClass();
         $serialzed->key1 = null;

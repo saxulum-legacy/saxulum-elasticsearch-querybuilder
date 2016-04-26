@@ -6,14 +6,16 @@ class ArrayNode extends AbstractParentNode
 {
     /**
      * @param AbstractNode $node
+     * @param bool         $allowDefault
      *
      * @return $this
      */
-    public function add(AbstractNode $node)
+    public function add(AbstractNode $node, $allowDefault = false)
     {
         $node->setParent($this);
 
         $this->children[] = $node;
+        $this->allowDefault[] = $allowDefault;
 
         return $this;
     }
@@ -21,7 +23,7 @@ class ArrayNode extends AbstractParentNode
     /**
      * @return array
      */
-    public function getAddDefault()
+    public function getDefault()
     {
         return [];
     }
@@ -32,11 +34,11 @@ class ArrayNode extends AbstractParentNode
     public function serialize()
     {
         $serialized = [];
-        foreach ($this->children as $child) {
+        foreach ($this->children as $i => $child) {
             if (null !== $serializedChild = $child->serialize()) {
                 $serialized[] = $serializedChild;
-            } elseif ($child->allowAddDefault()) {
-                $serialized[] = $child->getAddDefault();
+            } elseif ($this->allowDefault[$i]) {
+                $serialized[] = $child->getDefault();
             }
         }
 

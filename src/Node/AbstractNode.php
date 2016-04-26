@@ -22,22 +22,9 @@ abstract class AbstractNode
     }
 
     /**
-     * @var bool
-     */
-    protected $allowAddDefault;
-
-    /**
-     * @return bool
-     */
-    public function allowAddDefault()
-    {
-        return $this->allowAddDefault;
-    }
-
-    /**
      * @return \stdClass|array|null
      */
-    abstract public function getAddDefault();
+    abstract public function getDefault();
 
     /**
      * @return \stdClass|array|string|float|int|bool|null

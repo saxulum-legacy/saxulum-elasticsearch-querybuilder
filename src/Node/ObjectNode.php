@@ -10,7 +10,7 @@ class ObjectNode extends AbstractParentNode
      *
      * @return $this
      */
-    public function add($name, AbstractNode $node)
+    public function add($name, AbstractNode $node, $allowDefault = false)
     {
         if (isset($this->children[$name])) {
             throw new \InvalidArgumentException(sprintf('There is already a node with name %s!', $name));
@@ -19,6 +19,7 @@ class ObjectNode extends AbstractParentNode
         $node->setParent($this);
 
         $this->children[$name] = $node;
+        $this->allowDefault[$name] = $allowDefault;
 
         return $this;
     }
@@ -26,7 +27,7 @@ class ObjectNode extends AbstractParentNode
     /**
      * @return array
      */
-    public function getAddDefault()
+    public function getDefault()
     {
         return new \stdClass();
     }
@@ -40,8 +41,8 @@ class ObjectNode extends AbstractParentNode
         foreach ($this->children as $name => $child) {
             if (null !== $serializedChild = $child->serialize()) {
                 $serialized->$name = $serializedChild;
-            } elseif ($child->allowAddDefault()) {
-                $serialized->$name = $child->getAddDefault();
+            } elseif ($this->allowDefault[$name]) {
+                $serialized->$name = $child->getDefault();
             }
         }
 

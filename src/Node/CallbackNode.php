@@ -13,18 +13,16 @@ class CallbackNode extends AbstractNode
      * @param \Closure $callback
      * @param bool     $allowAddDefault
      */
-    public function __construct(\Closure $callback, $allowAddDefault = false)
+    public function __construct(\Closure $callback)
     {
         $this->callback = $callback;
-        $this->allowAddDefault = $allowAddDefault;
     }
 
     /**
-     * @return null
      */
-    public function getAddDefault()
+    public function getDefault()
     {
-        return null;
+        return;
     }
 
     /**
