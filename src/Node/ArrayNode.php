@@ -47,7 +47,7 @@ class ArrayNode extends AbstractParentNode
 
     /**
      * @param array        $serialized
-     * @param string       $name
+     * @param int          $i
      * @param AbstractNode $child
      */
     private function serializeChild(array &$serialized, $i, AbstractNode $child)
