@@ -11,6 +11,8 @@ abstract class AbstractNode
 
     /**
      * @param AbstractParentNode $parent
+     *
+     * @throws \InvalidArgumentException
      */
     public function setParent(AbstractParentNode $parent)
     {

@@ -17,8 +17,6 @@ class ScalarNode extends AbstractNode
         $this->value = $value;
     }
 
-    /**
-     */
     public function getDefault()
     {
         return;

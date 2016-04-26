@@ -7,8 +7,11 @@ class ObjectNode extends AbstractParentNode
     /**
      * @param string       $name
      * @param AbstractNode $node
+     * @param bool         $allowDefault
      *
      * @return $this
+     *
+     * @throws \InvalidArgumentException
      */
     public function add($name, AbstractNode $node, $allowDefault = false)
     {
@@ -25,7 +28,7 @@ class ObjectNode extends AbstractParentNode
     }
 
     /**
-     * @return array
+     * @return \stdClass
      */
     public function getDefault()
     {

@@ -8,9 +8,4 @@ abstract class AbstractParentNode extends AbstractNode
      * @var AbstractNode[]|array
      */
     protected $children = [];
-
-    /**
-     * @var bool[]|array
-     */
-    protected $allowDefault = [];
 }

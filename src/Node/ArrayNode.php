@@ -9,6 +9,8 @@ class ArrayNode extends AbstractParentNode
      * @param bool         $allowDefault
      *
      * @return $this
+     *
+     * @throws \InvalidArgumentException
      */
     public function add(AbstractNode $node, $allowDefault = false)
     {
@@ -29,7 +31,7 @@ class ArrayNode extends AbstractParentNode
     }
 
     /**
-     * @return \stdClass|null
+     * @return array|null
      */
     public function serialize()
     {
