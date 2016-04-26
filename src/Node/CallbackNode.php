@@ -8,7 +8,7 @@ class CallbackNode extends AbstractNode
      * @var \Closure
      */
     protected $callback;
-    
+
     public function __construct(\Closure $callback, $allowDefault = false)
     {
         $this->callback = $callback;
@@ -21,7 +21,7 @@ class CallbackNode extends AbstractNode
     public function serialize()
     {
         $callback = $this->callback;
-        
-        return $callback($this);
+
+        return $callback();
     }
 }

@@ -11,11 +11,11 @@ class ObjectNode extends AbstractParentNode
      */
     public function add($name, AbstractNode $node)
     {
-        $this->assignParent($node);
-
         if (isset($this->children[$name])) {
             throw new \InvalidArgumentException(sprintf('There is already a node with name %s!', $name));
         }
+
+        $node->setParent($this);
 
         $this->children[$name] = $node;
 
@@ -30,7 +30,7 @@ class ObjectNode extends AbstractParentNode
         $serialized = new \stdClass();
         foreach ($this->children as $name => $child) {
             $serializedChild = $child->serialize();
-            if (null !== $serializedChild || $this->allowDefaultReflection->getValue($child)) {
+            if (null !== $serializedChild || $child->allowDefault()) {
                 $serialized->$name = $serializedChild;
             }
         }

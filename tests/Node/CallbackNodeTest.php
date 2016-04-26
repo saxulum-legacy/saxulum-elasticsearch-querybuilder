@@ -13,8 +13,7 @@ class CallbackNodeTest extends \PHPUnit_Framework_TestCase
      */
     public function testSerializeWithNull()
     {
-        $node = new CallbackNode(function (CallbackNode $node) {
-            self::assertInstanceOf(CallbackNode::class, $node);
+        $node = new CallbackNode(function () {
             return null;
         });
 

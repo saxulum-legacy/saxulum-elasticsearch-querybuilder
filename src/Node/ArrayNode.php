@@ -10,7 +10,7 @@ class ArrayNode extends AbstractParentNode
      */
     public function add(AbstractNode $node)
     {
-        $this->assignParent($node);
+        $node->setParent($this);
 
         $this->children[] = $node;
 
@@ -25,7 +25,7 @@ class ArrayNode extends AbstractParentNode
         $serialized = [];
         foreach ($this->children as $child) {
             $serializedChild = $child->serialize();
-            if (null !== $serializedChild || $this->allowDefaultReflection->getValue($child)) {
+            if (null !== $serializedChild || $child->allowDefault()) {
                 $serialized[] = $serializedChild;
             }
         }
