@@ -9,6 +9,10 @@ class CallbackNode extends AbstractNode
      */
     protected $callback;
 
+    /**
+     * @param \Closure $callback
+     * @param bool     $allowDefault
+     */
     public function __construct(\Closure $callback, $allowDefault = false)
     {
         $this->callback = $callback;
@@ -16,7 +20,7 @@ class CallbackNode extends AbstractNode
     }
 
     /**
-     * @return \stdClass|array|string|float|integer|boolean|null
+     * @return \stdClass|array|string|float|int|bool|null
      */
     public function serialize()
     {

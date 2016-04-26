@@ -6,6 +6,7 @@ class ArrayNode extends AbstractParentNode
 {
     /**
      * @param AbstractNode $node
+     *
      * @return $this
      */
     public function add(AbstractNode $node)
@@ -31,7 +32,7 @@ class ArrayNode extends AbstractParentNode
         }
 
         if (!$this->allowDefault && [] === $serialized) {
-            return null;
+            return;
         }
 
         return $serialized;

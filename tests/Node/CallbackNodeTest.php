@@ -8,26 +8,20 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 class CallbackNodeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @return void
-     */
     public function testSerializeWithNull()
     {
         $node = new CallbackNode(function () {
-            return null;
+            return;
         });
 
         self::assertSame(null, $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithArrayNode()
     {
         $node = new CallbackNode(function () {
             $arrayNode = new ArrayNode();
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < 5; ++$i) {
                 $arrayNode->add(new ScalarNode($i));
             }
 
@@ -37,9 +31,6 @@ class CallbackNodeTest extends \PHPUnit_Framework_TestCase
         self::assertSame([0, 1, 2, 3, 4], $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithArrayNodeDefault()
     {
         $node = new CallbackNode(function () {
@@ -51,9 +42,6 @@ class CallbackNodeTest extends \PHPUnit_Framework_TestCase
         self::assertSame(null, $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithArrayNodeDefaultAllowDefault()
     {
         $node = new CallbackNode(function () {

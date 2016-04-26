@@ -5,13 +5,13 @@ namespace Saxulum\ElasticSearchQueryBuilder\Node;
 class ScalarNode extends AbstractNode
 {
     /**
-     * @var string|float|integer|boolean|null
+     * @var string|float|int|bool|null
      */
     protected $value;
 
     /**
-     * @param string|float|integer|boolean|null $value
-     * @param boolean $allowDefault
+     * @param string|float|int|bool|null $value
+     * @param bool                       $allowDefault
      */
     public function __construct($value, $allowDefault = false)
     {
@@ -20,7 +20,7 @@ class ScalarNode extends AbstractNode
     }
 
     /**
-     * @return string|float|integer|boolean|null
+     * @return string|float|int|bool|null
      */
     public function serialize()
     {

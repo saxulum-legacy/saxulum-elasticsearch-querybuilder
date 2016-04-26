@@ -8,9 +8,6 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 class ArrayNodeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @return void
-     */
     public function testSerialize()
     {
         $node = new ArrayNode();
@@ -18,9 +15,6 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         self::assertNull($node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithAllowDefault()
     {
         $node = new ArrayNode(true);
@@ -28,9 +22,6 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         self::assertEquals([], $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithScalarChildren()
     {
         $node = new ArrayNode();
@@ -44,9 +35,6 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($serialzed, $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithScalarChildrenWithNullValue()
     {
         $node = new ArrayNode();
@@ -56,9 +44,6 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         self::assertNull($node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithScalarChildrenWithNullValueAllowDefault()
     {
         $node = new ArrayNode(true);
@@ -68,9 +53,6 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         self::assertEquals([], $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithScalarChildrenWithNullValueAllowChildDefault()
     {
         $node = new ArrayNode();
@@ -80,9 +62,6 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         self::assertEquals([null, null], $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithCallbackChildrenWithNullValueAllowDefault()
     {
         $node = new ArrayNode(true);
@@ -92,9 +71,6 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         self::assertEquals([], $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithCallbackChildrenWithNullValueAllowChildDefault()
     {
         $node = new ArrayNode();
@@ -111,7 +87,6 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Node already got a parent!
-     * @return void
      */
     public function testAddSameNodeTwice()
     {

@@ -6,9 +6,6 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 class ScalarNodeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @return void
-     */
     public function testSerializeWithString()
     {
         $node = new ScalarNode('string');
@@ -16,9 +13,6 @@ class ScalarNodeTest extends \PHPUnit_Framework_TestCase
         self::assertSame('string', $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithFloat()
     {
         $node = new ScalarNode(3.14159);
@@ -26,9 +20,6 @@ class ScalarNodeTest extends \PHPUnit_Framework_TestCase
         self::assertSame(3.14159, $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithInteger()
     {
         $node = new ScalarNode(3);
@@ -36,9 +27,6 @@ class ScalarNodeTest extends \PHPUnit_Framework_TestCase
         self::assertSame(3, $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithBoolean()
     {
         $node = new ScalarNode(true);

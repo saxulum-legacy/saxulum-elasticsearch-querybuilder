@@ -5,8 +5,9 @@ namespace Saxulum\ElasticSearchQueryBuilder\Node;
 class ObjectNode extends AbstractParentNode
 {
     /**
-     * @param string $name
+     * @param string       $name
      * @param AbstractNode $node
+     *
      * @return $this
      */
     public function add($name, AbstractNode $node)
@@ -36,7 +37,7 @@ class ObjectNode extends AbstractParentNode
         }
 
         if (!$this->allowDefault && [] === (array) $serialized) {
-            return null;
+            return;
         }
 
         return $serialized;

@@ -22,12 +22,12 @@ abstract class AbstractNode
     }
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $allowDefault;
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function allowDefault()
     {
@@ -35,7 +35,7 @@ abstract class AbstractNode
     }
 
     /**
-     * @return \stdClass|array|string|float|integer|boolean|null
+     * @return \stdClass|array|string|float|int|bool|null
      */
     abstract public function serialize();
 }

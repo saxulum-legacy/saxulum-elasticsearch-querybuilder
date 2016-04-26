@@ -8,9 +8,6 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @return void
-     */
     public function testMatchAll()
     {
         $query = (new ObjectNode())
@@ -22,9 +19,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         self::assertSame('{"query":{"match_all":{}}}', json_encode($query->serialize()));
     }
 
-    /**
-     * @return void
-     */
     public function testMatch()
     {
         $query = (new ObjectNode())
@@ -38,9 +32,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         self::assertSame('{"query":{"match":{"title":"elasticsearch"}}}', json_encode($query->serialize()));
     }
 
-    /**
-     * @return void
-     */
     public function testRange()
     {
         $query = (new ObjectNode())
@@ -57,9 +48,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         self::assertSame('{"query":{"range":{"elements":{"gte":10,"lte":20}}}}', json_encode($query->serialize()));
     }
 
-    /**
-     * @return void
-     */
     public function testExists()
     {
         $query = (new ObjectNode())
@@ -73,9 +61,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         self::assertSame('{"query":{"exists":{"field":"text"}}}', json_encode($query->serialize()));
     }
 
-    /**
-     * @return void
-     */
     public function testNotExists()
     {
         $query = (new ObjectNode())
@@ -96,9 +81,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function testPrefix()
     {
         $query = (new ObjectNode())
@@ -112,9 +94,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         self::assertSame('{"query":{"prefix":{"title":"elastic"}}}', json_encode($query->serialize()));
     }
 
-    /**
-     * @return void
-     */
     public function testWildcard()
     {
         $query = (new ObjectNode())
@@ -128,9 +107,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         self::assertSame('{"query":{"wildcard":{"title":"ela*c"}}}', json_encode($query->serialize()));
     }
 
-    /**
-     * @return void
-     */
     public function testRegexp()
     {
         $query = (new ObjectNode())
@@ -144,9 +120,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         self::assertSame('{"query":{"regexp":{"title":"search$"}}}', json_encode($query->serialize()));
     }
 
-    /**
-     * @return void
-     */
     public function testFuzzy()
     {
         $query = (new ObjectNode())
@@ -163,9 +136,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         self::assertSame('{"query":{"fuzzy":{"title":{"value":"sea","fuzziness":2}}}}', json_encode($query->serialize()));
     }
 
-    /**
-     * @return void
-     */
     public function testType()
     {
         $query = (new ObjectNode())
@@ -179,9 +149,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         self::assertSame('{"query":{"type":{"value":"product"}}}', json_encode($query->serialize()));
     }
 
-    /**
-     * @return void
-     */
     public function testIds()
     {
         $query = (new ObjectNode())

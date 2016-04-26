@@ -8,9 +8,6 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 class ObjectNodeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @return void
-     */
     public function testSerialize()
     {
         $node = new ObjectNode();
@@ -18,9 +15,6 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
         self::assertNull($node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithAllowDefault()
     {
         $node = new ObjectNode(true);
@@ -28,9 +22,6 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(new \stdClass(), $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithScalarChildren()
     {
         $node = new ObjectNode();
@@ -44,9 +35,6 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($serialzed, $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithScalarChildrenWithNullValue()
     {
         $node = new ObjectNode();
@@ -56,9 +44,6 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
         self::assertNull($node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithScalarChildrenWithNullValueAllowDefault()
     {
         $node = new ObjectNode(true);
@@ -68,9 +53,6 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(new \stdClass(), $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithScalarChildrenWithNullValueAllowChildDefault()
     {
         $node = new ObjectNode();
@@ -84,9 +66,6 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($serialzed, $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithCallbackChildrenWithNullValueAllowDefault()
     {
         $node = new ObjectNode(true);
@@ -96,9 +75,6 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(new \stdClass(), $node->serialize());
     }
 
-    /**
-     * @return void
-     */
     public function testSerializeWithCallbackChildrenWithNullValueAllowChildDefault()
     {
         $node = new ObjectNode();
@@ -115,7 +91,6 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Node already got a parent!
-     * @return void
      */
     public function testAddSameNodeTwice()
     {
@@ -130,7 +105,6 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage There is already a node with name key1!
-     * @return void
      */
     public function testAddSameNameTwice()
     {
