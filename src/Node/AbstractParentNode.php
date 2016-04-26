@@ -13,12 +13,4 @@ abstract class AbstractParentNode extends AbstractNode
      * @var bool[]|array
      */
     protected $allowDefault = [];
-
-    /**
-     * @param bool $allowAddDefault
-     */
-    public function __construct($allowAddDefault = false)
-    {
-        $this->allowAddDefault = $allowAddDefault;
-    }
 }
