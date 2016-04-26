@@ -6,6 +6,9 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
+/**
+ * @coversNothing
+ */
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
     public function testMatchAll()

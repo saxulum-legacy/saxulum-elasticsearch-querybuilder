@@ -3,11 +3,22 @@
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Node;
 
 use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\CallbackNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
+/**
+ * @covers Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode
+ * @covers Saxulum\ElasticSearchQueryBuilder\Node\AbstractParentNode
+ * @covers Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode
+ */
 class ArrayNodeTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetDefault()
+    {
+        $node = new ArrayNode();
+
+        self::assertEquals([], $node->getDefault());
+    }
+
     public function testSerialize()
     {
         $node = new ArrayNode();
@@ -21,54 +32,23 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         $node->add(new ScalarNode('value1'));
         $node->add(new ScalarNode('value2'));
 
-        $serialzed = [];
-        $serialzed[] = 'value1';
-        $serialzed[] = 'value2';
-
-        self::assertEquals($serialzed, $node->serialize());
+        self::assertEquals(['value1', 'value2'], $node->serialize());
     }
 
     public function testSerializeWithScalarChildrenWithNullValue()
     {
         $node = new ArrayNode();
-        $node->add(new ScalarNode(null));
-        $node->add(new ScalarNode(null));
+        $node->add(new ScalarNode());
+        $node->add(new ScalarNode());
 
         self::assertNull($node->serialize());
     }
 
-    public function testSerializeWithScalarChildrenWithNullValueAllowDefault()
+    public function testSerializeWithScalarChildrenWithNullValueAndDefault()
     {
         $node = new ArrayNode();
-        $node->add(new ScalarNode(null));
-        $node->add(new ScalarNode(null));
-
-        self::assertEquals(null, $node->serialize());
-    }
-
-    public function testSerializeWithScalarChildrenWithNullValueAllowChildDefault()
-    {
-        $node = new ArrayNode();
-        $node->add(new ScalarNode(null), true);
-        $node->add(new ScalarNode(null), true);
-
-        self::assertEquals([null, null], $node->serialize());
-    }
-
-    public function testSerializeWithCallbackChildrenWithNullValueAllowDefault()
-    {
-        $node = new ArrayNode();
-        $node->add(new CallbackNode(function () {}));
-        $node->add(new CallbackNode(function () {}));
-
-        self::assertEquals(null, $node->serialize());
-    }
-
-    public function testSerializeWithCallbackChildrenWithNullValueAllowChildDefault()
-    {
-        $node = new ArrayNode();
-        $node->add(new CallbackNode(function () {}), true);
-        $node->add(new CallbackNode(function () {}), true);
+        $node->add(new ScalarNode(), true);
+        $node->add(new ScalarNode(), true);
 
         self::assertEquals([null, null], $node->serialize());
     }

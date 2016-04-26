@@ -12,7 +12,7 @@ class ScalarNode extends AbstractNode
     /**
      * @param string|float|int|bool|null $value
      */
-    public function __construct($value)
+    public function __construct($value = null)
     {
         $this->value = $value;
     }

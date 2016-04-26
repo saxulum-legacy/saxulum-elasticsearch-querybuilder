@@ -2,54 +2,32 @@
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Node;
 
-use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\CallbackNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
+/**
+ * @covers Saxulum\ElasticSearchQueryBuilder\Node\CallbackNode
+ * @covers Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode
+ */
 class CallbackNodeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testSerializeWithNull()
+    public function testGetDefault()
     {
-        $node = new CallbackNode(function () {
-            return;
-        });
+        $node = new CallbackNode(function () {});
 
-        self::assertSame(null, $node->serialize());
+        self::assertNull($node->getDefault());
     }
 
-    public function testSerializeWithArrayNode()
+    public function testSerialize()
     {
-        $node = new CallbackNode(function () {
-            $arrayNode = new ArrayNode();
-            for ($i = 0; $i < 5; ++$i) {
-                $arrayNode->add(new ScalarNode($i));
-            }
+        $node = new CallbackNode(function () {});
 
-            return $arrayNode->serialize();
-        });
-
-        self::assertSame([0, 1, 2, 3, 4], $node->serialize());
+        self::assertNull($node->serialize());
     }
 
-    public function testSerializeWithArrayNodeDefault()
+    public function testSerializeWithReturnValue()
     {
-        $node = new CallbackNode(function () {
-            $arrayNode = new ArrayNode();
+        $node = new CallbackNode(function () { return []; });
 
-            return $arrayNode->serialize();
-        });
-
-        self::assertSame(null, $node->serialize());
-    }
-
-    public function testSerializeWithArrayNodeDefaultAllowDefault()
-    {
-        $node = new CallbackNode(function () {
-            $arrayNode = new ArrayNode();
-
-            return $arrayNode->serialize();
-        }, true);
-
-        self::assertSame(null, $node->serialize());
+        self::assertSame([], $node->serialize());
     }
 }
