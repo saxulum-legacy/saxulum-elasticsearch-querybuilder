@@ -17,9 +17,6 @@ class CallbackNode extends AbstractNode
         $this->callback = $callback;
     }
 
-    /**
-     * @return null
-     */
     public function getDefault()
     {
         return;
