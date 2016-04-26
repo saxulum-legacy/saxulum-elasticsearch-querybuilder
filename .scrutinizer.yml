@@ -6,3 +6,13 @@ build:
                 coverage:
                     file: 'coverage/clover.xml'
                     format: 'php-clover'
+
+checks:
+    php: true
+
+coding_style:
+    php: {}
+
+filter:
+    excluded_paths:
+        - 'tests/*'
