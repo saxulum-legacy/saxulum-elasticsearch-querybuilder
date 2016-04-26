@@ -18,6 +18,7 @@ class CallbackNode extends AbstractNode
     }
 
     /**
+     * @return null
      */
     public function getDefault()
     {
