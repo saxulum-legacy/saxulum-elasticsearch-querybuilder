@@ -29,17 +29,13 @@ class ArrayNode extends AbstractParentNode
     }
 
     /**
-     * @return array|null
+     * @return \stdClass|null
      */
     public function serialize()
     {
         $serialized = [];
         foreach ($this->children as $i => $child) {
-            if (null !== $serializedChild = $child->serialize()) {
-                $serialized[] = $serializedChild;
-            } elseif ($this->allowDefault[$i]) {
-                $serialized[] = $child->getDefault();
-            }
+            $this->serializeChild($serialized, $i, $child);
         }
 
         if ([] === $serialized) {
@@ -47,5 +43,19 @@ class ArrayNode extends AbstractParentNode
         }
 
         return $serialized;
+    }
+
+    /**
+     * @param array        $serialized
+     * @param string       $name
+     * @param AbstractNode $child
+     */
+    private function serializeChild(array &$serialized, $i, AbstractNode $child)
+    {
+        if (null !== $serializedChild = $child->serialize()) {
+            $serialized[] = $serializedChild;
+        } elseif ($this->allowDefault[$i]) {
+            $serialized[] = $child->getDefault();
+        }
     }
 }

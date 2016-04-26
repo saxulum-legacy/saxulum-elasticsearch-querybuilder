@@ -39,11 +39,7 @@ class ObjectNode extends AbstractParentNode
     {
         $serialized = new \stdClass();
         foreach ($this->children as $name => $child) {
-            if (null !== $serializedChild = $child->serialize()) {
-                $serialized->$name = $serializedChild;
-            } elseif ($this->allowDefault[$name]) {
-                $serialized->$name = $child->getDefault();
-            }
+            $this->serializeChild($serialized, $name, $child);
         }
 
         if ([] === (array) $serialized) {
@@ -51,5 +47,19 @@ class ObjectNode extends AbstractParentNode
         }
 
         return $serialized;
+    }
+
+    /**
+     * @param \stdClass    $serialized
+     * @param string       $name
+     * @param AbstractNode $child
+     */
+    private function serializeChild(\stdClass $serialized, $name, AbstractNode $child)
+    {
+        if (null !== $serializedChild = $child->serialize()) {
+            $serialized->$name = $serializedChild;
+        } elseif ($this->allowDefault[$name]) {
+            $serialized->$name = $child->getDefault();
+        }
     }
 }
