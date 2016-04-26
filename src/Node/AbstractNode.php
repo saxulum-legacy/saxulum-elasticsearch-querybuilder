@@ -24,15 +24,20 @@ abstract class AbstractNode
     /**
      * @var bool
      */
-    protected $allowDefault;
+    protected $allowAddDefault;
 
     /**
      * @return bool
      */
-    public function allowDefault()
+    public function allowAddDefault()
     {
-        return $this->allowDefault;
+        return $this->allowAddDefault;
     }
+
+    /**
+     * @return \stdClass|array|null
+     */
+    abstract public function getAddDefault();
 
     /**
      * @return \stdClass|array|string|float|int|bool|null

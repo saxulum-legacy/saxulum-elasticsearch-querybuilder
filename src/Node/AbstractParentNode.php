@@ -10,10 +10,10 @@ abstract class AbstractParentNode extends AbstractNode
     protected $children = [];
 
     /**
-     * @param bool $allowDefault
+     * @param bool $allowAddDefault
      */
-    public function __construct($allowDefault = false)
+    public function __construct($allowAddDefault = false)
     {
-        $this->allowDefault = $allowDefault;
+        $this->allowAddDefault = $allowAddDefault;
     }
 }

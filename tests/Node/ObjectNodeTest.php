@@ -15,13 +15,6 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
         self::assertNull($node->serialize());
     }
 
-    public function testSerializeWithAllowDefault()
-    {
-        $node = new ObjectNode(true);
-
-        self::assertEquals(new \stdClass(), $node->serialize());
-    }
-
     public function testSerializeWithScalarChildren()
     {
         $node = new ObjectNode();
@@ -50,7 +43,7 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
         $node->add('key1', new ScalarNode(null));
         $node->add('key2', new ScalarNode(null));
 
-        self::assertEquals(new \stdClass(), $node->serialize());
+        self::assertEquals(null, $node->serialize());
     }
 
     public function testSerializeWithScalarChildrenWithNullValueAllowChildDefault()
@@ -72,7 +65,7 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
         $node->add('key1', new CallbackNode(function () {}));
         $node->add('key2', new CallbackNode(function () {}));
 
-        self::assertEquals(new \stdClass(), $node->serialize());
+        self::assertEquals(null, $node->serialize());
     }
 
     public function testSerializeWithCallbackChildrenWithNullValueAllowChildDefault()

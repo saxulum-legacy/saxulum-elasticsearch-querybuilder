@@ -24,19 +24,28 @@ class ObjectNode extends AbstractParentNode
     }
 
     /**
+     * @return array
+     */
+    public function getAddDefault()
+    {
+        return new \stdClass();
+    }
+
+    /**
      * @return \stdClass|null
      */
     public function serialize()
     {
         $serialized = new \stdClass();
         foreach ($this->children as $name => $child) {
-            $serializedChild = $child->serialize();
-            if (null !== $serializedChild || $child->allowDefault()) {
+            if (null !== $serializedChild = $child->serialize()) {
                 $serialized->$name = $serializedChild;
+            } elseif ($child->allowAddDefault()) {
+                $serialized->$name = $child->getAddDefault();
             }
         }
 
-        if (!$this->allowDefault && [] === (array) $serialized) {
+        if ([] === (array) $serialized) {
             return;
         }
 

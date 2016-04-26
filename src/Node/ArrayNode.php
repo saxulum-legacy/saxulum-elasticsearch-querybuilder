@@ -19,19 +19,28 @@ class ArrayNode extends AbstractParentNode
     }
 
     /**
+     * @return array
+     */
+    public function getAddDefault()
+    {
+        return [];
+    }
+
+    /**
      * @return array|null
      */
     public function serialize()
     {
         $serialized = [];
         foreach ($this->children as $child) {
-            $serializedChild = $child->serialize();
-            if (null !== $serializedChild || $child->allowDefault()) {
+            if (null !== $serializedChild = $child->serialize()) {
                 $serialized[] = $serializedChild;
+            } elseif ($child->allowAddDefault()) {
+                $serialized[] = $child->getAddDefault();
             }
         }
 
-        if (!$this->allowDefault && [] === $serialized) {
+        if ([] === $serialized) {
             return;
         }
 
