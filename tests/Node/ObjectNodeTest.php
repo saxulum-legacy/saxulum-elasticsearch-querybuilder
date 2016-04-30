@@ -77,7 +77,7 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage There is already a node with name key1!
+     * @expectedExceptionMessage There is already a node with key key1!
      */
     public function testAddSameNameTwice()
     {

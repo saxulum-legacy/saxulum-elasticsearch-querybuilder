@@ -16,8 +16,7 @@ class ArrayNode extends AbstractParentNode
     {
         $node->setParent($this);
 
-        $this->children[] = $node;
-        $this->allowDefault[] = $allowDefault;
+        $this->children[] = new NodeChildRelation($node, $allowDefault);
 
         return $this;
     }
@@ -36,8 +35,8 @@ class ArrayNode extends AbstractParentNode
     public function serialize()
     {
         $serialized = [];
-        foreach ($this->children as $i => $child) {
-            $this->serializeChild($serialized, $i, $child);
+        foreach ($this->children as $child) {
+            $this->serializeChild($serialized, $child);
         }
 
         if ([] === $serialized) {
@@ -48,16 +47,15 @@ class ArrayNode extends AbstractParentNode
     }
 
     /**
-     * @param array        $serialized
-     * @param int          $i
-     * @param AbstractNode $child
+     * @param array             $serialized
+     * @param NodeChildRelation $child
      */
-    private function serializeChild(array &$serialized, $i, AbstractNode $child)
+    private function serializeChild(array &$serialized, NodeChildRelation $child)
     {
-        if (null !== $serializedChild = $child->serialize()) {
+        if (null !== $serializedChild = $child->getNode()->serialize()) {
             $serialized[] = $serializedChild;
-        } elseif ($this->allowDefault[$i]) {
-            $serialized[] = $child->getDefault();
+        } elseif ($child->isAllowDefault()) {
+            $serialized[] = $child->getNode()->getDefault();
         }
     }
 }

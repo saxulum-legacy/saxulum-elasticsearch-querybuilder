@@ -5,7 +5,7 @@ namespace Saxulum\ElasticSearchQueryBuilder\Node;
 class ObjectNode extends AbstractParentNode
 {
     /**
-     * @param string       $name
+     * @param string       $key
      * @param AbstractNode $node
      * @param bool         $allowDefault
      *
@@ -13,16 +13,15 @@ class ObjectNode extends AbstractParentNode
      *
      * @throws \InvalidArgumentException
      */
-    public function add($name, AbstractNode $node, $allowDefault = false)
+    public function add($key, AbstractNode $node, $allowDefault = false)
     {
-        if (isset($this->children[$name])) {
-            throw new \InvalidArgumentException(sprintf('There is already a node with name %s!', $name));
+        if (isset($this->children[$key])) {
+            throw new \InvalidArgumentException(sprintf('There is already a node with key %s!', $key));
         }
 
         $node->setParent($this);
 
-        $this->children[$name] = $node;
-        $this->allowDefault[$name] = $allowDefault;
+        $this->children[$key] = new NodeChildRelation($node, $allowDefault);
 
         return $this;
     }
@@ -41,8 +40,8 @@ class ObjectNode extends AbstractParentNode
     public function serialize()
     {
         $serialized = new \stdClass();
-        foreach ($this->children as $name => $child) {
-            $this->serializeChild($serialized, $name, $child);
+        foreach ($this->children as $key => $child) {
+            $this->serializeChild($serialized, $key, $child);
         }
 
         if ([] === (array) $serialized) {
@@ -53,16 +52,16 @@ class ObjectNode extends AbstractParentNode
     }
 
     /**
-     * @param \stdClass    $serialized
-     * @param string       $name
-     * @param AbstractNode $child
+     * @param \stdClass         $serialized
+     * @param string            $key
+     * @param NodeChildRelation $child
      */
-    private function serializeChild(\stdClass $serialized, $name, AbstractNode $child)
+    private function serializeChild($serialized, $key, NodeChildRelation $child)
     {
-        if (null !== $serializedChild = $child->serialize()) {
-            $serialized->$name = $serializedChild;
-        } elseif ($this->allowDefault[$name]) {
-            $serialized->$name = $child->getDefault();
+        if (null !== $serializedChild = $child->getNode()->serialize()) {
+            $serialized->$key = $serializedChild;
+        } elseif ($child->isAllowDefault()) {
+            $serialized->$key = $child->getNode()->getDefault();
         }
     }
 }
