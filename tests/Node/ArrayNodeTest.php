@@ -12,6 +12,18 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
  */
 class ArrayNodeTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetParent()
+    {
+        $node = new ArrayNode();
+
+        self::assertNull($node->getParent());
+
+        $parent = new ArrayNode();
+        $node->setParent($parent);
+
+        self::assertSame($parent, $node->getParent());
+    }
+
     public function testGetDefault()
     {
         $node = new ArrayNode();

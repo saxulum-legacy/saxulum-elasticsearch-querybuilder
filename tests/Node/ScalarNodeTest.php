@@ -2,6 +2,7 @@
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Node;
 
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 /**
@@ -10,6 +11,18 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
  */
 class ScalarNodeTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetParent()
+    {
+        $node = new ScalarNode();
+
+        self::assertNull($node->getParent());
+
+        $parent = new ObjectNode();
+        $node->setParent($parent);
+
+        self::assertSame($parent, $node->getParent());
+    }
+
     public function testGetDefault()
     {
         $node = new ScalarNode();

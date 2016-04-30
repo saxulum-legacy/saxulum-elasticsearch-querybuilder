@@ -24,6 +24,14 @@ abstract class AbstractNode
     }
 
     /**
+     * @return AbstractParentNode
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
      * @return \stdClass|array|null
      */
     abstract public function getDefault();
