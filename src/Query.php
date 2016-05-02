@@ -28,10 +28,18 @@ class Query
     }
 
     /**
+     * @param bool $beautify
+     *
      * @return string
      */
-    public function json()
+    public function json($beautify = false)
     {
-        return json_encode($this->serialize());
+        $serialized = $this->serialize();
+
+        if ($beautify) {
+            return json_encode($serialized, JSON_PRETTY_PRINT);
+        }
+
+        return json_encode($serialized);
     }
 }

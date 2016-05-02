@@ -11,13 +11,19 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 class QueryBuilder
 {
     /**
+     * @var ObjectNode
+     */
+    protected $rootNode;
+
+    /**
      * @var AbstractNode
      */
     protected $node;
 
     public function __construct()
     {
-        $this->node = new ObjectNode();
+        $this->rootNode = new ObjectNode();
+        $this->node = $this->rootNode;
     }
 
     /**
@@ -66,11 +72,11 @@ class QueryBuilder
             $this->node->add($node, $expr->isAllowDefault());
         } elseif ($this->node instanceof ObjectNode) {
             $this->node->add($expr->getKey(), $node, $expr->isAllowDefault());
-        } else {
-            throw new \InvalidArgumentException(sprintf('Node does not support a child!'));
         }
 
-        $this->node = $node;
+        if ($node instanceof ArrayNode || $node instanceof ObjectNode) {
+            $this->node = $node;
+        }
 
         return $this;
     }
@@ -90,6 +96,6 @@ class QueryBuilder
      */
     public function query()
     {
-        return new Query($this->node);
+        return new Query($this->rootNode);
     }
 }

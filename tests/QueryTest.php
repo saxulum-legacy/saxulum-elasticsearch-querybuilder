@@ -25,6 +25,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $expr = new Query($node);
 
         self::assertSame('test', $expr->serialize());
-        self::assertSame('"test"', $expr->json());
+        self::assertSame('"test"', $expr->json(true));
     }
 }
