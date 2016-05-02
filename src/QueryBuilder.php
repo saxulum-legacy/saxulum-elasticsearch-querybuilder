@@ -67,18 +67,34 @@ class QueryBuilder
      */
     public function add(Expr $expr)
     {
+        $this->addChild($expr);
+        $this->reassignParent($expr);
+
+        return $this;
+    }
+
+    /**
+     * @param Expr $expr
+     */
+    protected function addChild(Expr $expr)
+    {
         $node = $expr->getNode();
         if ($this->node instanceof ArrayNode) {
             $this->node->add($node, $expr->isAllowDefault());
         } elseif ($this->node instanceof ObjectNode) {
             $this->node->add($expr->getKey(), $node, $expr->isAllowDefault());
         }
+    }
 
+    /**
+     * @param Expr $expr
+     */
+    protected function reassignParent(Expr $expr)
+    {
+        $node = $expr->getNode();
         if ($node instanceof ArrayNode || $node instanceof ObjectNode) {
             $this->node = $node;
         }
-
-        return $this;
     }
 
     /**
