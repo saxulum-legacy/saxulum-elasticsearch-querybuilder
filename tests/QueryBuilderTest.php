@@ -213,7 +213,6 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                             ->end()
                         ->end()
                     ->end()
-
                     ->add($qb->a()->key('should'))
                         ->add($qb->o())
                             ->add($qb->o()->key('term'))
