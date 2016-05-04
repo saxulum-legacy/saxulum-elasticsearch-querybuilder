@@ -53,6 +53,8 @@ class QueryBuilder
     }
 
     /**
+     * @param string|float|int|bool|null $value
+     *
      * @return Expr
      */
     public function s($value = null)
