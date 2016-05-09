@@ -23,7 +23,7 @@ class ExprTest extends \PHPUnit_Framework_TestCase
     public function testWithKeyAndAllowDefault()
     {
         $node = new ScalarNode();
-        $expr = (new Expr($node))->k('key')->d();
+        $expr = (new Expr($node))->key('key')->allowDefault();
 
         self::assertSame($node, $expr->getNode());
         self::assertSame('key', $expr->getKey());

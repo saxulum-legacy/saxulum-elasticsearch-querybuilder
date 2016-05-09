@@ -29,7 +29,7 @@ class QueryBuilder
     /**
      * @return Expr
      */
-    public function a()
+    public function arr()
     {
         return new Expr(new ArrayNode());
     }
@@ -39,7 +39,7 @@ class QueryBuilder
      *
      * @return Expr
      */
-    public function c(\Closure $callback)
+    public function clo(\Closure $callback)
     {
         return new Expr(new CallbackNode($callback));
     }
@@ -47,7 +47,7 @@ class QueryBuilder
     /**
      * @return Expr
      */
-    public function o()
+    public function obj()
     {
         return new Expr(new ObjectNode());
     }
@@ -57,7 +57,7 @@ class QueryBuilder
      *
      * @return Expr
      */
-    public function s($value = null)
+    public function sca($value = null)
     {
         return new Expr(new ScalarNode($value));
     }

@@ -43,7 +43,7 @@ class Expr
      *
      * @return $this
      */
-    public function k($key)
+    public function key($key)
     {
         $this->key = $key;
 
@@ -61,7 +61,7 @@ class Expr
     /**
      * @return $this
      */
-    public function d()
+    public function allowDefault()
     {
         $this->allowDefault = true;
 

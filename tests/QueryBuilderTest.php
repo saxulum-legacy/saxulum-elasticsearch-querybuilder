@@ -13,8 +13,8 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new QueryBuilder();
         $qb
-            ->add($qb->o()->k('query'))
-                ->add($qb->o()->k('match_all')->d())
+            ->add($qb->obj()->key('query'))
+                ->add($qb->obj()->key('match_all')->allowDefault())
         ;
 
         self::assertSame('{"query":{"match_all":{}}}', $qb->query()->json());
@@ -24,9 +24,9 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new QueryBuilder();
         $qb
-            ->add($qb->o()->k('query'))
-                ->add($qb->o()->k('match'))
-                    ->add($qb->s('elasticsearch')->k('title'))
+            ->add($qb->obj()->key('query'))
+                ->add($qb->obj()->key('match'))
+                    ->add($qb->sca('elasticsearch')->key('title'))
         ;
 
         self::assertSame('{"query":{"match":{"title":"elasticsearch"}}}', $qb->query()->json());
@@ -39,19 +39,19 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new QueryBuilder();
         $qb
-            ->add($qb->c(function () use ($query) {
+            ->add($qb->clo(function () use ($query) {
                 $qb = new QueryBuilder();
-                $qb->add($qb->o()->k('match'))->add($qb->s($query)->k('title'));
+                $qb->add($qb->obj()->key('match'))->add($qb->sca($query)->key('title'));
 
                 if (null !== $serialzed = $qb->query()->serialize()) {
                     return $serialzed;
                 }
 
                 $qb = new QueryBuilder();
-                $qb->add($qb->o()->k('match_all')->d());
+                $qb->add($qb->obj()->key('match_all')->allowDefault());
 
                 return $qb->query()->serialize();
-            })->k('query'))
+            })->key('query'))
         ;
 
         self::assertSame($expectedResult, $qb->query()->json());
@@ -72,11 +72,11 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new QueryBuilder();
         $qb
-            ->add($qb->o()->k('query'))
-                ->add($qb->o()->k('range'))
-                    ->add($qb->o()->k('elements'))
-                        ->add($qb->s(10)->k('gte'))
-                        ->add($qb->s(20)->k('lte'))
+            ->add($qb->obj()->key('query'))
+                ->add($qb->obj()->key('range'))
+                    ->add($qb->obj()->key('elements'))
+                        ->add($qb->sca(10)->key('gte'))
+                        ->add($qb->sca(20)->key('lte'))
 
         ;
 
@@ -87,9 +87,9 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new QueryBuilder();
         $qb
-            ->add($qb->o()->k('query'))
-                ->add($qb->o()->k('exists'))
-                    ->add($qb->s('text')->k('field'))
+            ->add($qb->obj()->key('query'))
+                ->add($qb->obj()->key('exists'))
+                    ->add($qb->sca('text')->key('field'))
         ;
 
         self::assertSame('{"query":{"exists":{"field":"text"}}}', $qb->query()->json());
@@ -99,11 +99,11 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new QueryBuilder();
         $qb
-            ->add($qb->o()->k('query'))
-                ->add($qb->o()->k('bool'))
-                    ->add($qb->o()->k('must_not'))
-                        ->add($qb->o()->k('exists'))
-                            ->add($qb->s('text')->k('field'))
+            ->add($qb->obj()->key('query'))
+                ->add($qb->obj()->key('bool'))
+                    ->add($qb->obj()->key('must_not'))
+                        ->add($qb->obj()->key('exists'))
+                            ->add($qb->sca('text')->key('field'))
         ;
 
         self::assertSame(
@@ -116,9 +116,9 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new QueryBuilder();
         $qb
-            ->add($qb->o()->k('query'))
-                ->add($qb->o()->k('prefix'))
-                    ->add($qb->s('elastic')->k('title'))
+            ->add($qb->obj()->key('query'))
+                ->add($qb->obj()->key('prefix'))
+                    ->add($qb->sca('elastic')->key('title'))
         ;
 
         self::assertSame('{"query":{"prefix":{"title":"elastic"}}}', $qb->query()->json());
@@ -128,9 +128,9 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new QueryBuilder();
         $qb
-            ->add($qb->o()->k('query'))
-                ->add($qb->o()->k('wildcard'))
-                    ->add($qb->s('ela*c')->k('title'))
+            ->add($qb->obj()->key('query'))
+                ->add($qb->obj()->key('wildcard'))
+                    ->add($qb->sca('ela*c')->key('title'))
         ;
 
         self::assertSame('{"query":{"wildcard":{"title":"ela*c"}}}', $qb->query()->json());
@@ -140,9 +140,9 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new QueryBuilder();
         $qb
-            ->add($qb->o()->k('query'))
-                ->add($qb->o()->k('regexp'))
-                    ->add($qb->s('search$')->k('title'))
+            ->add($qb->obj()->key('query'))
+                ->add($qb->obj()->key('regexp'))
+                    ->add($qb->sca('search$')->key('title'))
         ;
 
         self::assertSame('{"query":{"regexp":{"title":"search$"}}}', $qb->query()->json());
@@ -152,11 +152,11 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new QueryBuilder();
         $qb
-            ->add($qb->o()->k('query'))
-                ->add($qb->o()->k('fuzzy'))
-                    ->add($qb->o()->k('title'))
-                        ->add($qb->s('sea')->k('value'))
-                        ->add($qb->s(2)->k('fuzziness'))
+            ->add($qb->obj()->key('query'))
+                ->add($qb->obj()->key('fuzzy'))
+                    ->add($qb->obj()->key('title'))
+                        ->add($qb->sca('sea')->key('value'))
+                        ->add($qb->sca(2)->key('fuzziness'))
         ;
 
         self::assertSame('{"query":{"fuzzy":{"title":{"value":"sea","fuzziness":2}}}}', $qb->query()->json());
@@ -166,9 +166,9 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new QueryBuilder();
         $qb
-            ->add($qb->o()->k('query'))
-                ->add($qb->o()->k('type'))
-                    ->add($qb->s('product')->k('value'))
+            ->add($qb->obj()->key('query'))
+                ->add($qb->obj()->key('type'))
+                    ->add($qb->sca('product')->key('value'))
         ;
 
         self::assertSame('{"query":{"type":{"value":"product"}}}', $qb->query()->json());
@@ -178,12 +178,12 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new QueryBuilder();
         $qb
-            ->add($qb->o()->k('query'))
-                ->add($qb->o()->k('ids'))
-                    ->add($qb->s('product')->k('type'))
-                    ->add($qb->a()->k('values'))
-                        ->add($qb->s(1))
-                        ->add($qb->s(2))
+            ->add($qb->obj()->key('query'))
+                ->add($qb->obj()->key('ids'))
+                    ->add($qb->sca('product')->key('type'))
+                    ->add($qb->arr()->key('values'))
+                        ->add($qb->sca(1))
+                        ->add($qb->sca(2))
         ;
 
         self::assertSame('{"query":{"ids":{"type":"product","values":[1,2]}}}', $qb->query()->json());
@@ -193,40 +193,40 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new QueryBuilder();
         $qb
-            ->add($qb->o()->k('query'))
-                ->add($qb->o()->k('bool'))
-                    ->add($qb->o()->k('must'))
-                        ->add($qb->o()->k('term'))
-                            ->add($qb->s('kimchy')->k('user'))
+            ->add($qb->obj()->key('query'))
+                ->add($qb->obj()->key('bool'))
+                    ->add($qb->obj()->key('must'))
+                        ->add($qb->obj()->key('term'))
+                            ->add($qb->sca('kimchy')->key('user'))
                         ->end()
                     ->end()
-                    ->add($qb->o()->k('filter'))
-                        ->add($qb->o()->k('term'))
-                            ->add($qb->s('tech')->k('tag'))
+                    ->add($qb->obj()->key('filter'))
+                        ->add($qb->obj()->key('term'))
+                            ->add($qb->sca('tech')->key('tag'))
                         ->end()
                     ->end()
-                    ->add($qb->o()->k('must_not'))
-                        ->add($qb->o()->k('range'))
-                            ->add($qb->o()->k('age'))
-                                ->add($qb->s(10)->k('from'))
-                                ->add($qb->s(20)->k('to'))
+                    ->add($qb->obj()->key('must_not'))
+                        ->add($qb->obj()->key('range'))
+                            ->add($qb->obj()->key('age'))
+                                ->add($qb->sca(10)->key('from'))
+                                ->add($qb->sca(20)->key('to'))
                             ->end()
                         ->end()
                     ->end()
-                    ->add($qb->a()->k('should'))
-                        ->add($qb->o())
-                            ->add($qb->o()->k('term'))
-                                ->add($qb->s('wow')->k('tag'))
+                    ->add($qb->arr()->key('should'))
+                        ->add($qb->obj())
+                            ->add($qb->obj()->key('term'))
+                                ->add($qb->sca('wow')->key('tag'))
                             ->end()
                         ->end()
-                        ->add($qb->o())
-                            ->add($qb->o()->k('term'))
-                                ->add($qb->s('elasticsearch')->k('tag'))
+                        ->add($qb->obj())
+                            ->add($qb->obj()->key('term'))
+                                ->add($qb->sca('elasticsearch')->key('tag'))
                             ->end()
                         ->end()
                     ->end()
-                    ->add($qb->s(1)->k('minimum_should_match'))
-                    ->add($qb->s(1)->k('boost'))
+                    ->add($qb->sca(1)->key('minimum_should_match'))
+                    ->add($qb->sca(1)->key('boost'))
         ;
 
         $expected = <<<EOD

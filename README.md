@@ -15,45 +15,45 @@
 ### Complex sample
 
 ```{.php}
-        $qb = new QueryBuilder();
-        $qb
-            ->add($qb->o()->k('query'))
-                ->add($qb->o()->k('bool'))
-                    ->add($qb->o()->k('must'))
-                        ->add($qb->o()->k('term'))
-                            ->add($qb->s('kimchy')->k('user'))
-                        ->end()
+$qb = new QueryBuilder();
+$qb
+    ->add($qb->obj()->key('query'))
+        ->add($qb->obj()->key('bool'))
+            ->add($qb->obj()->key('must'))
+                ->add($qb->obj()->key('term'))
+                    ->add($qb->sca('kimchy')->key('user'))
+                ->end()
+            ->end()
+            ->add($qb->obj()->key('filter'))
+                ->add($qb->obj()->key('term'))
+                    ->add($qb->sca('tech')->key('tag'))
+                ->end()
+            ->end()
+            ->add($qb->obj()->key('must_not'))
+                ->add($qb->obj()->key('range'))
+                    ->add($qb->obj()->key('age'))
+                        ->add($qb->sca(10)->key('from'))
+                        ->add($qb->sca(20)->key('to'))
                     ->end()
-                    ->add($qb->o()->k('filter'))
-                        ->add($qb->o()->k('term'))
-                            ->add($qb->s('tech')->k('tag'))
-                        ->end()
+                ->end()
+            ->end()
+            ->add($qb->arr()->key('should'))
+                ->add($qb->obj())
+                    ->add($qb->obj()->key('term'))
+                        ->add($qb->sca('wow')->key('tag'))
                     ->end()
-                    ->add($qb->o()->k('must_not'))
-                        ->add($qb->o()->k('range'))
-                            ->add($qb->o()->k('age'))
-                                ->add($qb->s(10)->k('from'))
-                                ->add($qb->s(20)->k('to'))
-                            ->end()
-                        ->end()
+                ->end()
+                ->add($qb->obj())
+                    ->add($qb->obj()->key('term'))
+                        ->add($qb->sca('elasticsearch')->key('tag'))
                     ->end()
-                    ->add($qb->a()->k('should'))
-                        ->add($qb->o())
-                            ->add($qb->o()->k('term'))
-                                ->add($qb->s('wow')->k('tag'))
-                            ->end()
-                        ->end()
-                        ->add($qb->o())
-                            ->add($qb->o()->k('term'))
-                                ->add($qb->s('elasticsearch')->k('tag'))
-                            ->end()
-                        ->end()
-                    ->end()
-                    ->add($qb->s(1)->k('minimum_should_match'))
-                    ->add($qb->s(1)->k('boost'))
-        ;
+                ->end()
+            ->end()
+            ->add($qb->sca(1)->key('minimum_should_match'))
+            ->add($qb->sca(1)->key('boost'))
+;
 
-        echo $qb->query()->json(true);
+echo $qb->query()->json(true);
 ```
 
 ```{.json}
