@@ -24,6 +24,17 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         self::assertSame('{"query":{"match_all":{}}}', $qb->json());
     }
 
+    public function testMatchAllWithoutAllowDefault()
+    {
+        $qb = new QueryBuilder();
+        $qb
+            ->addToObjectNode('query', new ObjectNode())
+            ->addToObjectNode('match_all', new ObjectNode())
+        ;
+
+        self::assertSame('', $qb->json());
+    }
+
     public function testMatch()
     {
         $qb = new QueryBuilder();
