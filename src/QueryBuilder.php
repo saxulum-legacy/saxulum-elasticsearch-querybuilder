@@ -26,8 +26,10 @@ class QueryBuilder
 
     /**
      * @param AbstractNode $node
-     * @param bool $allowDefault
+     * @param bool         $allowDefault
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     public function addToArrayNode(AbstractNode $node, $allowDefault = false)
@@ -43,10 +45,12 @@ class QueryBuilder
     }
 
     /**
-     * @param string $key
+     * @param string       $key
      * @param AbstractNode $node
-     * @param bool $allowDefault
+     * @param bool         $allowDefault
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     public function addToObjectNode($key, AbstractNode $node, $allowDefault = false)
