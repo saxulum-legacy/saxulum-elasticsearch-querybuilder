@@ -33,12 +33,12 @@ class QueryBuilder
     public function addToArrayNode(AbstractNode $node, $allowDefault = false)
     {
         if (!$this->node instanceof ArrayNode) {
-            throw new \Exception(sprintf('You cannot call %s on node type %s', __METHOD__, get_class($this->node)));
+            throw new \Exception(sprintf('You cannot call %s on node type: %s', __FUNCTION__, get_class($this->node)));
         }
-        
+
         $this->node->add($node, $allowDefault);
         $this->reassignParent($node);
-        
+
         return $this;
     }
 
@@ -52,12 +52,12 @@ class QueryBuilder
     public function addToObjectNode($key, AbstractNode $node, $allowDefault = false)
     {
         if (!$this->node instanceof ObjectNode) {
-            throw new \Exception(sprintf('You cannot call %s on node type %s', __METHOD__, get_class($this->node)));
+            throw new \Exception(sprintf('You cannot call %s on node type: %s', __FUNCTION__, get_class($this->node)));
         }
 
         $this->node->add($key, $node, $allowDefault);
         $this->reassignParent($node);
-        
+
         return $this;
     }
 

@@ -280,4 +280,26 @@ EOD;
 
         self::assertSame($expected, $qb->query()->json(true));
     }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage You cannot call addToArrayNode on node type: Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode
+     */
+    public function testAddToArrayNodeIfItsNotAnActiveArrayNode()
+    {
+        $qb = new QueryBuilder();
+        $qb->addToArrayNode(new ScalarNode());
+    }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage You cannot call addToObjectNode on node type: Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode
+     */
+    public function testAddToObjectNodeIfItsNotAnActiveObjectNode()
+    {
+        $qb = new QueryBuilder();
+        $qb->addToObjectNode('key', new ArrayNode())
+            ->addToObjectNode('key', new ScalarNode())
+        ;
+    }
 }
