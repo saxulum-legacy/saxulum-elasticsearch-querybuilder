@@ -14,6 +14,8 @@
 
 ### Match sample
 
+#### Code
+
 ```{.php}
 $qb = new QueryBuilder();
 $qb
@@ -24,6 +26,8 @@ $qb
 
 echo $qb->query()->json(true);
 ```
+
+#### Output
 
 ```{.json}
 {
@@ -37,7 +41,7 @@ echo $qb->query()->json(true);
 
 ### MatchAll sample
 
-#### With the `allowDefault` parameter
+#### Code
 
 ```{.php}
 $qb = new QueryBuilder();
@@ -49,6 +53,8 @@ $qb
 echo $qb->query()->json(true);
 ```
 
+#### Output
+
 ```{.json}
 {
     "query": {
@@ -57,7 +63,7 @@ echo $qb->query()->json(true);
 }
 ```
 
-#### Without the `allowDefault` parameter
+#### Code (without allowDefault)
 
 ```{.php}
 $qb = new QueryBuilder();
@@ -69,10 +75,14 @@ $qb
 echo $qb->query()->json(true);
 ```
 
+#### Output
+
 ```{.json}
 ```
 
 ### Complex sample
+
+#### Code
 
 ```{.php}
 $qb = new QueryBuilder();
@@ -115,6 +125,8 @@ $qb
 
 echo $qb->query()->json(true);
 ```
+
+#### Output
 
 ```{.json}
 {
