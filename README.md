@@ -12,6 +12,49 @@
 
 ## Usage
 
+### Simple sample
+
+```{.php}
+$qb = new QueryBuilder();
+$qb
+    ->addToObjectNode('query', new ObjectNode())
+        ->addToObjectNode('match', new ObjectNode())
+            ->addToObjectNode('title', new ScalarNode('elasticsearch'))
+;
+
+echo $qb->query()->json(true);
+```
+
+```{.json}
+{
+    "query": {
+        "match": {
+            "title": "elasticsearch"
+        }
+    }
+}
+```
+
+### AllowDefault sample
+
+```{.php}
+$qb = new QueryBuilder();
+$qb
+    ->addToObjectNode('query', new ObjectNode())
+        ->addToObjectNode('match_all', new ObjectNode(), true)
+;
+
+echo $qb->query()->json(true);
+```
+
+```{.json}
+{
+    "query": {
+        "match_all": {}
+    }
+}
+```
+
 ### Complex sample
 
 ```{.php}
