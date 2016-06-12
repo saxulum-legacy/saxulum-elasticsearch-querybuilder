@@ -21,7 +21,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                 ->addToObjectNode('match_all', new ObjectNode(), true)
         ;
 
-        self::assertSame('{"query":{"match_all":{}}}', $qb->query()->json());
+        self::assertSame('{"query":{"match_all":{}}}', $qb->json());
     }
 
     public function testMatch()
@@ -33,7 +33,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                     ->addToObjectNode('title', new ScalarNode('elasticsearch'))
         ;
 
-        self::assertSame('{"query":{"match":{"title":"elasticsearch"}}}', $qb->query()->json());
+        self::assertSame('{"query":{"match":{"title":"elasticsearch"}}}', $qb->json());
     }
 
     /**
@@ -50,7 +50,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                         ->addToObjectNode('title', new ScalarNode($query))
                 ;
 
-                if (null !== $serialzed = $qb->query()->serialize()) {
+                if (null !== $serialzed = $qb->serialize()) {
                     return $serialzed;
                 }
 
@@ -59,11 +59,11 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                     ->addToObjectNode('match_all', new ObjectNode(), true)
                 ;
 
-                return $qb->query()->serialize();
+                return $qb->serialize();
             }))
         ;
 
-        self::assertSame($expectedResult, $qb->query()->json());
+        self::assertSame($expectedResult, $qb->json());
     }
 
     /**
@@ -88,7 +88,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                     ->addToObjectNode('lte', new ScalarNode(20))
         ;
 
-        self::assertSame('{"query":{"range":{"elements":{"gte":10,"lte":20}}}}', $qb->query()->json());
+        self::assertSame('{"query":{"range":{"elements":{"gte":10,"lte":20}}}}', $qb->json());
     }
 
     public function testExists()
@@ -100,7 +100,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                     ->addToObjectNode('field', new ScalarNode('text'))
         ;
 
-        self::assertSame('{"query":{"exists":{"field":"text"}}}', $qb->query()->json());
+        self::assertSame('{"query":{"exists":{"field":"text"}}}', $qb->json());
     }
 
     public function testNotExists()
@@ -116,7 +116,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame(
             '{"query":{"bool":{"must_not":{"exists":{"field":"text"}}}}}',
-            $qb->query()->json()
+            $qb->json()
         );
     }
 
@@ -129,7 +129,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                     ->addToObjectNode('title', new ScalarNode('elastic'))
         ;
 
-        self::assertSame('{"query":{"prefix":{"title":"elastic"}}}', $qb->query()->json());
+        self::assertSame('{"query":{"prefix":{"title":"elastic"}}}', $qb->json());
     }
 
     public function testWildcard()
@@ -141,7 +141,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                     ->addToObjectNode('title', new ScalarNode('ela*c'))
         ;
 
-        self::assertSame('{"query":{"wildcard":{"title":"ela*c"}}}', $qb->query()->json());
+        self::assertSame('{"query":{"wildcard":{"title":"ela*c"}}}', $qb->json());
     }
 
     public function testRegexp()
@@ -153,7 +153,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                     ->addToObjectNode('title', new ScalarNode('search$'))
         ;
 
-        self::assertSame('{"query":{"regexp":{"title":"search$"}}}', $qb->query()->json());
+        self::assertSame('{"query":{"regexp":{"title":"search$"}}}', $qb->json());
     }
 
     public function testFuzzy()
@@ -167,7 +167,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                         ->addToObjectNode('fuzziness', new ScalarNode(2))
         ;
 
-        self::assertSame('{"query":{"fuzzy":{"title":{"value":"sea","fuzziness":2}}}}', $qb->query()->json());
+        self::assertSame('{"query":{"fuzzy":{"title":{"value":"sea","fuzziness":2}}}}', $qb->json());
     }
 
     public function testType()
@@ -179,7 +179,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                     ->addToObjectNode('value', new ScalarNode('product'))
         ;
 
-        self::assertSame('{"query":{"type":{"value":"product"}}}', $qb->query()->json());
+        self::assertSame('{"query":{"type":{"value":"product"}}}', $qb->json());
     }
 
     public function testIds()
@@ -194,7 +194,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                         ->addToArrayNode(new ScalarNode(2))
         ;
 
-        self::assertSame('{"query":{"ids":{"type":"product","values":[1,2]}}}', $qb->query()->json());
+        self::assertSame('{"query":{"ids":{"type":"product","values":[1,2]}}}', $qb->json());
     }
 
     public function testComplex()
@@ -278,7 +278,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 }
 EOD;
 
-        self::assertSame($expected, $qb->query()->json(true));
+        self::assertSame($expected, $qb->json(true));
     }
 
     /**

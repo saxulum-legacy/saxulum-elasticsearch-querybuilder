@@ -86,10 +86,27 @@ class QueryBuilder
     }
 
     /**
-     * @return Query
+     * @return \stdClass|null
      */
-    public function query()
+    public function serialize()
     {
-        return new Query($this->rootNode);
+        return $this->rootNode->serialize();
+    }
+
+    /**
+     * @param boolean $beautify
+     * @return string
+     */
+    public function json($beautify = false)
+    {
+        if (null === $serialized = $this->serialize()) {
+            return '';
+        }
+
+        if ($beautify) {
+            return json_encode($serialized, JSON_PRETTY_PRINT);
+        }
+
+        return json_encode($serialized);
     }
 }

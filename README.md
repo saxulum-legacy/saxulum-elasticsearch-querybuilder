@@ -24,7 +24,7 @@ $qb
             ->addToObjectNode('title', new ScalarNode('elasticsearch'))
 ;
 
-echo $qb->query()->json(true);
+echo $qb->json(true);
 ```
 
 #### Output
@@ -50,7 +50,7 @@ $qb
         ->addToObjectNode('match_all', new ObjectNode(), true)
 ;
 
-echo $qb->query()->json(true);
+echo $qb->json(true);
 ```
 
 #### Output
@@ -72,7 +72,7 @@ $qb
         ->addToObjectNode('match_all', new ObjectNode())
 ;
 
-echo $qb->query()->json(true);
+echo $qb->json(true);
 ```
 
 #### Output
@@ -123,7 +123,7 @@ $qb
             ->addToObjectNode('boost', new ScalarNode(1))
 ;
 
-echo $qb->query()->json(true);
+echo $qb->json(true);
 ```
 
 #### Output
