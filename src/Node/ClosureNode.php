@@ -2,7 +2,7 @@
 
 namespace Saxulum\ElasticSearchQueryBuilder\Node;
 
-class CallbackNode extends AbstractNode
+class ClosureNode extends AbstractNode
 {
     /**
      * @var \Closure

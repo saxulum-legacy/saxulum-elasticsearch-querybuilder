@@ -4,9 +4,7 @@ namespace Saxulum\ElasticSearchQueryBuilder;
 
 use Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\CallbackNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 class QueryBuilder
 {
@@ -27,73 +25,47 @@ class QueryBuilder
     }
 
     /**
-     * @return Expr
-     */
-    public function arr()
-    {
-        return new Expr(new ArrayNode());
-    }
-
-    /**
-     * @param \Closure $callback
-     *
-     * @return Expr
-     */
-    public function clo(\Closure $callback)
-    {
-        return new Expr(new CallbackNode($callback));
-    }
-
-    /**
-     * @return Expr
-     */
-    public function obj()
-    {
-        return new Expr(new ObjectNode());
-    }
-
-    /**
-     * @param string|float|int|bool|null $value
-     *
-     * @return Expr
-     */
-    public function sca($value = null)
-    {
-        return new Expr(new ScalarNode($value));
-    }
-
-    /**
-     * @param Expr $expr
-     *
+     * @param AbstractNode $node
+     * @param bool $allowDefault
      * @return $this
+     * @throws \Exception
      */
-    public function add(Expr $expr)
+    public function addToArrayNode(AbstractNode $node, $allowDefault = false)
     {
-        $this->addChild($expr);
-        $this->reassignParent($expr);
-
+        if (!$this->node instanceof ArrayNode) {
+            throw new \Exception(sprintf('You cannot call %s on node type %s', __METHOD__, get_class($this->node)));
+        }
+        
+        $this->node->add($node, $allowDefault);
+        $this->reassignParent($node);
+        
         return $this;
     }
 
     /**
-     * @param Expr $expr
+     * @param string $key
+     * @param AbstractNode $node
+     * @param bool $allowDefault
+     * @return $this
+     * @throws \Exception
      */
-    protected function addChild(Expr $expr)
+    public function addToObjectNode($key, AbstractNode $node, $allowDefault = false)
     {
-        $node = $expr->getNode();
-        if ($this->node instanceof ArrayNode) {
-            $this->node->add($node, $expr->isAllowDefault());
-        } elseif ($this->node instanceof ObjectNode) {
-            $this->node->add($expr->getKey(), $node, $expr->isAllowDefault());
+        if (!$this->node instanceof ObjectNode) {
+            throw new \Exception(sprintf('You cannot call %s on node type %s', __METHOD__, get_class($this->node)));
         }
+
+        $this->node->add($key, $node, $allowDefault);
+        $this->reassignParent($node);
+        
+        return $this;
     }
 
     /**
-     * @param Expr $expr
+     * @param AbstractNode $node
      */
-    protected function reassignParent(Expr $expr)
+    protected function reassignParent(AbstractNode $node)
     {
-        $node = $expr->getNode();
         if ($node instanceof ArrayNode || $node instanceof ObjectNode) {
             $this->node = $node;
         }

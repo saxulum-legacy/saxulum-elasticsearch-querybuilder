@@ -2,25 +2,25 @@
 
 namespace Saxulum\ElasticSearchQueryBuilder;
 
-use Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 
 class Query
 {
     /**
-     * @var AbstractNode
+     * @var ObjectNode
      */
     protected $node;
 
     /**
-     * @param AbstractNode $node
+     * @param ObjectNode $node
      */
-    public function __construct(AbstractNode $node)
+    public function __construct(ObjectNode $node)
     {
         $this->node = $node;
     }
 
     /**
-     * @return array|bool|float|int|null|\stdClass|string
+     * @return null|\stdClass
      */
     public function serialize()
     {
@@ -34,7 +34,9 @@ class Query
      */
     public function json($beautify = false)
     {
-        $serialized = $this->serialize();
+        if (null === $serialized = $this->serialize()) {
+            return '';
+        }
 
         if ($beautify) {
             return json_encode($serialized, JSON_PRETTY_PRINT);

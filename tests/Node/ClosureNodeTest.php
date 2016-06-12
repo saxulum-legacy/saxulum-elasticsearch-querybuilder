@@ -2,18 +2,18 @@
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Node;
 
-use Saxulum\ElasticSearchQueryBuilder\Node\CallbackNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ClosureNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 
 /**
- * @covers Saxulum\ElasticSearchQueryBuilder\Node\CallbackNode
+ * @covers Saxulum\ElasticSearchQueryBuilder\Node\ClosureNode
  * @covers Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode
  */
-class CallbackNodeTest extends \PHPUnit_Framework_TestCase
+class ClosureNodeTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetParent()
     {
-        $node = new CallbackNode(function () {});
+        $node = new ClosureNode(function () {});
 
         self::assertNull($node->getParent());
 
@@ -25,21 +25,21 @@ class CallbackNodeTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDefault()
     {
-        $node = new CallbackNode(function () {});
+        $node = new ClosureNode(function () {});
 
         self::assertNull($node->getDefault());
     }
 
     public function testSerialize()
     {
-        $node = new CallbackNode(function () {});
+        $node = new ClosureNode(function () {});
 
         self::assertNull($node->serialize());
     }
 
     public function testSerializeWithReturnValue()
     {
-        $node = new CallbackNode(function () { return []; });
+        $node = new ClosureNode(function () { return []; });
 
         self::assertSame([], $node->serialize());
     }
