@@ -12,7 +12,7 @@
 
 ## Usage
 
-### Simple sample
+### Match sample
 
 ```{.php}
 $qb = new QueryBuilder();
@@ -35,7 +35,9 @@ echo $qb->query()->json(true);
 }
 ```
 
-### AllowDefault sample
+### MatchAll sample
+
+#### With the `allowDefault` parameter
 
 ```{.php}
 $qb = new QueryBuilder();
@@ -53,6 +55,21 @@ echo $qb->query()->json(true);
         "match_all": {}
     }
 }
+```
+
+#### Without the `allowDefault` parameter
+
+```{.php}
+$qb = new QueryBuilder();
+$qb
+    ->addToObjectNode('query', new ObjectNode())
+        ->addToObjectNode('match_all', new ObjectNode())
+;
+
+echo $qb->query()->json(true);
+```
+
+```{.json}
 ```
 
 ### Complex sample
