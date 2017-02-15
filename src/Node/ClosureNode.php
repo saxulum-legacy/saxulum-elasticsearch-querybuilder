@@ -2,6 +2,9 @@
 
 namespace Saxulum\ElasticSearchQueryBuilder\Node;
 
+/**
+ * @deprecated to complex, better do if/else at usage
+ */
 class ClosureNode extends AbstractNode
 {
     /**

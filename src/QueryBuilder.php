@@ -5,6 +5,7 @@ namespace Saxulum\ElasticSearchQueryBuilder;
 use Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 class QueryBuilder
 {
@@ -83,6 +84,31 @@ class QueryBuilder
         $this->node = $this->node->getParent();
 
         return $this;
+    }
+
+    /**
+     * @return ArrayNode
+     */
+    public function arrayNode(): ArrayNode
+    {
+        return new ArrayNode();
+    }
+
+    /**
+     * @return ObjectNode
+     */
+    public function objectNode(): ObjectNode
+    {
+        return new ObjectNode();
+    }
+
+    /**
+     * @param null $value
+     * @return ScalarNode
+     */
+    public function scalarNode($value = null): ScalarNode
+    {
+        return new ScalarNode($value);
     }
 
     /**

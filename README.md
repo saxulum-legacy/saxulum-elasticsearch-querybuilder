@@ -19,9 +19,9 @@
 ```{.php}
 $qb = new QueryBuilder();
 $qb
-    ->addToObjectNode('query', new ObjectNode())
-        ->addToObjectNode('match', new ObjectNode())
-            ->addToObjectNode('title', new ScalarNode('elasticsearch'))
+    ->addToObjectNode('query', $qb->objectNode())
+        ->addToObjectNode('match', $qb->objectNode())
+            ->addToObjectNode('title', $qb->scalarNode('elasticsearch'))
 ;
 
 echo $qb->json(true);
@@ -46,8 +46,8 @@ echo $qb->json(true);
 ```{.php}
 $qb = new QueryBuilder();
 $qb
-    ->addToObjectNode('query', new ObjectNode())
-        ->addToObjectNode('match_all', new ObjectNode(), true)
+    ->addToObjectNode('query', $qb->objectNode())
+        ->addToObjectNode('match_all', $qb->objectNode(), true)
 ;
 
 echo $qb->json(true);
@@ -68,8 +68,8 @@ echo $qb->json(true);
 ```{.php}
 $qb = new QueryBuilder();
 $qb
-    ->addToObjectNode('query', new ObjectNode())
-        ->addToObjectNode('match_all', new ObjectNode())
+    ->addToObjectNode('query', $qb->objectNode())
+        ->addToObjectNode('match_all', $qb->objectNode())
 ;
 
 echo $qb->json(true);
@@ -87,40 +87,40 @@ echo $qb->json(true);
 ```{.php}
 $qb = new QueryBuilder();
 $qb
-    ->addToObjectNode('query', new ObjectNode())
-        ->addToObjectNode('bool', new ObjectNode())
-            ->addToObjectNode('must', new ObjectNode())
-                ->addToObjectNode('term', new ObjectNode())
-                    ->addToObjectNode('user', new ScalarNode('kimchy'))
+    ->addToObjectNode('query', $qb->objectNode())
+        ->addToObjectNode('bool', $qb->objectNode())
+            ->addToObjectNode('must', $qb->objectNode())
+                ->addToObjectNode('term', $qb->objectNode())
+                    ->addToObjectNode('user', $qb->scalarNode('kimchy'))
                 ->end()
             ->end()
-            ->addToObjectNode('filter', new ObjectNode())
-                ->addToObjectNode('term', new ObjectNode())
-                    ->addToObjectNode('tag', new ScalarNode('tech'))
+            ->addToObjectNode('filter', $qb->objectNode())
+                ->addToObjectNode('term', $qb->objectNode())
+                    ->addToObjectNode('tag', $qb->scalarNode('tech'))
                 ->end()
             ->end()
-            ->addToObjectNode('must_not', new ObjectNode())
-                ->addToObjectNode('range', new ObjectNode())
-                    ->addToObjectNode('age', new ObjectNode())
-                        ->addToObjectNode('from', new ScalarNode(10))
-                        ->addToObjectNode('to', new ScalarNode(20))
+            ->addToObjectNode('must_not', $qb->objectNode())
+                ->addToObjectNode('range', $qb->objectNode())
+                    ->addToObjectNode('age', $qb->objectNode())
+                        ->addToObjectNode('from', $qb->scalarNode(10))
+                        ->addToObjectNode('to', $qb->scalarNode(20))
                     ->end()
                 ->end()
             ->end()
-            ->addToObjectNode('should', new ArrayNode())
-                ->addToArrayNode(new ObjectNode())
-                    ->addToObjectNode('term', new ObjectNode())
-                        ->addToObjectNode('tag', new ScalarNode('wow'))
+            ->addToObjectNode('should', $qb->arrayNode())
+                ->addToArrayNode($qb->objectNode())
+                    ->addToObjectNode('term', $qb->objectNode())
+                        ->addToObjectNode('tag', $qb->scalarNode('wow'))
                     ->end()
                 ->end()
-                ->addToArrayNode(new ObjectNode())
-                    ->addToObjectNode('term', new ObjectNode())
-                        ->addToObjectNode('tag', new ScalarNode('elasticsearch'))
+                ->addToArrayNode($qb->objectNode())
+                    ->addToObjectNode('term', $qb->objectNode())
+                        ->addToObjectNode('tag', $qb->scalarNode('elasticsearch'))
                     ->end()
                 ->end()
             ->end()
-            ->addToObjectNode('minimum_should_match', new ScalarNode(1))
-            ->addToObjectNode('boost', new ScalarNode(1))
+            ->addToObjectNode('minimum_should_match', $qb->scalarNode(1))
+            ->addToObjectNode('boost', $qb->scalarNode(1))
 ;
 
 echo $qb->json(true);

@@ -6,6 +6,7 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ClosureNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 
 /**
+ * @deprecated
  * @covers Saxulum\ElasticSearchQueryBuilder\Node\ClosureNode
  * @covers Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode
  */
