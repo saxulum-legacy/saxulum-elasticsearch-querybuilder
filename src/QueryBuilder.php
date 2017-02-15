@@ -89,7 +89,7 @@ class QueryBuilder
     /**
      * @return ArrayNode
      */
-    public function arrayNode(): ArrayNode
+    public function arrayNode()
     {
         return new ArrayNode();
     }
@@ -97,7 +97,7 @@ class QueryBuilder
     /**
      * @return ObjectNode
      */
-    public function objectNode(): ObjectNode
+    public function objectNode()
     {
         return new ObjectNode();
     }
@@ -106,7 +106,7 @@ class QueryBuilder
      * @param null $value
      * @return ScalarNode
      */
-    public function scalarNode($value = null): ScalarNode
+    public function scalarNode($value = null)
     {
         return new ScalarNode($value);
     }
