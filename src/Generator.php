@@ -12,6 +12,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
+use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\DNumber;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
@@ -53,9 +54,40 @@ final class Generator
             $stmts[] = $this->appendChildrenToArrayNode($queryBuilder, $queryBuilder, $data);
         }
 
-        $code = $this->phpGenerator->prettyPrint($stmts);
+        return $this->structureCode($this->phpGenerator->prettyPrint($stmts));
+    }
 
-        return $code;
+    /**
+     * @param string $code
+     * @return string
+     */
+    private function structureCode(string $code): string
+    {
+        $codeWithLinebreaks = str_replace('->add', "\n->add", $code);
+        $codeWithLinebreaks = str_replace('->end', "\n->end", $codeWithLinebreaks);
+
+        $lines = explode("\n", $codeWithLinebreaks);
+
+        $position = 0;
+
+        $structuredLines = [];
+
+        foreach ($lines as $i => $line) {
+            $lastLine = $lines[$i-1] ?? '';
+            if (0 === strpos($line, '->add')) {
+                if (false === strpos($lastLine, '->end') && false === strpos($lastLine, '->scalarNode')) {
+                    $position++;
+                }
+                $structuredLines[] = str_pad('', $position * 4) . $line;
+            } elseif (0 === strpos($line, '->end')) {
+                $position--;
+                $structuredLines[] = str_pad('', $position * 4) . $line;
+            } else {
+                $structuredLines[] = $line;
+            }
+        }
+
+        return implode("\n", $structuredLines);
     }
 
     /**
@@ -63,7 +95,7 @@ final class Generator
      */
     private function createQueryBuilderNode(): Expr
     {
-        return new Assign(new Variable('queryBuilder'), new New_(new Name('\\' . QueryBuilder::class)));
+        return new Assign(new Variable('queryBuilder'), new New_(new FullyQualified(QueryBuilder::class)));
     }
 
     /**

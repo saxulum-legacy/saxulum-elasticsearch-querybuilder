@@ -55,8 +55,5 @@ EOD;
 
         $generator = new Generator(new PhpGenerator());
         echo $generator->generateByJson($json);
-
-
-
     }
 }
