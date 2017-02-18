@@ -126,11 +126,9 @@ final class Generator
             $expr = new MethodCall($expr, 'addToArrayNode', $arguments);
 
             if ($value instanceof \stdClass) {
-                $expr = $this->appendChildrenToObjectNode($queryBuilder, $expr, $value);
-                $expr = new MethodCall($expr, 'end');
+                $expr = new MethodCall($this->appendChildrenToObjectNode($queryBuilder, $expr, $value), 'end');
             } elseif (is_array($value)) {
-                $expr = $this->appendChildrenToArrayNode($queryBuilder, $expr, $value);
-                $expr = new MethodCall($expr, 'end');
+                $expr = new MethodCall($this->appendChildrenToArrayNode($queryBuilder, $expr, $value), 'end');
             }
         }
 
@@ -156,11 +154,9 @@ final class Generator
             $expr = new MethodCall($expr, 'addToObjectNode', $arguments);
 
             if ($value instanceof \stdClass) {
-                $expr = $this->appendChildrenToObjectNode($queryBuilder, $expr, $value);
-                $expr = new MethodCall($expr, 'end');
+                $expr = new MethodCall($this->appendChildrenToObjectNode($queryBuilder, $expr, $value), 'end');
             } elseif (is_array($value)) {
-                $expr = $this->appendChildrenToArrayNode($queryBuilder, $expr, $value);
-                $expr = new MethodCall($expr, 'end');
+                $expr = new MethodCall($this->appendChildrenToArrayNode($queryBuilder, $expr, $value), 'end');
             }
         }
 
