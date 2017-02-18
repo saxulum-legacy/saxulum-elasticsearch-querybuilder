@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Saxulum\ElasticSearchQueryBuilder\Node;
 
 abstract class AbstractNode
@@ -24,7 +26,7 @@ abstract class AbstractNode
     }
 
     /**
-     * @return AbstractParentNode
+     * @return AbstractParentNode|null
      */
     public function getParent()
     {

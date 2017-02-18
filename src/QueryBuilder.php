@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Saxulum\ElasticSearchQueryBuilder;
 
 use Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode;
@@ -7,7 +9,7 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
-class QueryBuilder
+final class QueryBuilder
 {
     /**
      * @var ObjectNode

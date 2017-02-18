@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Saxulum\ElasticSearchQueryBuilder\Node;
 
-class ScalarNode extends AbstractNode
+final class ScalarNode extends AbstractNode
 {
     /**
      * @var string|float|int|bool|null

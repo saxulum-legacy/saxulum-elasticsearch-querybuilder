@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Saxulum\ElasticSearchQueryBuilder\Node;
 
-class ObjectNode extends AbstractParentNode
+final class ObjectNode extends AbstractParentNode
 {
     /**
      * @param string       $key
@@ -29,7 +31,7 @@ class ObjectNode extends AbstractParentNode
     /**
      * @return \stdClass
      */
-    public function getDefault()
+    public function getDefault(): \stdClass
     {
         return new \stdClass();
     }
@@ -56,7 +58,7 @@ class ObjectNode extends AbstractParentNode
      * @param string            $key
      * @param NodeChildRelation $child
      */
-    private function serializeChild($serialized, $key, NodeChildRelation $child)
+    private function serializeChild(\stdClass $serialized, string $key, NodeChildRelation $child)
     {
         if (null !== $serializedChild = $child->getNode()->serialize()) {
             $serialized->$key = $serializedChild;

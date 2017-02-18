@@ -3,7 +3,6 @@
 namespace Saxulum\Tests\ElasticSearchQueryBuilder;
 
 use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ClosureNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
@@ -45,47 +44,6 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         ;
 
         self::assertSame('{"query":{"match":{"title":"elasticsearch"}}}', $qb->json());
-    }
-
-    /**
-     * @dataProvider getQuerySamples
-     */
-    public function testMatchWithMatchAllFallback($expectedResult, $query)
-    {
-        $qb = new QueryBuilder();
-        $qb
-            ->addToObjectNode('query', new ClosureNode(function () use ($query) {
-                $qb = new QueryBuilder();
-                $qb
-                    ->addToObjectNode('match', $qb->objectNode())
-                        ->addToObjectNode('title', $qb->scalarNode($query))
-                ;
-
-                if (null !== $serialzed = $qb->serialize()) {
-                    return $serialzed;
-                }
-
-                $qb = new QueryBuilder();
-                $qb
-                    ->addToObjectNode('match_all', $qb->objectNode(), true)
-                ;
-
-                return $qb->serialize();
-            }))
-        ;
-
-        self::assertSame($expectedResult, $qb->json());
-    }
-
-    /**
-     * @return array
-     */
-    public function getQuerySamples()
-    {
-        return [
-            ['{"query":{"match":{"title":"elasticsearch"}}}', 'elasticsearch'],
-            ['{"query":{"match_all":{}}}', null],
-        ];
     }
 
     public function testRange()

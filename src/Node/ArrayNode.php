@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Saxulum\ElasticSearchQueryBuilder\Node;
 
-class ArrayNode extends AbstractParentNode
+final class ArrayNode extends AbstractParentNode
 {
     /**
      * @param AbstractNode $node
@@ -24,7 +26,7 @@ class ArrayNode extends AbstractParentNode
     /**
      * @return array
      */
-    public function getDefault()
+    public function getDefault(): array
     {
         return [];
     }

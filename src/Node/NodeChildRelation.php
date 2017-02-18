@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Saxulum\ElasticSearchQueryBuilder\Node;
 
-class NodeChildRelation
+final class NodeChildRelation
 {
     /**
      * @var AbstractNode
@@ -27,7 +29,7 @@ class NodeChildRelation
     /**
      * @return AbstractNode
      */
-    public function getNode()
+    public function getNode(): AbstractNode
     {
         return $this->node;
     }
@@ -35,7 +37,7 @@ class NodeChildRelation
     /**
      * @return bool
      */
-    public function isAllowDefault()
+    public function isAllowDefault(): bool
     {
         return $this->allowDefault;
     }
