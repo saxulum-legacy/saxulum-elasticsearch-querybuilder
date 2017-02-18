@@ -103,7 +103,7 @@ class QueryBuilder
     }
 
     /**
-     * @param null $value
+     * @param string|float|int|bool|null $value
      * @return ScalarNode
      */
     public function scalarNode($value = null)
