@@ -9,18 +9,18 @@ final class NodeChildRelation
     /**
      * @var AbstractNode
      */
-    protected $node;
+    private $node;
 
     /**
      * @var bool
      */
-    protected $allowDefault;
+    private $allowDefault;
 
     /**
      * @param AbstractNode $node
      * @param bool         $allowDefault
      */
-    public function __construct(AbstractNode $node, $allowDefault)
+    public function __construct(AbstractNode $node, bool $allowDefault)
     {
         $this->node = $node;
         $this->allowDefault = $allowDefault;

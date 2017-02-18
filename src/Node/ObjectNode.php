@@ -15,7 +15,7 @@ final class ObjectNode extends AbstractParentNode
      *
      * @throws \InvalidArgumentException
      */
-    public function add($key, AbstractNode $node, $allowDefault = false)
+    public function add($key, AbstractNode $node, bool $allowDefault = false)
     {
         if (isset($this->children[$key])) {
             throw new \InvalidArgumentException(sprintf('There is already a node with key %s!', $key));

@@ -14,7 +14,7 @@ final class ArrayNode extends AbstractParentNode
      *
      * @throws \InvalidArgumentException
      */
-    public function add(AbstractNode $node, $allowDefault = false)
+    public function add(AbstractNode $node, bool $allowDefault = false)
     {
         $node->setParent($this);
 

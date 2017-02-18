@@ -9,17 +9,17 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
-final class QueryBuilder
+final class QueryBuilder implements QueryBuilderInterface
 {
     /**
      * @var ObjectNode
      */
-    protected $rootNode;
+    private $rootNode;
 
     /**
      * @var AbstractNode
      */
-    protected $node;
+    private $node;
 
     public function __construct()
     {
@@ -31,11 +31,11 @@ final class QueryBuilder
      * @param AbstractNode $node
      * @param bool         $allowDefault
      *
-     * @return $this
+     * @return QueryBuilderInterface
      *
      * @throws \Exception
      */
-    public function addToArrayNode(AbstractNode $node, $allowDefault = false)
+    public function addToArrayNode(AbstractNode $node, bool $allowDefault = false): QueryBuilderInterface
     {
         if (!$this->node instanceof ArrayNode) {
             throw new \Exception(sprintf('You cannot call %s on node type: %s', __FUNCTION__, get_class($this->node)));
@@ -52,11 +52,11 @@ final class QueryBuilder
      * @param AbstractNode $node
      * @param bool         $allowDefault
      *
-     * @return $this
+     * @return QueryBuilderInterface
      *
      * @throws \Exception
      */
-    public function addToObjectNode($key, AbstractNode $node, $allowDefault = false)
+    public function addToObjectNode(string $key, AbstractNode $node, bool $allowDefault = false): QueryBuilderInterface
     {
         if (!$this->node instanceof ObjectNode) {
             throw new \Exception(sprintf('You cannot call %s on node type: %s', __FUNCTION__, get_class($this->node)));
@@ -71,7 +71,7 @@ final class QueryBuilder
     /**
      * @param AbstractNode $node
      */
-    protected function reassignParent(AbstractNode $node)
+    private function reassignParent(AbstractNode $node)
     {
         if ($node instanceof ArrayNode || $node instanceof ObjectNode) {
             $this->node = $node;
@@ -79,9 +79,9 @@ final class QueryBuilder
     }
 
     /**
-     * @return $this
+     * @return QueryBuilderInterface
      */
-    public function end()
+    public function end(): QueryBuilderInterface
     {
         $this->node = $this->node->getParent();
 
@@ -91,7 +91,7 @@ final class QueryBuilder
     /**
      * @return ArrayNode
      */
-    public function arrayNode()
+    public function arrayNode(): ArrayNode
     {
         return new ArrayNode();
     }
@@ -99,16 +99,16 @@ final class QueryBuilder
     /**
      * @return ObjectNode
      */
-    public function objectNode()
+    public function objectNode(): ObjectNode
     {
         return new ObjectNode();
     }
 
     /**
-     * @param null $value
+     * @param string|float|int|bool|null $value
      * @return ScalarNode
      */
-    public function scalarNode($value = null)
+    public function scalarNode($value = null): ScalarNode
     {
         return new ScalarNode($value);
     }
@@ -125,7 +125,7 @@ final class QueryBuilder
      * @param boolean $beautify
      * @return string
      */
-    public function json($beautify = false)
+    public function json(bool $beautify = false): string
     {
         if (null === $serialized = $this->serialize()) {
             return '';

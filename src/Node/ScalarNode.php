@@ -9,7 +9,7 @@ final class ScalarNode extends AbstractNode
     /**
      * @var string|float|int|bool|null
      */
-    protected $value;
+    private $value;
 
     /**
      * @param string|float|int|bool|null $value
