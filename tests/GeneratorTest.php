@@ -2,6 +2,7 @@
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder;
 
+use PhpParser\PrettyPrinter\Standard as PhpGenerator;
 use Saxulum\ElasticSearchQueryBuilder\Generator;
 
 /**
@@ -52,8 +53,8 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
 }
 EOD;
 
-        $generator = new Generator();
-        $generator->generateByJson($json);
+        $generator = new Generator(new PhpGenerator());
+        echo $generator->generateByJson($json);
 
 
 
