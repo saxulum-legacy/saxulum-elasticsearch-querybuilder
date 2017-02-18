@@ -6,9 +6,9 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 /**
- * @covers Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode
- * @covers Saxulum\ElasticSearchQueryBuilder\Node\AbstractParentNode
- * @covers Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode
+ * @covers \Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode
+ * @covers \Saxulum\ElasticSearchQueryBuilder\Node\AbstractParentNode
+ * @covers \Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode
  */
 class ArrayNodeTest extends \PHPUnit_Framework_TestCase
 {

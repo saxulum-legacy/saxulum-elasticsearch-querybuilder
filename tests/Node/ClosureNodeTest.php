@@ -7,8 +7,8 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 
 /**
  * @deprecated
- * @covers Saxulum\ElasticSearchQueryBuilder\Node\ClosureNode
- * @covers Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode
+ * @covers \Saxulum\ElasticSearchQueryBuilder\Node\ClosureNode
+ * @covers \Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode
  */
 class ClosureNodeTest extends \PHPUnit_Framework_TestCase
 {

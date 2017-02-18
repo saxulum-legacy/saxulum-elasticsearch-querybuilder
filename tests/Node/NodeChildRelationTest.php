@@ -6,7 +6,7 @@ use Saxulum\ElasticSearchQueryBuilder\Node\NodeChildRelation;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 /**
- * @covers Saxulum\ElasticSearchQueryBuilder\Node\NodeChildRelation
+ * @covers \Saxulum\ElasticSearchQueryBuilder\Node\NodeChildRelation
  */
 class NodeChildRelationTest extends \PHPUnit_Framework_TestCase
 {

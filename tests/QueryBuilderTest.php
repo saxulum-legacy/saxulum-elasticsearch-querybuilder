@@ -9,7 +9,7 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
 
 /**
- * @covers Saxulum\ElasticSearchQueryBuilder\QueryBuilder
+ * @covers \Saxulum\ElasticSearchQueryBuilder\QueryBuilder
  */
 class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 {

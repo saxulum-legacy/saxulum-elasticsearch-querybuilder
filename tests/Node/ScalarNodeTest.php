@@ -6,8 +6,8 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 /**
- * @covers Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode
- * @covers Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode
+ * @covers \Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode
+ * @covers \Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode
  */
 class ScalarNodeTest extends \PHPUnit_Framework_TestCase
 {
