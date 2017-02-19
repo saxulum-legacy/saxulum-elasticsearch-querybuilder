@@ -168,6 +168,7 @@ final class QueryBuilderGenerator
     }
 
     /**
+     * @param Expr $queryBuilder
      * @param Expr $expr
      * @param \stdClass $data
      * @return Expr
