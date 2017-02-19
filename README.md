@@ -10,82 +10,18 @@
 
  * A simple to use, flexible query builder for elastic search.
 
-
 ## Requirements
 
  * php: ~7.0
+ * nikic/php-parser: ~3.0
+
+## Installation
+
+Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-querybuilder][1].
 
 ## Usage
 
-### Match sample
-
-#### Code
-
-```{.php}
-$qb = new QueryBuilder();
-$qb
-    ->addToObjectNode('query', $qb->objectNode())
-        ->addToObjectNode('match', $qb->objectNode())
-            ->addToObjectNode('title', $qb->scalarNode('elasticsearch'))
-;
-
-echo $qb->json(true);
-```
-
-#### Output
-
-```{.json}
-{
-    "query": {
-        "match": {
-            "title": "elasticsearch"
-        }
-    }
-}
-```
-
-### MatchAll sample
-
-#### Code
-
-```{.php}
-$qb = new QueryBuilder();
-$qb
-    ->addToObjectNode('query', $qb->objectNode())
-        ->addToObjectNode('match_all', $qb->objectNode(), true)
-;
-
-echo $qb->json(true);
-```
-
-#### Output
-
-```{.json}
-{
-    "query": {
-        "match_all": {}
-    }
-}
-```
-
-#### Code (without allowDefault)
-
-```{.php}
-$qb = new QueryBuilder();
-$qb
-    ->addToObjectNode('query', $qb->objectNode())
-        ->addToObjectNode('match_all', $qb->objectNode())
-;
-
-echo $qb->json(true);
-```
-
-#### Output
-
-```{.json}
-```
-
-### Complex sample
+### QueryBuilder
 
 #### Code
 
@@ -174,8 +110,96 @@ echo $qb->json(true);
 }
 ```
 
-## Installation
+### QueryBuilderGenerator
 
-Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-querybuilder][1].
+#### Code
+
+```{.php}
+$json = <<<EOD
+{
+    "query": {
+        "bool": {
+            "must": {
+                "term": {
+                    "user": "kimchy"
+                }
+            },
+            "filter": {
+                "term": {
+                    "tag": "tech"
+                }
+            },
+            "must_not": {
+                "range": {
+                    "age": {
+                        "from": 10,
+                        "to": 20
+                    }
+                }
+            },
+            "should": [
+                {
+                    "term": {
+                        "tag": "wow"
+                    }
+                },
+                {
+                    "term": {
+                        "tag": "elasticsearch"
+                    }
+                }
+            ],
+            "minimum_should_match": 1,
+            "boost": 1
+        }
+    }
+}
+EOD;
+
+$generator = new QueryBuilderGenerator(new PhpGenerator());
+
+echo $generator->generateByJson($json);
+```
+
+#### Output
+
+```{.php}
+$qb = new QueryBuilder();
+$qb
+    ->addToObjectNode('query', $qb->objectNode())
+        ->addToObjectNode('bool', $qb->objectNode())
+            ->addToObjectNode('must', $qb->objectNode())
+                ->addToObjectNode('term', $qb->objectNode())
+                    ->addToObjectNode('user', $qb->scalarNode('kimchy'))
+                ->end()
+            ->end()
+            ->addToObjectNode('filter', $qb->objectNode())
+                ->addToObjectNode('term', $qb->objectNode())
+                    ->addToObjectNode('tag', $qb->scalarNode('tech'))
+                ->end()
+            ->end()
+            ->addToObjectNode('must_not', $qb->objectNode())
+                ->addToObjectNode('range', $qb->objectNode())
+                    ->addToObjectNode('age', $qb->objectNode())
+                        ->addToObjectNode('from', $qb->scalarNode(10))
+                        ->addToObjectNode('to', $qb->scalarNode(20))
+                    ->end()
+                ->end()
+            ->end()
+            ->addToObjectNode('should', $qb->arrayNode())
+                ->addToArrayNode($qb->objectNode())
+                    ->addToObjectNode('term', $qb->objectNode())
+                        ->addToObjectNode('tag', $qb->scalarNode('wow'))
+                    ->end()
+                ->end()
+                ->addToArrayNode($qb->objectNode())
+                    ->addToObjectNode('term', $qb->objectNode())
+                        ->addToObjectNode('tag', $qb->scalarNode('elasticsearch'))
+                    ->end()
+                ->end()
+            ->end()
+            ->addToObjectNode('minimum_should_match', $qb->scalarNode(1))
+            ->addToObjectNode('boost', $qb->scalarNode(1));
+```
 
 [1]: https://packagist.org/packages/saxulum/saxulum-elasticsearch-querybuilder
