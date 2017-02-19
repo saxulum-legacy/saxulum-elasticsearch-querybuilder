@@ -82,7 +82,7 @@ final class NodeGenerator
             }
             $prefix = str_pad('', $position * 4);
             if ($braceCount > 2) {
-                $structuredLines[] = $prefix . substr($line, 0, ($braceCount - 2 * -1));
+                $structuredLines[] = $prefix . substr($line, 0, - ($braceCount - 2));
             } else {
                 $structuredLines[] = $prefix . $line;
             }

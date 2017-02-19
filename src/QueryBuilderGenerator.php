@@ -43,15 +43,12 @@ final class QueryBuilderGenerator
             throw new \InvalidArgumentException(sprintf('Message: %s, query: %s', json_last_error_msg(), $query));
         }
 
-        $stmts = [$this->createQueryBuilderNode()];
-
         $queryBuilder = new Variable('queryBuilder');
 
-        if ($data instanceof \stdClass) {
-            $stmts[] = $this->appendChildrenToObjectNode($queryBuilder, $queryBuilder, $data);
-        } else {
-            $stmts[] = $this->appendChildrenToArrayNode($queryBuilder, $queryBuilder, $data);
-        }
+        $stmts = [];
+
+        $stmts[] = $this->createQueryBuilderNode();
+        $stmts[] = $this->appendChildrenToObjectNode($queryBuilder, $queryBuilder, $data);
 
         return $this->structureCode($this->phpGenerator->prettyPrint($stmts));
     }
@@ -79,8 +76,12 @@ final class QueryBuilderGenerator
                 }
                 $structuredLines[] = str_pad('', $position * 4) . $line;
             } elseif (0 === strpos($line, '->end')) {
-                $position--;
-                $structuredLines[] = str_pad('', $position * 4) . $line;
+                if (strpos($lastLine, '->objectNode') || strpos($lastLine, '->arrayNode')) {
+                    $structuredLines[count($structuredLines) - 1] .= '->end()';
+                } else {
+                    $position--;
+                    $structuredLines[] = str_pad('', $position * 4) . $line;
+                }
             } else {
                 $structuredLines[] = $line;
             }
