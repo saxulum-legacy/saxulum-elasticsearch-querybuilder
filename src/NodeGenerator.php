@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Saxulum\ElasticSearchQueryBuilder;
 
-use PhpParser\Error;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
@@ -13,15 +12,10 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
-use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\DNumber;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
-use PhpParser\ParserFactory;
 use PhpParser\PrettyPrinter\Standard as PhpGenerator;
-use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 final class NodeGenerator
 {
@@ -44,53 +38,6 @@ final class NodeGenerator
      */
     public function generateByJson($query): string
     {
-
-//        $code = '<?php
-//        $node = (new ObjectNode())
-//            ->add(\'query\', (new ObjectNode())
-//                ->add(\'bool\', (new ObjectNode())
-//                    ->add(\'must\', (new ObjectNode())
-//                        ->add(\'term\', (new ObjectNode())
-//                            ->add(\'user\', (new ScalarNode(\'kimchy\')))
-//                        )
-//                    )
-//                    ->add(\'filter\', (new ObjectNode())
-//                        ->add(\'term\', (new ObjectNode())
-//                            ->add(\'tag\', (new ScalarNode(\'tech\')))
-//                        )
-//                    )
-//                )
-//            );
-//        ';
-//
-//        $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
-//
-//        try {
-//            $stmts = $parser->parse($code);
-//            print_r($stmts); die;
-//            // $stmts is an array of statement nodes
-//        } catch (Error $e) {
-//            echo 'Parse Error: ', $e->getMessage();
-//        }
-//
-//        die;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         $data = json_decode($query, false);
         if (JSON_ERROR_NONE !== json_last_error()) {
             throw new \InvalidArgumentException(sprintf('Message: %s, query: %s', json_last_error_msg(), $query));
@@ -113,7 +60,7 @@ final class NodeGenerator
      */
     private function structureCode(string $code): string
     {
-        $codeWithLinebreaks = str_replace('->add', "\n->add", $code);
+        $codeWithLinebreaks = str_replace('->add', "\n->add", substr($code, 0, -1));
 
         $lines = explode("\n", $codeWithLinebreaks);
 
@@ -122,17 +69,20 @@ final class NodeGenerator
         $structuredLines = [];
 
         foreach ($lines as $i => $line) {
-            if (0 === strpos($line, '->add') && false === strpos($structuredLines[count($structuredLines) - 1], ' )') && false === strpos($structuredLines[count($structuredLines) - 1], 'ScalarNode')) {
+            $lastStructuredLine = $structuredLines[count($structuredLines) - 1] ?? '';
+            if (0 === strpos($line, '->add') &&
+                false === strpos($lastStructuredLine, ' )') &&
+                false === strpos($lastStructuredLine, 'ScalarNode')) {
                 $position++;
             }
-            $lineLength = count($lines) - 1 !== $i ? strlen($line) -1 : strlen($line) - 2;
+            $lineLength = strlen($line);
             $braceCount = 0;
-            while(')' === $line[$lineLength--]) {
+            while (')' === $line[--$lineLength]) {
                 $braceCount++;
             }
             $prefix = str_pad('', $position * 4);
             if ($braceCount > 2) {
-                $structuredLines[] = $prefix . substr($line, 0, - ($braceCount - 2));
+                $structuredLines[] = $prefix . substr($line, 0, ($braceCount - 2 * -1));
             } else {
                 $structuredLines[] = $prefix . $line;
             }

@@ -12,7 +12,6 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
-use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\DNumber;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
@@ -95,7 +94,7 @@ final class QueryBuilderGenerator
      */
     private function createQueryBuilderNode(): Expr
     {
-        return new Assign(new Variable('queryBuilder'), new New_(new FullyQualified(QueryBuilder::class)));
+        return new Assign(new Variable('queryBuilder'), new New_(new Name('QueryBuilder')));
     }
 
     /**
@@ -146,16 +145,16 @@ final class QueryBuilderGenerator
      */
     private function appendChildrenToArrayNode(Expr $queryBuilder, Expr $expr, array $data)
     {
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             if ($value instanceof \stdClass) {
-                $arguments = [new Arg($this->createObjectNode($queryBuilder))];
+                $argument = $this->createObjectNode($queryBuilder);
             } elseif (is_array($value)) {
-                $arguments = [new Arg($this->createArrayNode($queryBuilder))];
+                $argument = $this->createArrayNode($queryBuilder);
             } else {
-                $arguments = [new Arg($this->createScalarNode($queryBuilder, $value))];
+                $argument = $this->createScalarNode($queryBuilder, $value);
             }
 
-            $expr = new MethodCall($expr, 'addToArrayNode', $arguments);
+            $expr = new MethodCall($expr, 'addToArrayNode', [new Arg($argument)]);
 
             if ($value instanceof \stdClass) {
                 $expr = new MethodCall($this->appendChildrenToObjectNode($queryBuilder, $expr, $value), 'end');
@@ -177,14 +176,14 @@ final class QueryBuilderGenerator
     {
         foreach ($data as $key => $value) {
             if ($value instanceof \stdClass) {
-                $arguments = [new Arg(new String_($key)), new Arg($this->createObjectNode($queryBuilder))];
+                $argument = $this->createObjectNode($queryBuilder);
             } elseif (is_array($value)) {
-                $arguments = [new Arg(new String_($key)), new Arg($this->createArrayNode($queryBuilder))];
+                $argument = $this->createArrayNode($queryBuilder);
             } else {
-                $arguments = [new Arg(new String_($key)), new Arg($this->createScalarNode($queryBuilder, $value))];
+                $argument = $this->createScalarNode($queryBuilder, $value);
             }
 
-            $expr = new MethodCall($expr, 'addToObjectNode', $arguments);
+            $expr = new MethodCall($expr, 'addToObjectNode', [new Arg(new String_($key)), new Arg($argument)]);
 
             if ($value instanceof \stdClass) {
                 $expr = new MethodCall($this->appendChildrenToObjectNode($queryBuilder, $expr, $value), 'end');
