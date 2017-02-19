@@ -18,7 +18,7 @@ use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\PrettyPrinter\Standard as PhpGenerator;
 
-final class Generator
+final class QueryBuilderGenerator
 {
     /**
      * @var PhpGenerator

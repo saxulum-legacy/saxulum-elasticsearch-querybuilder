@@ -3,12 +3,12 @@
 namespace Saxulum\Tests\ElasticSearchQueryBuilder;
 
 use PhpParser\PrettyPrinter\Standard as PhpGenerator;
-use Saxulum\ElasticSearchQueryBuilder\Generator;
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilderGenerator;
 
 /**
- * @covers \Saxulum\ElasticSearchQueryBuilder\Generator
+ * @covers \Saxulum\ElasticSearchQueryBuilder\QueryBuilderGenerator
  */
-class GeneratorTest extends \PHPUnit_Framework_TestCase
+class QueryBuilderGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testBla()
     {
@@ -53,7 +53,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
 }
 EOD;
 
-        $generator = new Generator(new PhpGenerator());
+        $generator = new QueryBuilderGenerator(new PhpGenerator());
         echo $generator->generateByJson($json);
     }
 }
