@@ -122,7 +122,7 @@ final class NodeGenerator
         $structuredLines = [];
 
         foreach ($lines as $i => $line) {
-            if (0 === strpos($line, '->add') && false === strpos($structuredLines[count($structuredLines) - 1], ' )')) {
+            if (0 === strpos($line, '->add') && false === strpos($structuredLines[count($structuredLines) - 1], ' )') && false === strpos($structuredLines[count($structuredLines) - 1], 'ScalarNode')) {
                 $position++;
             }
             $lineLength = count($lines) - 1 !== $i ? strlen($line) -1 : strlen($line) - 2;
