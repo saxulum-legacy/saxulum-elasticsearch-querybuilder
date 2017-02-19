@@ -10,6 +10,11 @@
 
  * A simple to use, flexible query builder for elastic search.
 
+
+## Requirements
+
+ * php: ~7.0
+
 ## Usage
 
 ### Match sample
@@ -168,10 +173,6 @@ echo $qb->json(true);
     }
 }
 ```
-
-## Requirements
-
- * php: ~5.5|~7.0
 
 ## Installation
 
