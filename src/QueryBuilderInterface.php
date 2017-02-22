@@ -15,27 +15,27 @@ interface QueryBuilderInterface
      * @param AbstractNode $node
      * @param bool         $allowDefault
      *
-     * @return self
+     * @return QueryBuilderInterface
      *
      * @throws \Exception
      */
-    public function addToArrayNode(AbstractNode $node, bool $allowDefault = false): self;
+    public function addToArrayNode(AbstractNode $node, bool $allowDefault = false): QueryBuilderInterface;
 
     /**
      * @param string       $key
      * @param AbstractNode $node
      * @param bool         $allowDefault
      *
-     * @return self
+     * @return QueryBuilderInterface
      *
      * @throws \Exception
      */
-    public function addToObjectNode(string $key, AbstractNode $node, bool $allowDefault = false): self;
+    public function addToObjectNode(string $key, AbstractNode $node, bool $allowDefault = false): QueryBuilderInterface;
 
     /**
-     * @return self
+     * @return QueryBuilderInterface
      */
-    public function end(): self;
+    public function end(): QueryBuilderInterface;
 
     /**
      * @return ArrayNode
