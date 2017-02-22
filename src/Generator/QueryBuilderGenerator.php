@@ -200,45 +200,29 @@ final class QueryBuilderGenerator
     private function structuredLine(string $line, string $lastLine, int &$position, array &$structuredLines)
     {
         if (0 === strpos($line, '->add')) {
-            $this->structureAddLine($line, $lastLine, $position, $structuredLines);
-        } elseif (0 === strpos($line, '->end')) {
-            $this->structureEndLine($line, $lastLine, $position, $structuredLines);
-        } else {
-            $structuredLines[] = $line;
-        }
-    }
+            if (false === strpos($lastLine, '->end') && false === strpos($lastLine, '->scalarNode')) {
+                $position++;
+            }
 
-    /**
-     * @param string $line
-     * @param string $lastLine
-     * @param int $position
-     * @param array $structuredLines
-     */
-    private function structureAddLine(string $line, string $lastLine, int &$position, array &$structuredLines)
-    {
-        if (false === strpos($lastLine, '->end') && false === strpos($lastLine, '->scalarNode')) {
-            $position++;
-        }
-
-        $structuredLines[] = str_pad('', $position * 4) . $line;
-    }
-
-    /**
-     * @param string $line
-     * @param string $lastLine
-     * @param int $position
-     * @param array $structuredLines
-     */
-    private function structureEndLine(string $line, string $lastLine, int &$position, array &$structuredLines)
-    {
-        if (strpos($lastLine, '->objectNode') || strpos($lastLine, '->arrayNode')) {
-            $structuredLines[count($structuredLines) - 1] .= '->end()';
+            $structuredLines[] = str_pad('', $position * 4) . $line;
 
             return;
         }
 
-        $position--;
+        if (0 === strpos($line, '->end')) {
+            if (strpos($lastLine, '->objectNode') || strpos($lastLine, '->arrayNode')) {
+                $structuredLines[count($structuredLines) - 1] .= '->end()';
 
-        $structuredLines[] = str_pad('', $position * 4) . $line;
+                return;
+            }
+
+            $position--;
+
+            $structuredLines[] = str_pad('', $position * 4) . $line;
+
+            return;
+        }
+
+        $structuredLines[] = $line;
     }
 }
