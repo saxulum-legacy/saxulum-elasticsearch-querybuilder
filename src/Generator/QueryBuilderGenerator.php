@@ -54,43 +54,6 @@ final class QueryBuilderGenerator
     }
 
     /**
-     * @param string $code
-     * @return string
-     */
-    private function structureCode(string $code): string
-    {
-        $codeWithLinebreaks = str_replace('->add', "\n->add", $code);
-        $codeWithLinebreaks = str_replace('->end', "\n->end", $codeWithLinebreaks);
-
-        $lines = explode("\n", $codeWithLinebreaks);
-
-        $position = 0;
-
-        $structuredLines = [];
-
-        foreach ($lines as $i => $line) {
-            $lastLine = $lines[$i-1] ?? '';
-            if (0 === strpos($line, '->add')) {
-                if (false === strpos($lastLine, '->end') && false === strpos($lastLine, '->scalarNode')) {
-                    $position++;
-                }
-                $structuredLines[] = str_pad('', $position * 4) . $line;
-            } elseif (0 === strpos($line, '->end')) {
-                if (strpos($lastLine, '->objectNode') || strpos($lastLine, '->arrayNode')) {
-                    $structuredLines[count($structuredLines) - 1] .= '->end()';
-                } else {
-                    $position--;
-                    $structuredLines[] = str_pad('', $position * 4) . $line;
-                }
-            } else {
-                $structuredLines[] = $line;
-            }
-        }
-
-        return implode("\n", $structuredLines);
-    }
-
-    /**
      * @return Expr
      */
     private function createQueryBuilderNode(): Expr
@@ -194,5 +157,88 @@ final class QueryBuilderGenerator
         }
 
         return $expr;
+    }
+
+    /**
+     * @param string $code
+     * @return string
+     */
+    private function structureCode(string $code): string
+    {
+        $lines = $this->getLinesByCode($code);
+
+        $position = 0;
+
+        $structuredLines = [];
+
+        foreach ($lines as $i => $line) {
+            $lastLine = $lines[$i-1] ?? '';
+            $this->structuredLine($line, $lastLine, $position, $structuredLines);
+        }
+
+        return implode("\n", $structuredLines);
+    }
+
+    /**
+     * @param string $code
+     * @return array
+     */
+    private function getLinesByCode(string $code): array
+    {
+        $codeWithLinebreaks = str_replace('->add', "\n->add", $code);
+        $codeWithLinebreaks = str_replace('->end', "\n->end", $codeWithLinebreaks);
+
+        return explode("\n", $codeWithLinebreaks);
+    }
+
+    /**
+     * @param string $line
+     * @param string $lastLine
+     * @param int $position
+     * @param array $structuredLines
+     */
+    private function structuredLine(string $line, string $lastLine, int &$position, array &$structuredLines)
+    {
+        if (0 === strpos($line, '->add')) {
+            $this->structureAddLine($line, $lastLine, $position, $structuredLines);
+        } elseif (0 === strpos($line, '->end')) {
+            $this->structureEndLine($line, $lastLine, $position, $structuredLines);
+        } else {
+            $structuredLines[] = $line;
+        }
+    }
+
+    /**
+     * @param string $line
+     * @param string $lastLine
+     * @param int $position
+     * @param array $structuredLines
+     */
+    private function structureAddLine(string $line, string $lastLine, int &$position, array &$structuredLines)
+    {
+        if (false === strpos($lastLine, '->end') && false === strpos($lastLine, '->scalarNode')) {
+            $position++;
+        }
+
+        $structuredLines[] = str_pad('', $position * 4) . $line;
+    }
+
+    /**
+     * @param string $line
+     * @param string $lastLine
+     * @param int $position
+     * @param array $structuredLines
+     */
+    private function structureEndLine(string $line, string $lastLine, int &$position, array &$structuredLines)
+    {
+        if (strpos($lastLine, '->objectNode') || strpos($lastLine, '->arrayNode')) {
+            $structuredLines[count($structuredLines) - 1] .= '->end()';
+
+            return;
+        }
+
+        $position--;
+
+        $structuredLines[] = str_pad('', $position * 4) . $line;
     }
 }
