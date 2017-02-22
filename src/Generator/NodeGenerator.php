@@ -55,50 +55,6 @@ final class NodeGenerator
     }
 
     /**
-     * @param string $code
-     * @return string
-     */
-    private function structureCode(string $code): string
-    {
-        $codeWithLinebreaks = str_replace('->add', "\n->add", substr($code, 0, -1));
-
-        $lines = explode("\n", $codeWithLinebreaks);
-
-        $position = 0;
-
-        $structuredLines = [];
-
-        foreach ($lines as $i => $line) {
-            $lastStructuredLine = $structuredLines[count($structuredLines) - 1] ?? '';
-            if (0 === strpos($line, '->add') &&
-                false === strpos($lastStructuredLine, ' )') &&
-                false === strpos($lastStructuredLine, 'ScalarNode')) {
-                $position++;
-            }
-            $lineLength = strlen($line);
-            $braceCount = 0;
-            while (')' === $line[--$lineLength]) {
-                $braceCount++;
-            }
-            $prefix = str_pad('', $position * 4);
-            if ($braceCount > 2) {
-                $structuredLines[] = $prefix . substr($line, 0, - ($braceCount - 2));
-            } else {
-                $structuredLines[] = $prefix . $line;
-            }
-
-            while ($braceCount-- > 2) {
-                $position--;
-                $structuredLines[] = str_pad('', $position * 4) . ')';
-            }
-        }
-
-        $structuredLines[count($structuredLines) - 1] .= ';';
-
-        return implode("\n", $structuredLines);
-    }
-
-    /**
      * @return Expr
      */
     private function createObjectNode(): Expr
@@ -191,5 +147,73 @@ final class NodeGenerator
         }
 
         return $expr;
+    }
+
+    /**
+     * @param string $code
+     * @return string
+     */
+    private function structureCode(string $code): string
+    {
+        $lines = $this->getLinesByCode($code);
+
+        $position = 0;
+
+        $structuredLines = [];
+
+        foreach ($lines as $i => $line) {
+            $lastStructuredLine = $structuredLines[count($structuredLines) - 1] ?? '';
+            $this->structuredLine($line, $lastStructuredLine, $position, $structuredLines);
+        }
+
+        $structuredLines[count($structuredLines) - 1] .= ';';
+
+        return implode("\n", $structuredLines);
+    }
+
+    /**
+     * @param string $code
+     * @return array
+     */
+    private function getLinesByCode(string $code): array
+    {
+        $codeWithLinebreaks = str_replace('->add', "\n->add", substr($code, 0, -1));
+
+        return explode("\n", $codeWithLinebreaks);
+    }
+
+    /**
+     * @param string $line
+     * @param string $lastStructuredLine
+     * @param int $position
+     * @param array $structuredLines
+     */
+    private function structuredLine(string $line, string $lastStructuredLine, int &$position, array &$structuredLines)
+    {
+        if (0 === strpos($line, '->add') &&
+            false === strpos($lastStructuredLine, ' )') &&
+            false === strpos($lastStructuredLine, 'ScalarNode')) {
+            $position++;
+        }
+
+        $lineLength = strlen($line);
+        $braceCount = 0;
+
+        while (')' === $line[--$lineLength]) {
+            $braceCount++;
+        }
+
+        $prefix = str_pad('', $position * 4);
+
+        if ($braceCount > 2) {
+            $structuredLines[] = $prefix . substr($line, 0, - ($braceCount - 2));
+        } else {
+            $structuredLines[] = $prefix . $line;
+        }
+
+        while ($braceCount-- > 2) {
+            $position--;
+            $structuredLines[] = str_pad('', $position * 4) . ')';
+        }
     }
 }
