@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Saxulum\ElasticSearchQueryBuilder;
+namespace Saxulum\ElasticSearchQueryBuilder\Generator;
 
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;

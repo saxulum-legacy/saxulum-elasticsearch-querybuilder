@@ -1,12 +1,12 @@
 <?php
 
-namespace Saxulum\Tests\ElasticSearchQueryBuilder;
+namespace Saxulum\Tests\ElasticSearchQueryBuilder\Generator;
 
 use PhpParser\PrettyPrinter\Standard as PhpGenerator;
-use Saxulum\ElasticSearchQueryBuilder\NodeGenerator;
+use Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator;
 
 /**
- * @covers \Saxulum\ElasticSearchQueryBuilder\NodeGenerator
+ * @covers \Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator
  */
 class NodeGeneratorTest extends \PHPUnit_Framework_TestCase
 {
