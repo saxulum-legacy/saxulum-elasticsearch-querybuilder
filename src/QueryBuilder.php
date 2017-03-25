@@ -80,10 +80,14 @@ final class QueryBuilder implements QueryBuilderInterface
 
     /**
      * @return QueryBuilderInterface
+     *
+     * @throws \Exception
      */
     public function end(): QueryBuilderInterface
     {
-        $this->node = $this->node->getParent();
+        if (null === $this->node = $this->node->getParent()) {
+            throw new \Exception(sprintf('You cannot call %s on main node', __FUNCTION__));
+        }
 
         return $this;
     }

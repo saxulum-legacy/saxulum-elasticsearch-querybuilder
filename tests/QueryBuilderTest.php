@@ -271,4 +271,13 @@ EOD;
             ->addToObjectNode('key', $qb->scalarNode())
         ;
     }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage You cannot call end on main node
+     */
+    public function testToManyEnd()
+    {
+        (new QueryBuilder())->end();
+    }
 }

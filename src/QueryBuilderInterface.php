@@ -34,6 +34,8 @@ interface QueryBuilderInterface
 
     /**
      * @return QueryBuilderInterface
+     *
+     * @throws \Exception
      */
     public function end(): QueryBuilderInterface;
 
