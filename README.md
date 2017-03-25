@@ -21,10 +21,57 @@ Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-que
 
 ## Usage
 
-### Queries with QueryBuilder
+### QueryBuilder
+
+```{.php}
+$qb = new QueryBuilder();
+$qb
+    ->addToObjectNode('query', $qb->objectNode())
+        ->addToObjectNode('bool', $qb->objectNode())
+            ->addToObjectNode('must', $qb->objectNode())
+                ->addToObjectNode('term', $qb->objectNode())
+                    ->addToObjectNode('user', $qb->scalarNode('kimchy'))
+                ->end()
+            ->end()
+            ->addToObjectNode('filter', $qb->objectNode())
+                ->addToObjectNode('term', $qb->objectNode())
+                    ->addToObjectNode('tag', $qb->scalarNode('tech'))
+                ->end()
+            ->end()
+            ->addToObjectNode('must_not', $qb->objectNode())
+                ->addToObjectNode('range', $qb->objectNode())
+                    ->addToObjectNode('age', $qb->objectNode())
+                        ->addToObjectNode('from', $qb->scalarNode(10))
+                        ->addToObjectNode('to', $qb->scalarNode(20))
+                    ->end()
+                ->end()
+            ->end()
+            ->addToObjectNode('should', $qb->arrayNode())
+                ->addToArrayNode($qb->objectNode())
+                    ->addToObjectNode('term', $qb->objectNode())
+                        ->addToObjectNode('tag', $qb->scalarNode('wow'))
+                    ->end()
+                ->end()
+                ->addToArrayNode($qb->objectNode())
+                    ->addToObjectNode('term', $qb->objectNode())
+                        ->addToObjectNode('tag', $qb->scalarNode('elasticsearch'))
+                    ->end()
+                ->end()
+            ->end()
+            ->addToObjectNode('minimum_should_match', $qb->scalarNode(1))
+            ->addToObjectNode('boost', $qb->scalarNode(1))
+;
+
+echo $qb->json(true);
+```
+
+### Other samples
 
  * [Queries with QueryBuilder][2]
  * [Queries with Node][3]
+
+### Code generation for rapid programming of queries
+
  * [Generator for QueryBuilder][4]
  * [Generator for Node][5]
 
