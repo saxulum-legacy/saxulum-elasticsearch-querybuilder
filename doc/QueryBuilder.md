@@ -2,7 +2,7 @@
 
 ## Match all
 
-```{.php}
+```php
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -12,13 +12,13 @@ $qb
 echo $qb->json();
 ```
 
-```{.json}
+```json
 {"query":{"match_all":{}}}
 ```
 
 ## Match
 
-```{.php}
+```php
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -29,13 +29,13 @@ $qb
 echo $qb->json();
 ```
 
-```{.json}
+```json
 {"query":{"match":{"title":"elasticsearch"}}}
 ```
 
 ## Range
 
-```{.php}
+```php
 $qb = new QueryBuilder();
 $qb
 ->addToObjectNode('query', $qb->objectNode())
@@ -48,13 +48,13 @@ $qb
 echo $qb->json();
 ```
 
-```{.json}
+```json
 {"query":{"range":{"elements":{"gte":10,"lte":20}}}}
 ```
 
 ## Exists
 
-```{.php}
+```php
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -65,13 +65,13 @@ $qb
 echo $qb->json();
 ```
 
-```{.json}
+```json
 {"query":{"exists":{"field":"text"}}}
 ```
 
 ## Not Exists
 
-```{.php}
+```php
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -84,13 +84,13 @@ $qb
 echo $qb->json();
 ```
 
-```{.json}
+```json
 {"query":{"bool":{"must_not":{"exists":{"field":"text"}}}}}
 ```
 
 ## Prefix
 
-```{.php}
+```php
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -101,13 +101,13 @@ $qb
 echo $qb->json();
 ```
 
-```{.json}
+```json
 {"query":{"prefix":{"title":"elastic"}}}
 ```
 
 ## Wildcard
 
-```{.php}
+```php
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -118,13 +118,13 @@ $qb
 echo $qb->json();
 ```
 
-```{.json}
+```json
 {"query":{"wildcard":{"title":"ela*c"}}}
 ```
 
 ## Regexp
 
-```{.php}
+```php
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -135,13 +135,13 @@ $qb
 echo $qb->json();
 ```
 
-```{.json}
+```json
 {"query":{"regexp":{"title":"search$"}}}
 ```
 
 ## Fuzzy
 
-```{.php}
+```php
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -154,13 +154,13 @@ $qb
 echo $qb->json();
 ```
 
-```{.json}
+```json
 {"query":{"fuzzy":{"title":{"value":"sea","fuzziness":2}}}}
 ```
 
 ## Type
 
-```{.php}
+```php
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -171,13 +171,13 @@ $qb
 echo $qb->json();
 ```
 
-```{.json}
+```json
 {"query":{"type":{"value":"product"}}}
 ```
 
 ## Ids
 
-```{.php}
+```php
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -191,13 +191,13 @@ $qb
 echo $qb->json();
 ```
 
-```{.json}
+```json
 {"query":{"ids":{"type":"product","values":[1,2]}}}
 ```
 
 ## Complex sample
 
-```{.php}
+```php
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -239,7 +239,7 @@ $qb
 echo $qb->json(true);
 ```
 
-```{.json}
+```json
 {
     "query": {
         "bool": {

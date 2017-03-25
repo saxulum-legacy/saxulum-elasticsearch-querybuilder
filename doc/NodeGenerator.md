@@ -2,7 +2,7 @@
 
 ## Code
 
-```{.php}
+```php
 $json = <<<EOD
 {
     "query": {
@@ -51,7 +51,7 @@ echo $generator->generateByJson($json);
 
 ## Output
 
-```{.php}
+```php
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('bool', (new ObjectNode())

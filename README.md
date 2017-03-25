@@ -23,7 +23,7 @@ Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-que
 
 ### QueryBuilder
 
-```{.php}
+```php
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
