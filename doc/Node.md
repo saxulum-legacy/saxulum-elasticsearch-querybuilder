@@ -75,9 +75,11 @@ echo json_encode($node->serialize());
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('bool', (new ObjectNode())
-            ->add('must_not', (new ObjectNode())
-                ->add('exists', (new ObjectNode())
-                    ->add('field', new ScalarNode('text'))
+            ->add('must_not', (new ArrayNode())
+                ->add((new ObjectNode())
+                    ->add('exists', (new ObjectNode())
+                        ->add('field', new ScalarNode('text'))
+                    )
                 )
             )
         )
@@ -87,7 +89,7 @@ echo json_encode($node->serialize());
 ```
 
 ```json
-{"query":{"bool":{"must_not":{"exists":{"field":"text"}}}}}
+{"query":{"bool":{"must_not":[{"exists":{"field":"text"}}]}}}
 ```
 
 ## Prefix

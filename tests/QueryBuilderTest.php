@@ -78,13 +78,14 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         $qb
             ->addToObjectNode('query', $qb->objectNode())
                 ->addToObjectNode('bool', $qb->objectNode())
-                    ->addToObjectNode('must_not', $qb->objectNode())
-                        ->addToObjectNode('exists', $qb->objectNode())
-                            ->addToObjectNode('field', $qb->scalarNode('text'))
+                    ->addToObjectNode('must_not', $qb->arrayNode())
+                        ->addToArrayNode($qb->objectNode())
+                            ->addToObjectNode('exists', $qb->objectNode())
+                                ->addToObjectNode('field', $qb->scalarNode('text'))
         ;
 
         self::assertSame(
-            '{"query":{"bool":{"must_not":{"exists":{"field":"text"}}}}}',
+            '{"query":{"bool":{"must_not":[{"exists":{"field":"text"}}]}}}',
             $qb->json()
         );
     }

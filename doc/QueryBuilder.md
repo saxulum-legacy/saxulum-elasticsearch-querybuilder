@@ -76,16 +76,17 @@ $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
         ->addToObjectNode('bool', $qb->objectNode())
-            ->addToObjectNode('must_not', $qb->objectNode())
-                ->addToObjectNode('exists', $qb->objectNode())
-                    ->addToObjectNode('field', $qb->scalarNode('text'))
+            ->addToObjectNode('must_not', $qb->arrayNode())
+                ->addToArrayNode($qb->objectNode())
+                    ->addToObjectNode('exists', $qb->objectNode())
+                        ->addToObjectNode('field', $qb->scalarNode('text'))
 ;
 
 echo $qb->json();
 ```
 
 ```json
-{"query":{"bool":{"must_not":{"exists":{"field":"text"}}}}}
+{"query":{"bool":{"must_not":[{"exists":{"field":"text"}}]}}}
 ```
 
 ## Prefix
