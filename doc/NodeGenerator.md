@@ -4,9 +4,7 @@
 
 ```php
 use PhpParser\PrettyPrinter\Standard as PhpGenerator;
-use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator;
 
 $json = <<<EOD
 {
