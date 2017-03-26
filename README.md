@@ -24,6 +24,8 @@ Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-que
 ### QueryBuilder
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())

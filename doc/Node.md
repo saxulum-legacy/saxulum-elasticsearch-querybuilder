@@ -3,6 +3,8 @@
 ## Match all
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('match_all', new ObjectNode(), true)
@@ -18,6 +20,9 @@ echo json_encode($node->serialize());
 ## Match
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('match', (new ObjectNode())
@@ -35,6 +40,9 @@ echo json_encode($node->serialize());
 ## Range
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('range', (new ObjectNode())
@@ -55,6 +63,9 @@ echo json_encode($node->serialize());
 ## Exists
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('exists', (new ObjectNode())
@@ -72,6 +83,9 @@ echo json_encode($node->serialize());
 ## Not Exists
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('bool', (new ObjectNode())
@@ -95,6 +109,9 @@ echo json_encode($node->serialize());
 ## Prefix
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('prefix', (new ObjectNode())
@@ -112,6 +129,9 @@ echo json_encode($node->serialize());
 ## Wildcard
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('wildcard', (new ObjectNode())
@@ -129,6 +149,9 @@ echo json_encode($node->serialize());
 ## Regexp
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('regexp', (new ObjectNode())
@@ -146,6 +169,9 @@ echo json_encode($node->serialize());
 ## Fuzzy
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('fuzzy', (new ObjectNode())
@@ -166,6 +192,9 @@ echo json_encode($node->serialize());
 ## Type
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('type', (new ObjectNode())
@@ -183,6 +212,10 @@ echo json_encode($node->serialize());
 ## Ids
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('ids', (new ObjectNode())
@@ -204,6 +237,10 @@ echo json_encode($node->serialize());
 ## Complex sample
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('bool', (new ObjectNode())

@@ -3,6 +3,8 @@
 ## Match all
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -19,6 +21,8 @@ echo $qb->json();
 ## Match
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -36,6 +40,8 @@ echo $qb->json();
 ## Range
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
 $qb = new QueryBuilder();
 $qb
 ->addToObjectNode('query', $qb->objectNode())
@@ -55,6 +61,8 @@ echo $qb->json();
 ## Exists
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -72,6 +80,8 @@ echo $qb->json();
 ## Not Exists
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -92,6 +102,8 @@ echo $qb->json();
 ## Prefix
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -109,6 +121,8 @@ echo $qb->json();
 ## Wildcard
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -126,6 +140,8 @@ echo $qb->json();
 ## Regexp
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -143,6 +159,8 @@ echo $qb->json();
 ## Fuzzy
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -162,6 +180,8 @@ echo $qb->json();
 ## Type
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -179,6 +199,8 @@ echo $qb->json();
 ## Ids
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
@@ -199,6 +221,8 @@ echo $qb->json();
 ## Complex sample
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
 $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())

@@ -3,6 +3,11 @@
 ## Code
 
 ```php
+use PhpParser\PrettyPrinter\Standard as PhpGenerator;
+use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+
 $json = <<<EOD
 {
     "query": {

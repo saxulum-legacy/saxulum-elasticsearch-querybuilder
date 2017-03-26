@@ -3,6 +3,9 @@
 ## Code
 
 ```php
+use PhpParser\PrettyPrinter\Standard as PhpGenerator;
+use Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator;
+
 $json = <<<EOD
 {
     "query": {
