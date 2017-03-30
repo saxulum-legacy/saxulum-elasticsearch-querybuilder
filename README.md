@@ -85,7 +85,10 @@ echo $qb->json(true);
  *
  * @throws \Exception
  */
-public function addToArrayNode(AbstractNode $node, bool $allowDefault = false): QueryBuilderInterface;
+public function addToArrayNode(
+    AbstractNode $node,
+    bool $allowDefault = false
+): QueryBuilderInterface;
 ```
 
 ##### addToObjectNode
@@ -101,7 +104,11 @@ public function addToArrayNode(AbstractNode $node, bool $allowDefault = false): 
  *
  * @throws \Exception
  */
-public function addToObjectNode(string $key, AbstractNode $node, bool $allowDefault = false): QueryBuilderInterface;
+public function addToObjectNode(
+    string $key,
+    AbstractNode $node,
+    bool $allowDefault = false
+): QueryBuilderInterface;
 ```
 
 ### Other samples
