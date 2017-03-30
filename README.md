@@ -21,6 +21,10 @@ Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-que
 
 ## Usage
 
+**Important**: By default empty nodes get not serialized, which means empty arrayNode (no elemements), empty
+objectNode (no keys) and empty scalarNodes (null). Check the `Important methods` to get more information
+to prevent this if needed.
+
 ### QueryBuilder
 
 ```php
@@ -65,6 +69,39 @@ $qb
 ;
 
 echo $qb->json(true);
+```
+
+#### Important methods
+
+##### addToArrayNode
+
+
+```php
+/**
+ * @param AbstractNode $node
+ * @param bool         $allowDefault
+ *
+ * @return QueryBuilderInterface
+ *
+ * @throws \Exception
+ */
+public function addToArrayNode(AbstractNode $node, bool $allowDefault = false): QueryBuilderInterface;
+```
+
+##### addToObjectNode
+
+
+```php
+/**
+ * @param string       $key
+ * @param AbstractNode $node
+ * @param bool         $allowDefault
+ *
+ * @return QueryBuilderInterface
+ *
+ * @throws \Exception
+ */
+public function addToObjectNode(string $key, AbstractNode $node, bool $allowDefault = false): QueryBuilderInterface;
 ```
 
 ### Other samples
