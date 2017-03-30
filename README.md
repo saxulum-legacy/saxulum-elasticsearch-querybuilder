@@ -22,7 +22,8 @@ Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-que
 ## Usage
 
 **Important**: By default empty nodes get not serialized, which means empty arrayNode (no elemements), empty
-objectNode (no keys) and empty scalarNodes (null). Check the `Important methods` to get more information
+objectNode (no keys) and empty scalarNodes (null). This works recursive, which means theoretically a complex
+query builder can lead into an empty string as json. Check the `Important methods` to get more information
 to prevent this if needed.
 
 ### QueryBuilder

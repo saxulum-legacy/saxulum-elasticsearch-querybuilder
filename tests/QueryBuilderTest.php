@@ -251,6 +251,22 @@ EOD;
         self::assertSame($expected, $qb->json(true));
     }
 
+    public function testEmptyQuery()
+    {
+        $qb = new QueryBuilder();
+        $qb
+            ->addToObjectNode('query', $qb->objectNode())
+                ->addToObjectNode('bool', $qb->objectNode())
+                    ->addToObjectNode('must', $qb->arrayNode())
+                        ->addToArrayNode($qb->objectNode())
+                            ->addToObjectNode('terms', $qb->objectNode())
+                                ->addToObjectNode('field', $qb->arrayNode())
+                                    ->addToArrayNode($qb->scalarNode(null))
+        ;
+
+        self::assertSame('', $qb->json());
+    }
+
     /**
      * @expectedException \Exception
      * @expectedExceptionMessage You cannot call addToArrayNode on node type: Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode
