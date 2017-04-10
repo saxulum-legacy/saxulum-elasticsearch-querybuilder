@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Saxulum\ElasticSearchQueryBuilder\Node;
 
-final class ObjectNode extends AbstractParentNode
+final class ObjectNode extends AbstractParentNode implements ObjectNodeSerializeInterface
 {
     /**
      * @param string       $key

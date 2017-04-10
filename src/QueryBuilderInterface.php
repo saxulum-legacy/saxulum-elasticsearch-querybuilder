@@ -7,9 +7,10 @@ namespace Saxulum\ElasticSearchQueryBuilder;
 use Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNodeSerializeInterface;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
-interface QueryBuilderInterface
+interface QueryBuilderInterface extends ObjectNodeSerializeInterface
 {
     /**
      * @param AbstractNode $node
@@ -54,11 +55,6 @@ interface QueryBuilderInterface
      * @return ScalarNode
      */
     public function scalarNode($value = null): ScalarNode;
-
-    /**
-     * @return \stdClass|null
-     */
-    public function serialize();
 
     /**
      * @param boolean $beautify
