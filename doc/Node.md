@@ -21,12 +21,12 @@ echo json_encode($node->serialize());
 
 ```php
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('match', (new ObjectNode())
-            ->add('title', new ScalarNode('elasticsearch'))
+            ->add('title', new StringNode('elasticsearch'))
         )
     );
 
@@ -40,15 +40,15 @@ echo json_encode($node->serialize());
 ## Range
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\IntNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('range', (new ObjectNode())
             ->add('elements', (new ObjectNode())
-                ->add('gte', new ScalarNode(10))
-                ->add('lte', new ScalarNode(20))
+                ->add('gte', new IntNode(10))
+                ->add('lte', new IntNode(20))
             )
         )
     );
@@ -64,12 +64,12 @@ echo json_encode($node->serialize());
 
 ```php
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('exists', (new ObjectNode())
-            ->add('field', new ScalarNode('text'))
+            ->add('field', new StringNode('text'))
         )
     );
 
@@ -84,7 +84,7 @@ echo json_encode($node->serialize());
 
 ```php
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
@@ -92,7 +92,7 @@ $node = (new ObjectNode())
             ->add('must_not', (new ArrayNode())
                 ->add((new ObjectNode())
                     ->add('exists', (new ObjectNode())
-                        ->add('field', new ScalarNode('text'))
+                        ->add('field', new StringNode('text'))
                     )
                 )
             )
@@ -110,12 +110,12 @@ echo json_encode($node->serialize());
 
 ```php
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('prefix', (new ObjectNode())
-            ->add('title', new ScalarNode('elastic'))
+            ->add('title', new StringNode('elastic'))
         )
     );
 
@@ -130,12 +130,12 @@ echo json_encode($node->serialize());
 
 ```php
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('wildcard', (new ObjectNode())
-            ->add('title', new ScalarNode('ela*c'))
+            ->add('title', new StringNode('ela*c'))
         )
     );
 
@@ -150,12 +150,12 @@ echo json_encode($node->serialize());
 
 ```php
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('regexp', (new ObjectNode())
-            ->add('title', new ScalarNode('search$'))
+            ->add('title', new StringNode('search$'))
         )
     );
 
@@ -169,15 +169,16 @@ echo json_encode($node->serialize());
 ## Fuzzy
 
 ```php
+use Saxulum\ElasticSearchQueryBuilder\Node\IntNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('fuzzy', (new ObjectNode())
             ->add('title', (new ObjectNode())
-                ->add('value', new ScalarNode('sea'))
-                ->add('fuzziness', new ScalarNode(2))
+                ->add('value', new StringNode('sea'))
+                ->add('fuzziness', new IntNode(2))
             )
         )
     );
@@ -193,12 +194,12 @@ echo json_encode($node->serialize());
 
 ```php
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('type', (new ObjectNode())
-            ->add('value', new ScalarNode('product'))
+            ->add('value', new StringNode('product'))
         )
     );
 
@@ -213,16 +214,17 @@ echo json_encode($node->serialize());
 
 ```php
 use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\IntNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('ids', (new ObjectNode())
-            ->add('type', (new ScalarNode('product')))
+            ->add('type', (new StringNode('product')))
             ->add('values', (new ArrayNode())
-                ->add(new ScalarNode(1))
-                ->add(new ScalarNode(2))
+                ->add(new IntNode(1))
+                ->add(new IntNode(2))
             )
         )
     );
@@ -234,48 +236,70 @@ echo json_encode($node->serialize());
 {"query":{"ids":{"type":"product","values":[1,2]}}}
 ```
 
+## BoolTerm
+
+```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\BoolNode;
+
+$node = (new ObjectNode())
+    ->add('query', (new ObjectNode())
+        ->add('term', (new ObjectNode())
+            ->add('is_published', (new BoolNode(true)))
+        )
+    );
+
+echo json_encode($node->serialize());
+```
+
+```json
+{"query":{"term":{"is_published":true}}}
+```
+
 ## Complex sample
 
 ```php
 use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\FloatNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\IntNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
         ->add('bool', (new ObjectNode())
             ->add('must', (new ObjectNode())
                 ->add('term', (new ObjectNode())
-                    ->add('user', new ScalarNode('kimchy'))
+                    ->add('user', new StringNode('kimchy'))
                 )
             )
             ->add('filter', (new ObjectNode())
                 ->add('term', (new ObjectNode())
-                    ->add('tag', new ScalarNode('tech'))
+                    ->add('tag', new StringNode('tech'))
                 )
             )
             ->add('must_not', (new ObjectNode())
                 ->add('range', (new ObjectNode())
                     ->add('age', (new ObjectNode())
-                        ->add('from', new ScalarNode(10))
-                        ->add('to', new ScalarNode(20))
+                        ->add('from', new IntNode(10))
+                        ->add('to', new IntNode(20))
                     )
                 )
             )
             ->add('should', (new ArrayNode())
                 ->add((new ObjectNode())
                     ->add('term', (new ObjectNode())
-                        ->add('tag', new ScalarNode('wow'))
+                        ->add('tag', new StringNode('wow'))
                     )
                 )
                 ->add((new ObjectNode())
                     ->add('term', (new ObjectNode())
-                        ->add('tag', new ScalarNode('elasticsearch'))
+                        ->add('tag', new StringNode('elasticsearch'))
                     )
                 )
             )
-            ->add('minimum_should_match', new ScalarNode(1))
-            ->add('boost', new ScalarNode(1))
+            ->add('minimum_should_match', new IntNode(1))
+            ->add('boost', new FloatNode(1.1))
         )
     );
 
@@ -318,7 +342,7 @@ echo json_encode($node->serialize(), JSON_PRETTY_PRINT);
                 }
             ],
             "minimum_should_match": 1,
-            "boost": 1
+            "boost": 1.1
         }
     }
 }

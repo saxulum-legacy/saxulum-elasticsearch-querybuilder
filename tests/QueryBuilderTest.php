@@ -40,7 +40,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         $qb
             ->addToObjectNode('query', $qb->objectNode())
                 ->addToObjectNode('match', $qb->objectNode())
-                    ->addToObjectNode('title', $qb->scalarNode('elasticsearch'))
+                    ->addToObjectNode('title', $qb->stringNode('elasticsearch'))
         ;
 
         self::assertSame('{"query":{"match":{"title":"elasticsearch"}}}', $qb->json());
@@ -53,8 +53,8 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         ->addToObjectNode('query', $qb->objectNode())
             ->addToObjectNode('range', $qb->objectNode())
                 ->addToObjectNode('elements', $qb->objectNode())
-                    ->addToObjectNode('gte', $qb->scalarNode(10))
-                    ->addToObjectNode('lte', $qb->scalarNode(20))
+                    ->addToObjectNode('gte', $qb->intNode(10))
+                    ->addToObjectNode('lte', $qb->intNode(20))
         ;
 
         self::assertSame('{"query":{"range":{"elements":{"gte":10,"lte":20}}}}', $qb->json());
@@ -66,7 +66,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         $qb
             ->addToObjectNode('query', $qb->objectNode())
                 ->addToObjectNode('exists', $qb->objectNode())
-                    ->addToObjectNode('field', $qb->scalarNode('text'))
+                    ->addToObjectNode('field', $qb->stringNode('text'))
         ;
 
         self::assertSame('{"query":{"exists":{"field":"text"}}}', $qb->json());
@@ -81,7 +81,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                     ->addToObjectNode('must_not', $qb->arrayNode())
                         ->addToArrayNode($qb->objectNode())
                             ->addToObjectNode('exists', $qb->objectNode())
-                                ->addToObjectNode('field', $qb->scalarNode('text'))
+                                ->addToObjectNode('field', $qb->stringNode('text'))
         ;
 
         self::assertSame(
@@ -96,7 +96,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         $qb
             ->addToObjectNode('query', $qb->objectNode())
                 ->addToObjectNode('prefix', $qb->objectNode())
-                    ->addToObjectNode('title', $qb->scalarNode('elastic'))
+                    ->addToObjectNode('title', $qb->stringNode('elastic'))
         ;
 
         self::assertSame('{"query":{"prefix":{"title":"elastic"}}}', $qb->json());
@@ -108,7 +108,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         $qb
             ->addToObjectNode('query', $qb->objectNode())
                 ->addToObjectNode('wildcard', $qb->objectNode())
-                    ->addToObjectNode('title', $qb->scalarNode('ela*c'))
+                    ->addToObjectNode('title', $qb->stringNode('ela*c'))
         ;
 
         self::assertSame('{"query":{"wildcard":{"title":"ela*c"}}}', $qb->json());
@@ -120,7 +120,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         $qb
             ->addToObjectNode('query', $qb->objectNode())
                 ->addToObjectNode('regexp', $qb->objectNode())
-                    ->addToObjectNode('title', $qb->scalarNode('search$'))
+                    ->addToObjectNode('title', $qb->stringNode('search$'))
         ;
 
         self::assertSame('{"query":{"regexp":{"title":"search$"}}}', $qb->json());
@@ -133,8 +133,8 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
             ->addToObjectNode('query', $qb->objectNode())
                 ->addToObjectNode('fuzzy', $qb->objectNode())
                     ->addToObjectNode('title', $qb->objectNode())
-                        ->addToObjectNode('value', $qb->scalarNode('sea'))
-                        ->addToObjectNode('fuzziness', $qb->scalarNode(2))
+                        ->addToObjectNode('value', $qb->stringNode('sea'))
+                        ->addToObjectNode('fuzziness', $qb->intNode(2))
         ;
 
         self::assertSame('{"query":{"fuzzy":{"title":{"value":"sea","fuzziness":2}}}}', $qb->json());
@@ -146,7 +146,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         $qb
             ->addToObjectNode('query', $qb->objectNode())
                 ->addToObjectNode('type', $qb->objectNode())
-                    ->addToObjectNode('value', $qb->scalarNode('product'))
+                    ->addToObjectNode('value', $qb->stringNode('product'))
         ;
 
         self::assertSame('{"query":{"type":{"value":"product"}}}', $qb->json());
@@ -158,13 +158,25 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         $qb
             ->addToObjectNode('query', $qb->objectNode())
                 ->addToObjectNode('ids', $qb->objectNode())
-                    ->addToObjectNode('type', $qb->scalarNode('product'))
+                    ->addToObjectNode('type', $qb->stringNode('product'))
                     ->addToObjectNode('values', $qb->arrayNode())
-                        ->addToArrayNode($qb->scalarNode(1))
-                        ->addToArrayNode($qb->scalarNode(2))
+                        ->addToArrayNode($qb->intNode(1))
+                        ->addToArrayNode($qb->intNode(2))
         ;
 
         self::assertSame('{"query":{"ids":{"type":"product","values":[1,2]}}}', $qb->json());
+    }
+
+    public function testBoolTerm()
+    {
+        $qb = new QueryBuilder();
+        $qb
+            ->addToObjectNode('query', $qb->objectNode())
+                ->addToObjectNode('term', $qb->objectNode())
+                    ->addToObjectNode('is_published', $qb->boolNode(true))
+        ;
+
+        self::assertSame('{"query":{"term":{"is_published":true}}}', $qb->json());
     }
 
     public function testComplex()
@@ -175,36 +187,36 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                 ->addToObjectNode('bool', $qb->objectNode())
                     ->addToObjectNode('must', $qb->objectNode())
                         ->addToObjectNode('term', $qb->objectNode())
-                            ->addToObjectNode('user', $qb->scalarNode('kimchy'))
+                            ->addToObjectNode('user', $qb->stringNode('kimchy'))
                         ->end()
                     ->end()
                     ->addToObjectNode('filter', $qb->objectNode())
                         ->addToObjectNode('term', $qb->objectNode())
-                            ->addToObjectNode('tag', $qb->scalarNode('tech'))
+                            ->addToObjectNode('tag', $qb->stringNode('tech'))
                         ->end()
                     ->end()
                     ->addToObjectNode('must_not', $qb->objectNode())
                         ->addToObjectNode('range', $qb->objectNode())
                             ->addToObjectNode('age', $qb->objectNode())
-                                ->addToObjectNode('from', $qb->scalarNode(10))
-                                ->addToObjectNode('to', $qb->scalarNode(20))
+                                ->addToObjectNode('from', $qb->intNode(10))
+                                ->addToObjectNode('to', $qb->intNode(20))
                             ->end()
                         ->end()
                     ->end()
                     ->addToObjectNode('should', $qb->arrayNode())
                         ->addToArrayNode($qb->objectNode())
                             ->addToObjectNode('term', $qb->objectNode())
-                                ->addToObjectNode('tag', $qb->scalarNode('wow'))
+                                ->addToObjectNode('tag', $qb->stringNode('wow'))
                             ->end()
                         ->end()
                         ->addToArrayNode($qb->objectNode())
                             ->addToObjectNode('term', $qb->objectNode())
-                                ->addToObjectNode('tag', $qb->scalarNode('elasticsearch'))
+                                ->addToObjectNode('tag', $qb->stringNode('elasticsearch'))
                             ->end()
                         ->end()
                     ->end()
-                    ->addToObjectNode('minimum_should_match', $qb->scalarNode(1))
-                    ->addToObjectNode('boost', $qb->scalarNode(1))
+                    ->addToObjectNode('minimum_should_match', $qb->intNode(1))
+                    ->addToObjectNode('boost', $qb->floatNode(1.1))
         ;
 
         $expected = <<<EOD
@@ -242,7 +254,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
                 }
             ],
             "minimum_should_match": 1,
-            "boost": 1
+            "boost": 1.1
         }
     }
 }
@@ -261,10 +273,21 @@ EOD;
                         ->addToArrayNode($qb->objectNode())
                             ->addToObjectNode('terms', $qb->objectNode())
                                 ->addToObjectNode('field', $qb->arrayNode())
-                                    ->addToArrayNode($qb->scalarNode(null))
+                                    ->addToArrayNode($qb->stringNode(null))
         ;
 
         self::assertSame('', $qb->json());
+    }
+
+    public function testDeprecatedScalarNode()
+    {
+        $qb = new QueryBuilder();
+        $qb
+            ->addToObjectNode('query', $qb->objectNode())
+                ->addToObjectNode('term', $qb->objectNode())
+                    ->addToObjectNode('field', $qb->scalarNode('value'));
+
+        self::assertSame('{"query":{"term":{"field":"value"}}}', $qb->json());
     }
 
     /**
@@ -274,7 +297,7 @@ EOD;
     public function testAddToArrayNodeIfItsNotAnActiveArrayNode()
     {
         $qb = new QueryBuilder();
-        $qb->addToArrayNode($qb->scalarNode());
+        $qb->addToArrayNode($qb->stringNode());
     }
 
     /**
@@ -285,7 +308,7 @@ EOD;
     {
         $qb = new QueryBuilder();
         $qb->addToObjectNode('key', $qb->arrayNode())
-            ->addToObjectNode('key', $qb->scalarNode())
+            ->addToObjectNode('key', $qb->stringNode())
         ;
     }
 

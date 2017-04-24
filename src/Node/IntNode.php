@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace Saxulum\ElasticSearchQueryBuilder\Node;
 
-/**
- * @deprecated use BoolNode|FloatNode|IntNode|StringNode
- */
-final class ScalarNode extends AbstractNode
+final class IntNode extends AbstractNode
 {
     /**
-     * @var string|float|int|bool|null
+     * @var int|null
      */
     private $value;
 
     /**
-     * @param string|float|int|bool|null $value
+     * @param int|null $value
      */
-    public function __construct($value = null)
+    public function __construct(int $value = null)
     {
         $this->value = $value;
     }
@@ -28,7 +25,7 @@ final class ScalarNode extends AbstractNode
     }
 
     /**
-     * @return string|float|int|bool|null
+     * @return int|null
      */
     public function serialize()
     {

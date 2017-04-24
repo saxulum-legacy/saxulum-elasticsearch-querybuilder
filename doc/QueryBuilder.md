@@ -27,7 +27,7 @@ $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
         ->addToObjectNode('match', $qb->objectNode())
-            ->addToObjectNode('title', $qb->scalarNode('elasticsearch'))
+            ->addToObjectNode('title', $qb->stringNode('elasticsearch'))
 ;
 
 echo $qb->json();
@@ -47,8 +47,8 @@ $qb
 ->addToObjectNode('query', $qb->objectNode())
     ->addToObjectNode('range', $qb->objectNode())
         ->addToObjectNode('elements', $qb->objectNode())
-            ->addToObjectNode('gte', $qb->scalarNode(10))
-            ->addToObjectNode('lte', $qb->scalarNode(20))
+            ->addToObjectNode('gte', $qb->intNode(10))
+            ->addToObjectNode('lte', $qb->intNode(20))
 ;
 
 echo $qb->json();
@@ -67,7 +67,7 @@ $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
         ->addToObjectNode('exists', $qb->objectNode())
-            ->addToObjectNode('field', $qb->scalarNode('text'))
+            ->addToObjectNode('field', $qb->stringNode('text'))
 ;
 
 echo $qb->json();
@@ -89,7 +89,7 @@ $qb
             ->addToObjectNode('must_not', $qb->arrayNode())
                 ->addToArrayNode($qb->objectNode())
                     ->addToObjectNode('exists', $qb->objectNode())
-                        ->addToObjectNode('field', $qb->scalarNode('text'))
+                        ->addToObjectNode('field', $qb->stringNode('text'))
 ;
 
 echo $qb->json();
@@ -108,7 +108,7 @@ $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
         ->addToObjectNode('prefix', $qb->objectNode())
-            ->addToObjectNode('title', $qb->scalarNode('elastic'))
+            ->addToObjectNode('title', $qb->stringNode('elastic'))
 ;
 
 echo $qb->json();
@@ -127,7 +127,7 @@ $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
         ->addToObjectNode('wildcard', $qb->objectNode())
-            ->addToObjectNode('title', $qb->scalarNode('ela*c'))
+            ->addToObjectNode('title', $qb->stringNode('ela*c'))
 ;
 
 echo $qb->json();
@@ -146,7 +146,7 @@ $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
         ->addToObjectNode('regexp', $qb->objectNode())
-            ->addToObjectNode('title', $qb->scalarNode('search$'))
+            ->addToObjectNode('title', $qb->stringNode('search$'))
 ;
 
 echo $qb->json();
@@ -166,8 +166,8 @@ $qb
     ->addToObjectNode('query', $qb->objectNode())
         ->addToObjectNode('fuzzy', $qb->objectNode())
             ->addToObjectNode('title', $qb->objectNode())
-                ->addToObjectNode('value', $qb->scalarNode('sea'))
-                ->addToObjectNode('fuzziness', $qb->scalarNode(2))
+                ->addToObjectNode('value', $qb->stringNode('sea'))
+                ->addToObjectNode('fuzziness', $qb->intNode(2))
 ;
 
 echo $qb->json();
@@ -186,7 +186,7 @@ $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
         ->addToObjectNode('type', $qb->objectNode())
-            ->addToObjectNode('value', $qb->scalarNode('product'))
+            ->addToObjectNode('value', $qb->stringNode('product'))
 ;
 
 echo $qb->json();
@@ -205,10 +205,10 @@ $qb = new QueryBuilder();
 $qb
     ->addToObjectNode('query', $qb->objectNode())
         ->addToObjectNode('ids', $qb->objectNode())
-            ->addToObjectNode('type', $qb->scalarNode('product'))
+            ->addToObjectNode('type', $qb->stringNode('product'))
             ->addToObjectNode('values', $qb->arrayNode())
-                ->addToArrayNode($qb->scalarNode(1))
-                ->addToArrayNode($qb->scalarNode(2))
+                ->addToArrayNode($qb->intNode(1))
+                ->addToArrayNode($qb->intNode(2))
 ;
 
 echo $qb->json();
@@ -216,6 +216,25 @@ echo $qb->json();
 
 ```json
 {"query":{"ids":{"type":"product","values":[1,2]}}}
+```
+
+## Bool Term
+
+```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
+$qb = new QueryBuilder();
+$qb
+    ->addToObjectNode('query', $qb->objectNode())
+        ->addToObjectNode('term', $qb->objectNode())
+            ->addToObjectNode('is_published', $qb->boolNode(true))
+;
+
+echo $qb->json();
+```
+
+```json
+{"query":{"term":{"is_published":true}}}
 ```
 
 ## Complex sample
@@ -229,36 +248,36 @@ $qb
         ->addToObjectNode('bool', $qb->objectNode())
             ->addToObjectNode('must', $qb->objectNode())
                 ->addToObjectNode('term', $qb->objectNode())
-                    ->addToObjectNode('user', $qb->scalarNode('kimchy'))
+                    ->addToObjectNode('user', $qb->stringNode('kimchy'))
                 ->end()
             ->end()
             ->addToObjectNode('filter', $qb->objectNode())
                 ->addToObjectNode('term', $qb->objectNode())
-                    ->addToObjectNode('tag', $qb->scalarNode('tech'))
+                    ->addToObjectNode('tag', $qb->stringNode('tech'))
                 ->end()
             ->end()
             ->addToObjectNode('must_not', $qb->objectNode())
                 ->addToObjectNode('range', $qb->objectNode())
                     ->addToObjectNode('age', $qb->objectNode())
-                        ->addToObjectNode('from', $qb->scalarNode(10))
-                        ->addToObjectNode('to', $qb->scalarNode(20))
+                        ->addToObjectNode('from', $qb->intNode(10))
+                        ->addToObjectNode('to', $qb->intNode(20))
                     ->end()
                 ->end()
             ->end()
             ->addToObjectNode('should', $qb->arrayNode())
                 ->addToArrayNode($qb->objectNode())
                     ->addToObjectNode('term', $qb->objectNode())
-                        ->addToObjectNode('tag', $qb->scalarNode('wow'))
+                        ->addToObjectNode('tag', $qb->stringNode('wow'))
                     ->end()
                 ->end()
                 ->addToArrayNode($qb->objectNode())
                     ->addToObjectNode('term', $qb->objectNode())
-                        ->addToObjectNode('tag', $qb->scalarNode('elasticsearch'))
+                        ->addToObjectNode('tag', $qb->stringNode('elasticsearch'))
                     ->end()
                 ->end()
             ->end()
-            ->addToObjectNode('minimum_should_match', $qb->scalarNode(1))
-            ->addToObjectNode('boost', $qb->scalarNode(1))
+            ->addToObjectNode('minimum_should_match', $qb->intNode(1))
+            ->addToObjectNode('boost', $qb->floatNode(1.1))
 ;
 
 echo $qb->json(true);
@@ -299,7 +318,7 @@ echo $qb->json(true);
                 }
             ],
             "minimum_should_match": 1,
-            "boost": 1
+            "boost": 1.1
         }
     }
 }

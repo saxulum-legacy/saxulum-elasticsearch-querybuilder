@@ -22,7 +22,7 @@ Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-que
 ## Usage
 
 **Important**: By default empty nodes get not serialized, which means empty arrayNode (no elemements), empty
-objectNode (no keys) and empty scalarNodes (null). This works recursive, which means theoretically a complex
+objectNode (no keys) and empty scalar Nodes (null). This works recursive, which means theoretically a complex
 query builder can lead into an empty string as json. Check the `Important methods` to get more information
 to prevent this if needed.
 
@@ -37,36 +37,36 @@ $qb
         ->addToObjectNode('bool', $qb->objectNode())
             ->addToObjectNode('must', $qb->objectNode())
                 ->addToObjectNode('term', $qb->objectNode())
-                    ->addToObjectNode('user', $qb->scalarNode('kimchy'))
+                    ->addToObjectNode('user', $qb->stringNode('kimchy'))
                 ->end()
             ->end()
             ->addToObjectNode('filter', $qb->objectNode())
                 ->addToObjectNode('term', $qb->objectNode())
-                    ->addToObjectNode('tag', $qb->scalarNode('tech'))
+                    ->addToObjectNode('tag', $qb->stringNode('tech'))
                 ->end()
             ->end()
             ->addToObjectNode('must_not', $qb->objectNode())
                 ->addToObjectNode('range', $qb->objectNode())
                     ->addToObjectNode('age', $qb->objectNode())
-                        ->addToObjectNode('from', $qb->scalarNode(10))
-                        ->addToObjectNode('to', $qb->scalarNode(20))
+                        ->addToObjectNode('from', $qb->intNode(10))
+                        ->addToObjectNode('to', $qb->intNode(20))
                     ->end()
                 ->end()
             ->end()
             ->addToObjectNode('should', $qb->arrayNode())
                 ->addToArrayNode($qb->objectNode())
                     ->addToObjectNode('term', $qb->objectNode())
-                        ->addToObjectNode('tag', $qb->scalarNode('wow'))
+                        ->addToObjectNode('tag', $qb->stringNode('wow'))
                     ->end()
                 ->end()
                 ->addToArrayNode($qb->objectNode())
                     ->addToObjectNode('term', $qb->objectNode())
-                        ->addToObjectNode('tag', $qb->scalarNode('elasticsearch'))
+                        ->addToObjectNode('tag', $qb->stringNode('elasticsearch'))
                     ->end()
                 ->end()
             ->end()
-            ->addToObjectNode('minimum_should_match', $qb->scalarNode(1))
-            ->addToObjectNode('boost', $qb->scalarNode(1))
+            ->addToObjectNode('minimum_should_match', $qb->intNode(1))
+            ->addToObjectNode('boost', $qb->floatNode(1.1))
 ;
 
 echo $qb->json(true);

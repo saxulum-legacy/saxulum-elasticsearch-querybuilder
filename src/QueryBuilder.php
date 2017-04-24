@@ -6,8 +6,12 @@ namespace Saxulum\ElasticSearchQueryBuilder;
 
 use Saxulum\ElasticSearchQueryBuilder\Node\AbstractNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\BoolNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\FloatNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\IntNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 final class QueryBuilder implements QueryBuilderInterface
 {
@@ -100,6 +104,33 @@ final class QueryBuilder implements QueryBuilderInterface
         return new ArrayNode();
     }
 
+        /**
+     * @param bool|null
+     * @return BoolNode
+     */
+    public function boolNode($value = null): BoolNode
+    {
+        return new BoolNode($value);
+    }
+
+    /**
+     * @param float|null
+     * @return FloatNode
+     */
+    public function floatNode($value = null): FloatNode
+    {
+        return new FloatNode($value);
+    }
+
+    /**
+     * @param int|null
+     * @return IntNode
+     */
+    public function intNode($value = null): IntNode
+    {
+        return new IntNode($value);
+    }
+
     /**
      * @return ObjectNode
      */
@@ -109,12 +140,22 @@ final class QueryBuilder implements QueryBuilderInterface
     }
 
     /**
+     * @deprecated use boolNode|floatNode|intNode|stringNode
      * @param string|float|int|bool|null $value
      * @return ScalarNode
      */
     public function scalarNode($value = null): ScalarNode
     {
         return new ScalarNode($value);
+    }
+
+    /**
+     * @param string|null
+     * @return StringNode
+     */
+    public function stringNode($value = null): StringNode
+    {
+        return new StringNode($value);
     }
 
     /**
