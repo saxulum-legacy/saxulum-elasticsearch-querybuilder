@@ -14,6 +14,10 @@
 
  * php: ~7.0
 
+## Suggests
+
+ * saxulum/saxulum-elasticsearch-querybuilder-generator: ~1.0@dev
+
 ## Installation
 
 Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-querybuilder][1].

@@ -16,6 +16,9 @@
   "require-dev": {
     "phpunit/phpunit": "~5.5"
   },
+  "suggest": {
+      "saxulum/saxulum-elasticsearch-querybuilder-generator": "Generates a query builder based on a existing json query"
+  },
   "extra": {
     "branch-alias": {
       "dev-master": "3.0-dev"
