@@ -13,7 +13,6 @@
 ## Requirements
 
  * php: ~7.0
- * nikic/php-parser: ~3.0
 
 ## Installation
 
@@ -117,15 +116,7 @@ public function addToObjectNode(
  * [Queries with QueryBuilder][2]
  * [Queries with Node][3]
 
-### Code generation for rapid programming of queries
-
- * [Generator for QueryBuilder][4]
- * [Generator for Node][5]
-
 
 [1]: https://packagist.org/packages/saxulum/saxulum-elasticsearch-querybuilder
 [2]: doc/QueryBuilder.md
 [3]: doc/Node.md
-[4]: doc/QueryBuilderGenerator.md
-[5]: doc/NodeGenerator.md
-
