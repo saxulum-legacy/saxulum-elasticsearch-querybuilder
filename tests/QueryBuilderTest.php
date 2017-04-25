@@ -20,7 +20,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         self::assertSame('{"query":{"match_all":{}}}', $qb->json());
     }
 
-    public function testMatchAllWithoutAllowDefault()
+    public function testMatchAllWithoutAllowSerializeEmpty()
     {
         $qb = new QueryBuilder();
         $qb

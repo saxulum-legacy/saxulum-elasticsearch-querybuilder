@@ -8,13 +8,13 @@ final class NullNode extends AbstractNode
 {
     public function __construct()
     {
-        $this->allowDefault = true;
+        $this->allowSerializeEmpty = true;
     }
 
     /**
      * @return null
      */
-    public function getDefault()
+    public function serializeEmpty()
     {
         return;
     }

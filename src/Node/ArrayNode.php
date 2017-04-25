@@ -7,11 +7,11 @@ namespace Saxulum\ElasticSearchQueryBuilder\Node;
 final class ArrayNode extends AbstractParentNode
 {
     /**
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      */
-    public function __construct(bool $allowDefault = false)
+    public function __construct(bool $allowSerializeEmpty = false)
     {
-        $this->allowDefault = $allowDefault;
+        $this->allowSerializeEmpty = $allowSerializeEmpty;
     }
 
     /**
@@ -33,7 +33,7 @@ final class ArrayNode extends AbstractParentNode
     /**
      * @return array
      */
-    public function getDefault(): array
+    public function serializeEmpty(): array
     {
         return [];
     }
@@ -63,8 +63,8 @@ final class ArrayNode extends AbstractParentNode
     {
         if (null !== $serializedChild = $child->serialize()) {
             $serialized[] = $serializedChild;
-        } elseif ($child->isAllowDefault()) {
-            $serialized[] = $child->getDefault();
+        } elseif ($child->isAllowSerializeEmpty()) {
+            $serialized[] = $child->serializeEmpty();
         }
     }
 }

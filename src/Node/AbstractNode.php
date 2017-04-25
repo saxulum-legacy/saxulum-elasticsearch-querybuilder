@@ -14,7 +14,7 @@ abstract class AbstractNode
     /**
      * @var bool
      */
-    protected $allowDefault;
+    protected $allowSerializeEmpty;
 
     /**
      * @param AbstractParentNode $parent
@@ -41,15 +41,15 @@ abstract class AbstractNode
     /**
      * @return bool
      */
-    public function isAllowDefault(): bool
+    public function isAllowSerializeEmpty(): bool
     {
-        return $this->allowDefault;
+        return $this->allowSerializeEmpty;
     }
 
     /**
      * @return \stdClass|array|null
      */
-    abstract public function getDefault();
+    abstract public function serializeEmpty();
 
     /**
      * @return \stdClass|array|string|float|int|bool|null

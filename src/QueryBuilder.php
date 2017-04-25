@@ -109,42 +109,42 @@ final class QueryBuilder implements QueryBuilderInterface
     }
 
     /**
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      * @return ArrayNode
      */
-    public function arrayNode(bool $allowDefault = false): ArrayNode
+    public function arrayNode(bool $allowSerializeEmpty = false): ArrayNode
     {
-        return new ArrayNode($allowDefault);
+        return new ArrayNode($allowSerializeEmpty);
     }
 
     /**
      * @param bool|null $value
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      * @return BoolNode
      */
-    public function boolNode($value = null, bool $allowDefault = false): BoolNode
+    public function boolNode($value = null, bool $allowSerializeEmpty = false): BoolNode
     {
-        return new BoolNode($value, $allowDefault);
+        return new BoolNode($value, $allowSerializeEmpty);
     }
 
     /**
      * @param float|null $value
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      * @return FloatNode
      */
-    public function floatNode($value = null, bool $allowDefault = false): FloatNode
+    public function floatNode($value = null, bool $allowSerializeEmpty = false): FloatNode
     {
-        return new FloatNode($value, $allowDefault);
+        return new FloatNode($value, $allowSerializeEmpty);
     }
 
     /**
      * @param int|null $value
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      * @return IntNode
      */
-    public function intNode($value = null, bool $allowDefault = false): IntNode
+    public function intNode($value = null, bool $allowSerializeEmpty = false): IntNode
     {
-        return new IntNode($value, $allowDefault);
+        return new IntNode($value, $allowSerializeEmpty);
     }
 
     /**
@@ -156,22 +156,22 @@ final class QueryBuilder implements QueryBuilderInterface
     }
 
     /**
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      * @return ObjectNode
      */
-    public function objectNode(bool $allowDefault = false): ObjectNode
+    public function objectNode(bool $allowSerializeEmpty = false): ObjectNode
     {
-        return new ObjectNode($allowDefault);
+        return new ObjectNode($allowSerializeEmpty);
     }
 
     /**
      * @param string|null $value
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      * @return StringNode
      */
-    public function stringNode($value = null, bool $allowDefault = false): StringNode
+    public function stringNode($value = null, bool $allowSerializeEmpty = false): StringNode
     {
-        return new StringNode($value, $allowDefault);
+        return new StringNode($value, $allowSerializeEmpty);
     }
 
     /**

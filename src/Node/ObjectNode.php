@@ -7,11 +7,11 @@ namespace Saxulum\ElasticSearchQueryBuilder\Node;
 final class ObjectNode extends AbstractParentNode implements ObjectNodeSerializeInterface
 {
     /**
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      */
-    public function __construct(bool $allowDefault = false)
+    public function __construct(bool $allowSerializeEmpty = false)
     {
-        $this->allowDefault = $allowDefault;
+        $this->allowSerializeEmpty = $allowSerializeEmpty;
     }
 
     /**
@@ -38,7 +38,7 @@ final class ObjectNode extends AbstractParentNode implements ObjectNodeSerialize
     /**
      * @return \stdClass
      */
-    public function getDefault(): \stdClass
+    public function serializeEmpty(): \stdClass
     {
         return new \stdClass();
     }
@@ -69,8 +69,8 @@ final class ObjectNode extends AbstractParentNode implements ObjectNodeSerialize
     {
         if (null !== $serializedChild = $child->serialize()) {
             $serialized->$key = $serializedChild;
-        } elseif ($child->isAllowDefault()) {
-            $serialized->$key = $child->getDefault();
+        } elseif ($child->isAllowSerializeEmpty()) {
+            $serialized->$key = $child->serializeEmpty();
         }
     }
 }

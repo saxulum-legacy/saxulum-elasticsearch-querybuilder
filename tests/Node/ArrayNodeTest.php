@@ -24,11 +24,11 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         self::assertSame($parent, $node->getParent());
     }
 
-    public function testGetDefault()
+    public function testSerializeEmpty()
     {
         $node = new ArrayNode();
 
-        self::assertEquals([], $node->getDefault());
+        self::assertEquals([], $node->serializeEmpty());
     }
 
     public function testSerialize()
@@ -56,7 +56,7 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
         self::assertNull($node->serialize());
     }
 
-    public function testSerializeWithScalarChildrenWithNullValueAndDefault()
+    public function testSerializeWithScalarChildrenWithNullValueAndSerializeEmpty()
     {
         $node = new ArrayNode();
         $node->add(new StringNode(null, true));

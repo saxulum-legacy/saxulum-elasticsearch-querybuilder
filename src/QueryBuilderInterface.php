@@ -50,31 +50,31 @@ interface QueryBuilderInterface extends ObjectNodeSerializeInterface
     public function end(): QueryBuilderInterface;
 
     /**
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      * @return ArrayNode
      */
-    public function arrayNode(bool $allowDefault = false): ArrayNode;
+    public function arrayNode(bool $allowSerializeEmpty = false): ArrayNode;
 
     /**
      * @param bool|null $value
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      * @return BoolNode
      */
-    public function boolNode($value = null, bool $allowDefault = false): BoolNode;
+    public function boolNode($value = null, bool $allowSerializeEmpty = false): BoolNode;
 
     /**
      * @param float|null $value
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      * @return FloatNode
      */
-    public function floatNode($value = null, bool $allowDefault = false): FloatNode;
+    public function floatNode($value = null, bool $allowSerializeEmpty = false): FloatNode;
 
     /**
      * @param int|null $value
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      * @return IntNode
      */
-    public function intNode($value = null, bool $allowDefault = false): IntNode;
+    public function intNode($value = null, bool $allowSerializeEmpty = false): IntNode;
 
     /**
      * @return NullNode
@@ -82,17 +82,17 @@ interface QueryBuilderInterface extends ObjectNodeSerializeInterface
     public function nullNode(): NullNode;
 
     /**
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      * @return ObjectNode
      */
-    public function objectNode(bool $allowDefault = false): ObjectNode;
+    public function objectNode(bool $allowSerializeEmpty = false): ObjectNode;
 
     /**
      * @param string|null $value
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      * @return StringNode
      */
-    public function stringNode($value = null, bool $allowDefault = false): StringNode;
+    public function stringNode($value = null, bool $allowSerializeEmpty = false): StringNode;
 
     /**
      * @param boolean $beautify

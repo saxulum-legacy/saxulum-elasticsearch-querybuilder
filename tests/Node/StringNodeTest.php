@@ -23,11 +23,11 @@ class StringNodeTest extends \PHPUnit_Framework_TestCase
         self::assertSame($parent, $node->getParent());
     }
 
-    public function testGetDefault()
+    public function testSerializeEmpty()
     {
         $node = new StringNode();
 
-        self::assertNull($node->getDefault());
+        self::assertNull($node->serializeEmpty());
     }
 
     public function testSerializeWithValue()

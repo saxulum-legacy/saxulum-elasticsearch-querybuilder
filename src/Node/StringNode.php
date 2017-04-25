@@ -13,18 +13,18 @@ final class StringNode extends AbstractNode
 
     /**
      * @param string|null $value
-     * @param bool $allowDefault
+     * @param bool $allowSerializeEmpty
      */
-    public function __construct(string $value = null, bool $allowDefault = false)
+    public function __construct(string $value = null, bool $allowSerializeEmpty = false)
     {
         $this->value = $value;
-        $this->allowDefault = $allowDefault;
+        $this->allowSerializeEmpty = $allowSerializeEmpty;
     }
 
     /**
      * @return null
      */
-    public function getDefault()
+    public function serializeEmpty()
     {
         return;
     }

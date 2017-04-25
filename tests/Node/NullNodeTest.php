@@ -23,11 +23,11 @@ class NullNodeTest extends \PHPUnit_Framework_TestCase
         self::assertSame($parent, $node->getParent());
     }
 
-    public function testGetDefault()
+    public function testSerializeEmpty()
     {
         $node = new NullNode();
 
-        self::assertNull($node->getDefault());
+        self::assertNull($node->serializeEmpty());
     }
 
     public function testSerializeWithNull()
