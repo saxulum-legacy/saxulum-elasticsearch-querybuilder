@@ -17,6 +17,13 @@ use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 interface QueryBuilderInterface extends ObjectNodeSerializeInterface
 {
     /**
+     * @param array ...$arguments
+     * @return QueryBuilderInterface
+     * @throws \Exception
+     */
+    public function add(...$arguments): QueryBuilderInterface;
+
+    /**
      * @param AbstractNode $node
      * @param bool         $allowDefault
      *

@@ -32,6 +32,20 @@ final class QueryBuilder implements QueryBuilderInterface
     }
 
     /**
+     * @param array ...$arguments
+     * @return QueryBuilderInterface
+     * @throws \Exception
+     */
+    public function add(...$arguments): QueryBuilderInterface
+    {
+        if ($this->node instanceof ObjectNode) {
+            return $this->addToObjectNode(...$arguments);
+        }
+
+        return $this->addToArrayNode(...$arguments);
+    }
+
+    /**
      * @param AbstractNode $node
      * @param bool         $allowDefault
      *
