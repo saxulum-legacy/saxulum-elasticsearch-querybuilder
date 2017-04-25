@@ -12,6 +12,11 @@ abstract class AbstractNode
     protected $parent;
 
     /**
+     * @var bool
+     */
+    protected $allowDefault;
+
+    /**
      * @param AbstractParentNode $parent
      *
      * @throws \InvalidArgumentException
@@ -31,6 +36,14 @@ abstract class AbstractNode
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAllowDefault(): bool
+    {
+        return $this->allowDefault;
     }
 
     /**

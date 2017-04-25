@@ -13,12 +13,17 @@ final class StringNode extends AbstractNode
 
     /**
      * @param string|null $value
+     * @param bool $allowDefault
      */
-    public function __construct(string $value = null)
+    public function __construct(string $value = null, bool $allowDefault = false)
     {
         $this->value = $value;
+        $this->allowDefault = $allowDefault;
     }
 
+    /**
+     * @return null
+     */
     public function getDefault()
     {
         return;

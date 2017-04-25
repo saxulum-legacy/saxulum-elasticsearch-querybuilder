@@ -9,8 +9,8 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\BoolNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\FloatNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\IntNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\NullNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 final class QueryBuilder implements QueryBuilderInterface
@@ -47,19 +47,18 @@ final class QueryBuilder implements QueryBuilderInterface
 
     /**
      * @param AbstractNode $node
-     * @param bool         $allowDefault
      *
      * @return QueryBuilderInterface
      *
      * @throws \Exception
      */
-    public function addToArrayNode(AbstractNode $node, bool $allowDefault = false): QueryBuilderInterface
+    public function addToArrayNode(AbstractNode $node): QueryBuilderInterface
     {
         if (!$this->node instanceof ArrayNode) {
             throw new \Exception(sprintf('You cannot call %s on node type: %s', __FUNCTION__, get_class($this->node)));
         }
 
-        $this->node->add($node, $allowDefault);
+        $this->node->add($node);
         $this->reassignParent($node);
 
         return $this;
@@ -68,19 +67,18 @@ final class QueryBuilder implements QueryBuilderInterface
     /**
      * @param string       $key
      * @param AbstractNode $node
-     * @param bool         $allowDefault
      *
      * @return QueryBuilderInterface
      *
      * @throws \Exception
      */
-    public function addToObjectNode(string $key, AbstractNode $node, bool $allowDefault = false): QueryBuilderInterface
+    public function addToObjectNode(string $key, AbstractNode $node): QueryBuilderInterface
     {
         if (!$this->node instanceof ObjectNode) {
             throw new \Exception(sprintf('You cannot call %s on node type: %s', __FUNCTION__, get_class($this->node)));
         }
 
-        $this->node->add($key, $node, $allowDefault);
+        $this->node->add($key, $node);
         $this->reassignParent($node);
 
         return $this;
@@ -111,65 +109,69 @@ final class QueryBuilder implements QueryBuilderInterface
     }
 
     /**
+     * @param bool $allowDefault
      * @return ArrayNode
      */
-    public function arrayNode(): ArrayNode
+    public function arrayNode(bool $allowDefault = false): ArrayNode
     {
-        return new ArrayNode();
+        return new ArrayNode($allowDefault);
     }
 
-        /**
-     * @param bool|null
+    /**
+     * @param bool|null $value
+     * @param bool $allowDefault
      * @return BoolNode
      */
-    public function boolNode($value = null): BoolNode
+    public function boolNode($value = null, bool $allowDefault = false): BoolNode
     {
-        return new BoolNode($value);
+        return new BoolNode($value, $allowDefault);
     }
 
     /**
-     * @param float|null
+     * @param float|null $value
+     * @param bool $allowDefault
      * @return FloatNode
      */
-    public function floatNode($value = null): FloatNode
+    public function floatNode($value = null, bool $allowDefault = false): FloatNode
     {
-        return new FloatNode($value);
+        return new FloatNode($value, $allowDefault);
     }
 
     /**
-     * @param int|null
+     * @param int|null $value
+     * @param bool $allowDefault
      * @return IntNode
      */
-    public function intNode($value = null): IntNode
+    public function intNode($value = null, bool $allowDefault = false): IntNode
     {
-        return new IntNode($value);
+        return new IntNode($value, $allowDefault);
     }
 
     /**
+     * @return NullNode
+     */
+    public function nullNode(): NullNode
+    {
+        return new NullNode;
+    }
+
+    /**
+     * @param bool $allowDefault
      * @return ObjectNode
      */
-    public function objectNode(): ObjectNode
+    public function objectNode(bool $allowDefault = false): ObjectNode
     {
-        return new ObjectNode();
+        return new ObjectNode($allowDefault);
     }
 
     /**
-     * @deprecated use boolNode|floatNode|intNode|stringNode
-     * @param string|float|int|bool|null $value
-     * @return ScalarNode
-     */
-    public function scalarNode($value = null): ScalarNode
-    {
-        return new ScalarNode($value);
-    }
-
-    /**
-     * @param string|null
+     * @param string|null $value
+     * @param bool $allowDefault
      * @return StringNode
      */
-    public function stringNode($value = null): StringNode
+    public function stringNode($value = null, bool $allowDefault = false): StringNode
     {
-        return new StringNode($value);
+        return new StringNode($value, $allowDefault);
     }
 
     /**

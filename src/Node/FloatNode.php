@@ -13,12 +13,17 @@ final class FloatNode extends AbstractNode
 
     /**
      * @param float|null $value
+     * @param bool $allowDefault
      */
-    public function __construct(float $value = null)
+    public function __construct(float $value = null, bool $allowDefault = false)
     {
         $this->value = $value;
+        $this->allowDefault = $allowDefault;
     }
 
+    /**
+     * @return null
+     */
     public function getDefault()
     {
         return;

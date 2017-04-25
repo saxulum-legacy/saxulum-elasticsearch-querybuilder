@@ -7,18 +7,25 @@ namespace Saxulum\ElasticSearchQueryBuilder\Node;
 final class ArrayNode extends AbstractParentNode
 {
     /**
+     * @param bool $allowDefault
+     */
+    public function __construct(bool $allowDefault = false)
+    {
+        $this->allowDefault = $allowDefault;
+    }
+
+    /**
      * @param AbstractNode $node
-     * @param bool         $allowDefault
      *
      * @return $this
      *
      * @throws \InvalidArgumentException
      */
-    public function add(AbstractNode $node, bool $allowDefault = false)
+    public function add(AbstractNode $node)
     {
         $node->setParent($this);
 
-        $this->children[] = new NodeChildRelation($node, $allowDefault);
+        $this->children[] = $node;
 
         return $this;
     }
@@ -50,14 +57,14 @@ final class ArrayNode extends AbstractParentNode
 
     /**
      * @param array             $serialized
-     * @param NodeChildRelation $child
+     * @param AbstractNode $child
      */
-    private function serializeChild(array &$serialized, NodeChildRelation $child)
+    private function serializeChild(array &$serialized, AbstractNode $child)
     {
-        if (null !== $serializedChild = $child->getNode()->serialize()) {
+        if (null !== $serializedChild = $child->serialize()) {
             $serialized[] = $serializedChild;
         } elseif ($child->isAllowDefault()) {
-            $serialized[] = $child->getNode()->getDefault();
+            $serialized[] = $child->getDefault();
         }
     }
 }

@@ -2,9 +2,6 @@
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder;
 
-use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
 use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
 
 /**
@@ -17,7 +14,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         $qb = new QueryBuilder();
         $qb
             ->add('query', $qb->objectNode())
-                ->add('match_all', $qb->objectNode(), true)
+                ->add('match_all', $qb->objectNode(true))
         ;
 
         self::assertSame('{"query":{"match_all":{}}}', $qb->json());
@@ -179,6 +176,18 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         self::assertSame('{"query":{"term":{"is_published":true}}}', $qb->json());
     }
 
+    public function testNullNode()
+    {
+        $qb = new QueryBuilder();
+        $qb
+            ->add('query', $qb->objectNode())
+                ->add('term', $qb->objectNode())
+                    ->add('field', $qb->nullNode())
+        ;
+
+        self::assertSame('{"query":{"term":{"field":null}}}', $qb->json());
+    }
+
     public function testComplex()
     {
         $qb = new QueryBuilder();
@@ -277,17 +286,6 @@ EOD;
         ;
 
         self::assertSame('', $qb->json());
-    }
-
-    public function testDeprecatedScalarNode()
-    {
-        $qb = new QueryBuilder();
-        $qb
-            ->add('query', $qb->objectNode())
-                ->add('term', $qb->objectNode())
-                    ->add('field', $qb->scalarNode('value'));
-
-        self::assertSame('{"query":{"term":{"field":"value"}}}', $qb->json());
     }
 
     /**

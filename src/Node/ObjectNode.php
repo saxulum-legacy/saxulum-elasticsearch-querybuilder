@@ -7,15 +7,22 @@ namespace Saxulum\ElasticSearchQueryBuilder\Node;
 final class ObjectNode extends AbstractParentNode implements ObjectNodeSerializeInterface
 {
     /**
+     * @param bool $allowDefault
+     */
+    public function __construct(bool $allowDefault = false)
+    {
+        $this->allowDefault = $allowDefault;
+    }
+
+    /**
      * @param string       $key
      * @param AbstractNode $node
-     * @param bool         $allowDefault
      *
      * @return $this
      *
      * @throws \InvalidArgumentException
      */
-    public function add($key, AbstractNode $node, bool $allowDefault = false)
+    public function add($key, AbstractNode $node)
     {
         if (isset($this->children[$key])) {
             throw new \InvalidArgumentException(sprintf('There is already a node with key %s!', $key));
@@ -23,7 +30,7 @@ final class ObjectNode extends AbstractParentNode implements ObjectNodeSerialize
 
         $node->setParent($this);
 
-        $this->children[$key] = new NodeChildRelation($node, $allowDefault);
+        $this->children[$key] = $node;
 
         return $this;
     }
@@ -56,14 +63,14 @@ final class ObjectNode extends AbstractParentNode implements ObjectNodeSerialize
     /**
      * @param \stdClass         $serialized
      * @param string            $key
-     * @param NodeChildRelation $child
+     * @param AbstractNode $child
      */
-    private function serializeChild(\stdClass $serialized, string $key, NodeChildRelation $child)
+    private function serializeChild(\stdClass $serialized, string $key, AbstractNode $child)
     {
-        if (null !== $serializedChild = $child->getNode()->serialize()) {
+        if (null !== $serializedChild = $child->serialize()) {
             $serialized->$key = $serializedChild;
         } elseif ($child->isAllowDefault()) {
-            $serialized->$key = $child->getNode()->getDefault();
+            $serialized->$key = $child->getDefault();
         }
     }
 }

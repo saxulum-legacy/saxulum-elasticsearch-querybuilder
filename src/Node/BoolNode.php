@@ -13,12 +13,17 @@ final class BoolNode extends AbstractNode
 
     /**
      * @param bool|null $value
+     * @param bool
      */
-    public function __construct(bool $value = null)
+    public function __construct(bool $value = null, bool $allowDefault = false)
     {
         $this->value = $value;
+        $this->allowDefault = $allowDefault;
     }
 
+    /**
+     * @return null
+     */
     public function getDefault()
     {
         return;

@@ -7,7 +7,7 @@ namespace Saxulum\ElasticSearchQueryBuilder\Node;
 abstract class AbstractParentNode extends AbstractNode
 {
     /**
-     * @var NodeChildRelation[]|array
+     * @var AbstractNode[]|array
      */
     protected $children = [];
 }

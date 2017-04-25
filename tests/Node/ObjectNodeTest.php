@@ -3,7 +3,7 @@
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Node;
 
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 /**
  * @covers \Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode
@@ -41,8 +41,8 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     public function testSerializeWithScalarChildren()
     {
         $node = new ObjectNode();
-        $node->add('key1', new ScalarNode('value1'));
-        $node->add('key2', new ScalarNode('value2'));
+        $node->add('key1', new StringNode('value1'));
+        $node->add('key2', new StringNode('value2'));
 
         $serialzed = new \stdClass();
         $serialzed->key1 = 'value1';
@@ -54,8 +54,8 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     public function testSerializeWithScalarChildrenWithNullValue()
     {
         $node = new ObjectNode();
-        $node->add('key1', new ScalarNode());
-        $node->add('key2', new ScalarNode());
+        $node->add('key1', new StringNode());
+        $node->add('key2', new StringNode());
 
         self::assertNull($node->serialize());
     }
@@ -63,8 +63,8 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     public function testSerializeWithScalarChildrenWithNullValueAndDefault()
     {
         $node = new ObjectNode();
-        $node->add('key1', new ScalarNode(), true);
-        $node->add('key2', new ScalarNode(), true);
+        $node->add('key1', new StringNode(null, true));
+        $node->add('key2', new StringNode(null, true));
 
         $serialzed = new \stdClass();
         $serialzed->key1 = null;
@@ -81,7 +81,7 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     {
         $node = new ObjectNode();
 
-        $subNode = new ScalarNode('value');
+        $subNode = new StringNode('value');
 
         $node->add('key1', $subNode);
         $node->add('key2', $subNode);
@@ -95,8 +95,8 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
     {
         $node = new ObjectNode();
 
-        $subNode1 = new ScalarNode('value1');
-        $subNode2 = new ScalarNode('value2');
+        $subNode1 = new StringNode('value1');
+        $subNode2 = new StringNode('value2');
 
         $node->add('key1', $subNode1);
         $node->add('key1', $subNode2);

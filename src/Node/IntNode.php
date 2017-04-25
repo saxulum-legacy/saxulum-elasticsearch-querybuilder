@@ -13,12 +13,17 @@ final class IntNode extends AbstractNode
 
     /**
      * @param int|null $value
+     * @param bool $allowDefault
      */
-    public function __construct(int $value = null)
+    public function __construct(int $value = null, bool $allowDefault = false)
     {
         $this->value = $value;
+        $this->allowDefault = $allowDefault;
     }
 
+    /**
+     * @return null
+     */
     public function getDefault()
     {
         return;

@@ -3,7 +3,7 @@
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Node;
 
 use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
-use Saxulum\ElasticSearchQueryBuilder\Node\ScalarNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
 /**
  * @covers \Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode
@@ -41,8 +41,8 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     public function testSerializeWithScalarChildren()
     {
         $node = new ArrayNode();
-        $node->add(new ScalarNode('value1'));
-        $node->add(new ScalarNode('value2'));
+        $node->add(new StringNode('value1'));
+        $node->add(new StringNode('value2'));
 
         self::assertEquals(['value1', 'value2'], $node->serialize());
     }
@@ -50,8 +50,8 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     public function testSerializeWithScalarChildrenWithNullValue()
     {
         $node = new ArrayNode();
-        $node->add(new ScalarNode());
-        $node->add(new ScalarNode());
+        $node->add(new StringNode());
+        $node->add(new StringNode());
 
         self::assertNull($node->serialize());
     }
@@ -59,8 +59,8 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     public function testSerializeWithScalarChildrenWithNullValueAndDefault()
     {
         $node = new ArrayNode();
-        $node->add(new ScalarNode(), true);
-        $node->add(new ScalarNode(), true);
+        $node->add(new StringNode(null, true));
+        $node->add(new StringNode(null, true));
 
         self::assertEquals([null, null], $node->serialize());
     }
@@ -73,7 +73,7 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
     {
         $node = new ArrayNode();
 
-        $subNode = new ScalarNode('value');
+        $subNode = new StringNode('value');
 
         $node->add($subNode);
         $node->add($subNode);
