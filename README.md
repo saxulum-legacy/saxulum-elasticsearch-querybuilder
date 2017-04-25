@@ -75,46 +75,6 @@ $qb
 echo $qb->json(true);
 ```
 
-#### Important methods
-
-##### addToArrayNode
-
-
-```php
-/**
- * @param AbstractNode $node
- * @param bool         $allowDefault
- *
- * @return QueryBuilderInterface
- *
- * @throws \Exception
- */
-public function addToArrayNode(
-    AbstractNode $node,
-    bool $allowDefault = false
-): QueryBuilderInterface;
-```
-
-##### addToObjectNode
-
-
-```php
-/**
- * @param string       $key
- * @param AbstractNode $node
- * @param bool         $allowDefault
- *
- * @return QueryBuilderInterface
- *
- * @throws \Exception
- */
-public function addToObjectNode(
-    string $key,
-    AbstractNode $node,
-    bool $allowDefault = false
-): QueryBuilderInterface;
-```
-
 ### Other samples
 
  * [Queries with QueryBuilder][2]
