@@ -7,7 +7,7 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 
 $node = (new ObjectNode())
     ->add('query', (new ObjectNode())
-        ->add('match_all', new ObjectNode(), true)
+        ->add('match_all', new ObjectNode(true))
     );
 
 echo json_encode($node->serialize());
