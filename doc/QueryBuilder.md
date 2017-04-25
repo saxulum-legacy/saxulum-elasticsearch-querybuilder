@@ -8,7 +8,7 @@ use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
 $qb = new QueryBuilder();
 $qb
     ->add('query', $qb->objectNode())
-        ->add('match_all', $qb->objectNode(), true)
+        ->add('match_all', $qb->objectNode(true))
 ;
 
 echo $qb->json();
