@@ -27,7 +27,7 @@ final class QueryBuilder implements QueryBuilderInterface
 
     public function __construct()
     {
-        $this->rootNode = new ObjectNode();
+        $this->rootNode = ObjectNode::create();
         $this->node = $this->rootNode;
     }
 
@@ -114,7 +114,7 @@ final class QueryBuilder implements QueryBuilderInterface
      */
     public function arrayNode(bool $allowSerializeEmpty = false): ArrayNode
     {
-        return new ArrayNode($allowSerializeEmpty);
+        return ArrayNode::create($allowSerializeEmpty);
     }
 
     /**
@@ -124,7 +124,7 @@ final class QueryBuilder implements QueryBuilderInterface
      */
     public function boolNode($value = null, bool $allowSerializeEmpty = false): BoolNode
     {
-        return new BoolNode($value, $allowSerializeEmpty);
+        return BoolNode::create($value, $allowSerializeEmpty);
     }
 
     /**
@@ -134,7 +134,7 @@ final class QueryBuilder implements QueryBuilderInterface
      */
     public function floatNode($value = null, bool $allowSerializeEmpty = false): FloatNode
     {
-        return new FloatNode($value, $allowSerializeEmpty);
+        return FloatNode::create($value, $allowSerializeEmpty);
     }
 
     /**
@@ -144,7 +144,7 @@ final class QueryBuilder implements QueryBuilderInterface
      */
     public function intNode($value = null, bool $allowSerializeEmpty = false): IntNode
     {
-        return new IntNode($value, $allowSerializeEmpty);
+        return IntNode::create($value, $allowSerializeEmpty);
     }
 
     /**
@@ -152,7 +152,7 @@ final class QueryBuilder implements QueryBuilderInterface
      */
     public function nullNode(): NullNode
     {
-        return new NullNode;
+        return NullNode::create();
     }
 
     /**
@@ -161,7 +161,7 @@ final class QueryBuilder implements QueryBuilderInterface
      */
     public function objectNode(bool $allowSerializeEmpty = false): ObjectNode
     {
-        return new ObjectNode($allowSerializeEmpty);
+        return ObjectNode::create($allowSerializeEmpty);
     }
 
     /**
@@ -171,7 +171,7 @@ final class QueryBuilder implements QueryBuilderInterface
      */
     public function stringNode($value = null, bool $allowSerializeEmpty = false): StringNode
     {
-        return new StringNode($value, $allowSerializeEmpty);
+        return StringNode::create($value, $allowSerializeEmpty);
     }
 
     /**

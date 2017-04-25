@@ -13,11 +13,11 @@ class BoolNodeTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetParent()
     {
-        $node = new BoolNode();
+        $node = BoolNode::create();
 
         self::assertNull($node->getParent());
 
-        $parent = new ObjectNode();
+        $parent = ObjectNode::create();
         $node->setParent($parent);
 
         self::assertSame($parent, $node->getParent());
@@ -25,21 +25,21 @@ class BoolNodeTest extends \PHPUnit_Framework_TestCase
 
     public function testSerializeEmpty()
     {
-        $node = new BoolNode();
+        $node = BoolNode::create();
 
         self::assertNull($node->serializeEmpty());
     }
 
     public function testSerializeWithValue()
     {
-        $node = new BoolNode(true);
+        $node = BoolNode::create(true);
 
         self::assertTrue($node->serialize());
     }
 
     public function testSerializeWithNull()
     {
-        $node = new BoolNode();
+        $node = BoolNode::create();
 
         self::assertNull($node->serialize());
     }

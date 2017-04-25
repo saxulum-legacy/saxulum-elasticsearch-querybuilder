@@ -14,11 +14,15 @@ final class StringNode extends AbstractNode
     /**
      * @param string|null $value
      * @param bool $allowSerializeEmpty
+     * @return StringNode
      */
-    public function __construct(string $value = null, bool $allowSerializeEmpty = false)
+    public static function create(string $value = null, bool $allowSerializeEmpty = false): StringNode
     {
-        $this->value = $value;
-        $this->allowSerializeEmpty = $allowSerializeEmpty;
+        $node = new self;
+        $node->value = $value;
+        $node->allowSerializeEmpty = $allowSerializeEmpty;
+
+        return $node;
     }
 
     /**

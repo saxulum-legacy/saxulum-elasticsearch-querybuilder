@@ -13,11 +13,11 @@ class NullNodeTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetParent()
     {
-        $node = new NullNode();
+        $node = NullNode::create();
 
         self::assertNull($node->getParent());
 
-        $parent = new ObjectNode();
+        $parent = ObjectNode::create();
         $node->setParent($parent);
 
         self::assertSame($parent, $node->getParent());
@@ -25,14 +25,14 @@ class NullNodeTest extends \PHPUnit_Framework_TestCase
 
     public function testSerializeEmpty()
     {
-        $node = new NullNode();
+        $node = NullNode::create();
 
         self::assertNull($node->serializeEmpty());
     }
 
     public function testSerializeWithNull()
     {
-        $node = new NullNode();
+        $node = NullNode::create();
 
         self::assertNull($node->serialize());
     }

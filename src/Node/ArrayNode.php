@@ -8,10 +8,14 @@ final class ArrayNode extends AbstractParentNode
 {
     /**
      * @param bool $allowSerializeEmpty
+     * @return ArrayNode
      */
-    public function __construct(bool $allowSerializeEmpty = false)
+    public static function create(bool $allowSerializeEmpty = false): ArrayNode
     {
-        $this->allowSerializeEmpty = $allowSerializeEmpty;
+        $node = new self;
+        $node->allowSerializeEmpty = $allowSerializeEmpty;
+
+        return $node;
     }
 
     /**

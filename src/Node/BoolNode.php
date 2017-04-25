@@ -13,12 +13,16 @@ final class BoolNode extends AbstractNode
 
     /**
      * @param bool|null $value
-     * @param bool
+     * @param bool $allowSerializeEmpty
+     * @return BoolNode
      */
-    public function __construct(bool $value = null, bool $allowSerializeEmpty = false)
+    public static function create(bool $value = null, bool $allowSerializeEmpty = false): BoolNode
     {
-        $this->value = $value;
-        $this->allowSerializeEmpty = $allowSerializeEmpty;
+        $node = new self;
+        $node->value = $value;
+        $node->allowSerializeEmpty = $allowSerializeEmpty;
+
+        return $node;
     }
 
     /**

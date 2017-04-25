@@ -13,11 +13,11 @@ class StringNodeTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetParent()
     {
-        $node = new StringNode();
+        $node = StringNode::create();
 
         self::assertNull($node->getParent());
 
-        $parent = new ObjectNode();
+        $parent = ObjectNode::create();
         $node->setParent($parent);
 
         self::assertSame($parent, $node->getParent());
@@ -25,21 +25,21 @@ class StringNodeTest extends \PHPUnit_Framework_TestCase
 
     public function testSerializeEmpty()
     {
-        $node = new StringNode();
+        $node = StringNode::create();
 
         self::assertNull($node->serializeEmpty());
     }
 
     public function testSerializeWithValue()
     {
-        $node = new StringNode('value');
+        $node = StringNode::create('value');
 
         self::assertSame('value', $node->serialize());
     }
 
     public function testSerializeWithNull()
     {
-        $node = new StringNode();
+        $node = StringNode::create();
 
         self::assertNull($node->serialize());
     }

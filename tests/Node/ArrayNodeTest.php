@@ -14,11 +14,11 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetParent()
     {
-        $node = new ArrayNode();
+        $node = ArrayNode::create();
 
         self::assertNull($node->getParent());
 
-        $parent = new ArrayNode();
+        $parent = ArrayNode::create();
         $node->setParent($parent);
 
         self::assertSame($parent, $node->getParent());
@@ -26,41 +26,41 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
 
     public function testSerializeEmpty()
     {
-        $node = new ArrayNode();
+        $node = ArrayNode::create();
 
         self::assertEquals([], $node->serializeEmpty());
     }
 
     public function testSerialize()
     {
-        $node = new ArrayNode();
+        $node = ArrayNode::create();
 
         self::assertNull($node->serialize());
     }
 
     public function testSerializeWithScalarChildren()
     {
-        $node = new ArrayNode();
-        $node->add(new StringNode('value1'));
-        $node->add(new StringNode('value2'));
+        $node = ArrayNode::create();
+        $node->add(StringNode::create('value1'));
+        $node->add(StringNode::create('value2'));
 
         self::assertEquals(['value1', 'value2'], $node->serialize());
     }
 
     public function testSerializeWithScalarChildrenWithNullValue()
     {
-        $node = new ArrayNode();
-        $node->add(new StringNode());
-        $node->add(new StringNode());
+        $node = ArrayNode::create();
+        $node->add(StringNode::create());
+        $node->add(StringNode::create());
 
         self::assertNull($node->serialize());
     }
 
     public function testSerializeWithScalarChildrenWithNullValueAndSerializeEmpty()
     {
-        $node = new ArrayNode();
-        $node->add(new StringNode(null, true));
-        $node->add(new StringNode(null, true));
+        $node = ArrayNode::create();
+        $node->add(StringNode::create(null, true));
+        $node->add(StringNode::create(null, true));
 
         self::assertEquals([null, null], $node->serialize());
     }
@@ -71,9 +71,9 @@ class ArrayNodeTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddSameNodeTwice()
     {
-        $node = new ArrayNode();
+        $node = ArrayNode::create();
 
-        $subNode = new StringNode('value');
+        $subNode = StringNode::create('value');
 
         $node->add($subNode);
         $node->add($subNode);

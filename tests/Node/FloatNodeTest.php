@@ -13,11 +13,11 @@ class FloatNodeTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetParent()
     {
-        $node = new FloatNode();
+        $node = FloatNode::create();
 
         self::assertNull($node->getParent());
 
-        $parent = new ObjectNode();
+        $parent = ObjectNode::create();
         $node->setParent($parent);
 
         self::assertSame($parent, $node->getParent());
@@ -25,21 +25,21 @@ class FloatNodeTest extends \PHPUnit_Framework_TestCase
 
     public function testSerializeEmpty()
     {
-        $node = new FloatNode();
+        $node = FloatNode::create();
 
         self::assertNull($node->serializeEmpty());
     }
 
     public function testSerializeWithValue()
     {
-        $node = new FloatNode(1.0);
+        $node = FloatNode::create(1.0);
 
         self::assertSame(1.0, $node->serialize());
     }
 
     public function testSerializeWithNull()
     {
-        $node = new FloatNode();
+        $node = FloatNode::create();
 
         self::assertNull($node->serialize());
     }

@@ -14,11 +14,11 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetParent()
     {
-        $node = new ObjectNode();
+        $node = ObjectNode::create();
 
         self::assertNull($node->getParent());
 
-        $parent = new ObjectNode();
+        $parent = ObjectNode::create();
         $node->setParent($parent);
 
         self::assertSame($parent, $node->getParent());
@@ -26,23 +26,23 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
 
     public function testSerializeEmpty()
     {
-        $node = new ObjectNode();
+        $node = ObjectNode::create();
 
         self::assertEquals(new \stdClass(), $node->serializeEmpty());
     }
 
     public function testSerialize()
     {
-        $node = new ObjectNode();
+        $node = ObjectNode::create();
 
         self::assertNull($node->serialize());
     }
 
     public function testSerializeWithScalarChildren()
     {
-        $node = new ObjectNode();
-        $node->add('key1', new StringNode('value1'));
-        $node->add('key2', new StringNode('value2'));
+        $node = ObjectNode::create();
+        $node->add('key1', StringNode::create('value1'));
+        $node->add('key2', StringNode::create('value2'));
 
         $serialzed = new \stdClass();
         $serialzed->key1 = 'value1';
@@ -53,18 +53,18 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
 
     public function testSerializeWithScalarChildrenWithNullValue()
     {
-        $node = new ObjectNode();
-        $node->add('key1', new StringNode());
-        $node->add('key2', new StringNode());
+        $node = ObjectNode::create();
+        $node->add('key1', StringNode::create());
+        $node->add('key2', StringNode::create());
 
         self::assertNull($node->serialize());
     }
 
     public function testSerializeWithScalarChildrenWithNullValueAndSerializeEmpty()
     {
-        $node = new ObjectNode();
-        $node->add('key1', new StringNode(null, true));
-        $node->add('key2', new StringNode(null, true));
+        $node = ObjectNode::create();
+        $node->add('key1', StringNode::create(null, true));
+        $node->add('key2', StringNode::create(null, true));
 
         $serialzed = new \stdClass();
         $serialzed->key1 = null;
@@ -79,9 +79,9 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddSameNodeTwice()
     {
-        $node = new ObjectNode();
+        $node = ObjectNode::create();
 
-        $subNode = new StringNode('value');
+        $subNode = StringNode::create('value');
 
         $node->add('key1', $subNode);
         $node->add('key2', $subNode);
@@ -93,10 +93,10 @@ class ObjectNodeTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddSameNameTwice()
     {
-        $node = new ObjectNode();
+        $node = ObjectNode::create();
 
-        $subNode1 = new StringNode('value1');
-        $subNode2 = new StringNode('value2');
+        $subNode1 = StringNode::create('value1');
+        $subNode2 = StringNode::create('value2');
 
         $node->add('key1', $subNode1);
         $node->add('key1', $subNode2);

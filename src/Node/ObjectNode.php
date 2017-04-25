@@ -8,10 +8,14 @@ final class ObjectNode extends AbstractParentNode implements ObjectNodeSerialize
 {
     /**
      * @param bool $allowSerializeEmpty
+     * @return ObjectNode
      */
-    public function __construct(bool $allowSerializeEmpty = false)
+    public static function create(bool $allowSerializeEmpty = false): ObjectNode
     {
-        $this->allowSerializeEmpty = $allowSerializeEmpty;
+        $node = new self;
+        $node->allowSerializeEmpty = $allowSerializeEmpty;
+
+        return $node;
     }
 
     /**

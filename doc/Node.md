@@ -5,9 +5,9 @@
 ```php
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 
-$node = (new ObjectNode())
-    ->add('query', (new ObjectNode())
-        ->add('match_all', new ObjectNode(true))
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('match_all', ObjectNode::create(true))
     );
 
 echo json_encode($node->serialize());
@@ -23,10 +23,10 @@ echo json_encode($node->serialize());
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
-$node = (new ObjectNode())
-    ->add('query', (new ObjectNode())
-        ->add('match', (new ObjectNode())
-            ->add('title', new StringNode('elasticsearch'))
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('match', ObjectNode::create()
+            ->add('title', StringNode::create('elasticsearch'))
         )
     );
 
@@ -43,12 +43,12 @@ echo json_encode($node->serialize());
 use Saxulum\ElasticSearchQueryBuilder\Node\IntNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 
-$node = (new ObjectNode())
-    ->add('query', (new ObjectNode())
-        ->add('range', (new ObjectNode())
-            ->add('elements', (new ObjectNode())
-                ->add('gte', new IntNode(10))
-                ->add('lte', new IntNode(20))
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('range', ObjectNode::create()
+            ->add('elements', ObjectNode::create()
+                ->add('gte', IntNode::create(10))
+                ->add('lte', IntNode::create(20))
             )
         )
     );
@@ -66,10 +66,10 @@ echo json_encode($node->serialize());
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
-$node = (new ObjectNode())
-    ->add('query', (new ObjectNode())
-        ->add('exists', (new ObjectNode())
-            ->add('field', new StringNode('text'))
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('exists', ObjectNode::create()
+            ->add('field', StringNode::create('text'))
         )
     );
 
@@ -86,13 +86,13 @@ echo json_encode($node->serialize());
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
-$node = (new ObjectNode())
-    ->add('query', (new ObjectNode())
-        ->add('bool', (new ObjectNode())
-            ->add('must_not', (new ArrayNode())
-                ->add((new ObjectNode())
-                    ->add('exists', (new ObjectNode())
-                        ->add('field', new StringNode('text'))
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('bool', ObjectNode::create()
+            ->add('must_not', ArrayNode::create()
+                ->add(ObjectNode::create()
+                    ->add('exists', ObjectNode::create()
+                        ->add('field', StringNode::create('text'))
                     )
                 )
             )
@@ -112,10 +112,10 @@ echo json_encode($node->serialize());
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
-$node = (new ObjectNode())
-    ->add('query', (new ObjectNode())
-        ->add('prefix', (new ObjectNode())
-            ->add('title', new StringNode('elastic'))
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('prefix', ObjectNode::create()
+            ->add('title', StringNode::create('elastic'))
         )
     );
 
@@ -132,10 +132,10 @@ echo json_encode($node->serialize());
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
-$node = (new ObjectNode())
-    ->add('query', (new ObjectNode())
-        ->add('wildcard', (new ObjectNode())
-            ->add('title', new StringNode('ela*c'))
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('wildcard', ObjectNode::create()
+            ->add('title', StringNode::create('ela*c'))
         )
     );
 
@@ -152,10 +152,10 @@ echo json_encode($node->serialize());
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
-$node = (new ObjectNode())
-    ->add('query', (new ObjectNode())
-        ->add('regexp', (new ObjectNode())
-            ->add('title', new StringNode('search$'))
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('regexp', ObjectNode::create()
+            ->add('title', StringNode::create('search$'))
         )
     );
 
@@ -173,12 +173,12 @@ use Saxulum\ElasticSearchQueryBuilder\Node\IntNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
-$node = (new ObjectNode())
-    ->add('query', (new ObjectNode())
-        ->add('fuzzy', (new ObjectNode())
-            ->add('title', (new ObjectNode())
-                ->add('value', new StringNode('sea'))
-                ->add('fuzziness', new IntNode(2))
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('fuzzy', ObjectNode::create()
+            ->add('title', ObjectNode::create()
+                ->add('value', StringNode::create('sea'))
+                ->add('fuzziness', IntNode::create(2))
             )
         )
     );
@@ -196,10 +196,10 @@ echo json_encode($node->serialize());
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
-$node = (new ObjectNode())
-    ->add('query', (new ObjectNode())
-        ->add('type', (new ObjectNode())
-            ->add('value', new StringNode('product'))
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('type', ObjectNode::create()
+            ->add('value', StringNode::create('product'))
         )
     );
 
@@ -218,13 +218,13 @@ use Saxulum\ElasticSearchQueryBuilder\Node\IntNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
-$node = (new ObjectNode())
-    ->add('query', (new ObjectNode())
-        ->add('ids', (new ObjectNode())
-            ->add('type', (new StringNode('product')))
-            ->add('values', (new ArrayNode())
-                ->add(new IntNode(1))
-                ->add(new IntNode(2))
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('ids', ObjectNode::create()
+            ->add('type', (StringNode::create('product')))
+            ->add('values', ArrayNode::create()
+                ->add(IntNode::create(1))
+                ->add(IntNode::create(2))
             )
         )
     );
@@ -242,10 +242,10 @@ echo json_encode($node->serialize());
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\BoolNode;
 
-$node = (new ObjectNode())
-    ->add('query', (new ObjectNode())
-        ->add('term', (new ObjectNode())
-            ->add('is_published', (new BoolNode(true)))
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('term', ObjectNode::create()
+            ->add('is_published', (BoolNode::create(true)))
         )
     );
 
@@ -265,41 +265,41 @@ use Saxulum\ElasticSearchQueryBuilder\Node\IntNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
-$node = (new ObjectNode())
-    ->add('query', (new ObjectNode())
-        ->add('bool', (new ObjectNode())
-            ->add('must', (new ObjectNode())
-                ->add('term', (new ObjectNode())
-                    ->add('user', new StringNode('kimchy'))
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('bool', ObjectNode::create()
+            ->add('must', ObjectNode::create()
+                ->add('term', ObjectNode::create()
+                    ->add('user', StringNode::create('kimchy'))
                 )
             )
-            ->add('filter', (new ObjectNode())
-                ->add('term', (new ObjectNode())
-                    ->add('tag', new StringNode('tech'))
+            ->add('filter', ObjectNode::create()
+                ->add('term', ObjectNode::create()
+                    ->add('tag', StringNode::create('tech'))
                 )
             )
-            ->add('must_not', (new ObjectNode())
-                ->add('range', (new ObjectNode())
-                    ->add('age', (new ObjectNode())
-                        ->add('from', new IntNode(10))
-                        ->add('to', new IntNode(20))
+            ->add('must_not', ObjectNode::create()
+                ->add('range', ObjectNode::create()
+                    ->add('age', ObjectNode::create()
+                        ->add('from', IntNode::create(10))
+                        ->add('to', IntNode::create(20))
                     )
                 )
             )
-            ->add('should', (new ArrayNode())
-                ->add((new ObjectNode())
-                    ->add('term', (new ObjectNode())
-                        ->add('tag', new StringNode('wow'))
+            ->add('should', ArrayNode::create()
+                ->add(ObjectNode::create()
+                    ->add('term', ObjectNode::create()
+                        ->add('tag', StringNode::create('wow'))
                     )
                 )
-                ->add((new ObjectNode())
-                    ->add('term', (new ObjectNode())
-                        ->add('tag', new StringNode('elasticsearch'))
+                ->add(ObjectNode::create()
+                    ->add('term', ObjectNode::create()
+                        ->add('tag', StringNode::create('elasticsearch'))
                     )
                 )
             )
-            ->add('minimum_should_match', new IntNode(1))
-            ->add('boost', new FloatNode(1.1))
+            ->add('minimum_should_match', IntNode::create(1))
+            ->add('boost', FloatNode::create(1.1))
         )
     );
 

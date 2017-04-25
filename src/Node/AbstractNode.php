@@ -16,6 +16,10 @@ abstract class AbstractNode
      */
     protected $allowSerializeEmpty;
 
+    protected function __construct()
+    {
+    }
+
     /**
      * @param AbstractParentNode $parent
      *
