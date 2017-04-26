@@ -77,4 +77,21 @@ final class ObjectNode extends AbstractParentNode implements ObjectNodeSerialize
             $serialized->$key = $child->serializeEmpty();
         }
     }
+
+    /**
+     * @param boolean $beautify
+     * @return string
+     */
+    public function json(bool $beautify = false): string
+    {
+        if (null === $serialized = $this->serialize()) {
+            return '';
+        }
+
+        if ($beautify) {
+            return json_encode($serialized, JSON_PRETTY_PRINT);
+        }
+
+        return json_encode($serialized);
+    }
 }
