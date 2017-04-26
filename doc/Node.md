@@ -10,7 +10,7 @@ $node = ObjectNode::create()
         ->add('match_all', ObjectNode::create(true))
     );
 
-echo json_encode($node->serialize());
+echo $node->json();
 ```
 
 ```json
@@ -30,7 +30,7 @@ $node = ObjectNode::create()
         )
     );
 
-echo json_encode($node->serialize());
+echo $node->json();
 ```
 
 ```json
@@ -53,7 +53,7 @@ $node = ObjectNode::create()
         )
     );
 
-echo json_encode($node->serialize());
+echo $node->json();
 ```
 
 ```json
@@ -73,7 +73,7 @@ $node = ObjectNode::create()
         )
     );
 
-echo json_encode($node->serialize());
+echo $node->json();
 ```
 
 ```json
@@ -99,7 +99,7 @@ $node = ObjectNode::create()
         )
     );
 
-echo json_encode($node->serialize());
+echo $node->json();
 ```
 
 ```json
@@ -119,7 +119,7 @@ $node = ObjectNode::create()
         )
     );
 
-echo json_encode($node->serialize());
+echo $node->json();
 ```
 
 ```json
@@ -139,7 +139,7 @@ $node = ObjectNode::create()
         )
     );
 
-echo json_encode($node->serialize());
+echo $node->json();
 ```
 
 ```json
@@ -159,7 +159,7 @@ $node = ObjectNode::create()
         )
     );
 
-echo json_encode($node->serialize());
+echo $node->json();
 ```
 
 ```json
@@ -183,7 +183,7 @@ $node = ObjectNode::create()
         )
     );
 
-echo json_encode($node->serialize());
+echo $node->json();
 ```
 
 ```json
@@ -203,7 +203,7 @@ $node = ObjectNode::create()
         )
     );
 
-echo json_encode($node->serialize());
+echo $node->json();
 ```
 
 ```json
@@ -221,7 +221,7 @@ use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 $node = ObjectNode::create()
     ->add('query', ObjectNode::create()
         ->add('ids', ObjectNode::create()
-            ->add('type', (StringNode::create('product')))
+            ->add('type', StringNode::create('product'))
             ->add('values', ArrayNode::create()
                 ->add(IntNode::create(1))
                 ->add(IntNode::create(2))
@@ -229,7 +229,7 @@ $node = ObjectNode::create()
         )
     );
 
-echo json_encode($node->serialize());
+echo $node->json();
 ```
 
 ```json
@@ -245,15 +245,35 @@ use Saxulum\ElasticSearchQueryBuilder\Node\BoolNode;
 $node = ObjectNode::create()
     ->add('query', ObjectNode::create()
         ->add('term', ObjectNode::create()
-            ->add('is_published', (BoolNode::create(true)))
+            ->add('is_published', BoolNode::create(true))
         )
     );
 
-echo json_encode($node->serialize());
+echo $node->json();
 ```
 
 ```json
 {"query":{"term":{"is_published":true}}}
+```
+
+## NullNode
+
+```php
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\BoolNode;
+
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('term', ObjectNode::create()
+            ->add('field', NullNode::create())
+        )
+    );
+
+echo $node->json();
+```
+
+```json
+{"query":{"term":{"field":null}}}
 ```
 
 ## Complex sample
@@ -303,8 +323,7 @@ $node = ObjectNode::create()
         )
     );
 
-
-echo json_encode($node->serialize(), JSON_PRETTY_PRINT);
+echo $node->json(true);
 ```
 
 ```json
