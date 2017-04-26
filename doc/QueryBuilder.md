@@ -237,6 +237,25 @@ echo $qb->json();
 {"query":{"term":{"is_published":true}}}
 ```
 
+## NullNode
+
+```php
+use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+
+$qb = new QueryBuilder();
+$qb
+    ->add('query', $qb->objectNode())
+        ->add('term', $qb->objectNode())
+            ->add('field', $qb->nullNode())
+;
+
+echo $qb->json();
+```
+
+```json
+{"query":{"term":{"field":null}}}
+```
+
 ## Complex sample
 
 ```php
