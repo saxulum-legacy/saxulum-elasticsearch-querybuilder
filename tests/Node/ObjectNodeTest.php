@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Node;
 
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
