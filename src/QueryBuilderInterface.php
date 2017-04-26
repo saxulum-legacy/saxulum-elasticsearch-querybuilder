@@ -93,10 +93,4 @@ interface QueryBuilderInterface extends ObjectNodeSerializeInterface
      * @return StringNode
      */
     public function stringNode($value = null, bool $allowSerializeEmpty = false): StringNode;
-
-    /**
-     * @param boolean $beautify
-     * @return string
-     */
-    public function json(bool $beautify = false): string;
 }
