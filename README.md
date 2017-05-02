@@ -16,7 +16,7 @@
 
 ## Suggests
 
- * saxulum/saxulum-elasticsearch-querybuilder-generator: ~1.0@dev
+ * saxulum/saxulum-elasticsearch-querybuilder-generator: ~1.0
 
 ## Installation
 
