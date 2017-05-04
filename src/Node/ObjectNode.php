@@ -26,7 +26,7 @@ final class ObjectNode extends AbstractParentNode implements ObjectNodeSerialize
      *
      * @throws \InvalidArgumentException
      */
-    public function add($key, AbstractNode $node)
+    public function add(string $key, AbstractNode $node)
     {
         if (isset($this->children[$key])) {
             throw new \InvalidArgumentException(sprintf('There is already a node with key %s!', $key));
@@ -65,11 +65,11 @@ final class ObjectNode extends AbstractParentNode implements ObjectNodeSerialize
     }
 
     /**
-     * @param \stdClass         $serialized
-     * @param string            $key
+     * @param \stdClass    $serialized
+     * @param string       $key
      * @param AbstractNode $child
      */
-    private function serializeChild(\stdClass $serialized, string $key, AbstractNode $child)
+    private function serializeChild(\stdClass $serialized, $key, AbstractNode $child)
     {
         if (null !== $serializedChild = $child->serialize()) {
             $serialized->$key = $serializedChild;
