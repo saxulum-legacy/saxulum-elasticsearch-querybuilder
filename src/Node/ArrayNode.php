@@ -18,6 +18,19 @@ final class ArrayNode extends AbstractParentNode
         return $node;
     }
 
+    public function __clone()
+    {
+        parent::__clone();
+
+        $children = $this->children;
+
+        $this->children = [];
+
+        foreach ($children as $node) {
+            $this->add(clone $node);
+        }
+    }
+
     /**
      * @param AbstractNode $node
      *

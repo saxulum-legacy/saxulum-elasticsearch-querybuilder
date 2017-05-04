@@ -312,6 +312,42 @@ EOD;
         self::assertSame('', $node->json());
     }
 
+    public function testClone()
+    {
+        $stringNode = StringNode::create('value');
+
+        $arrayNode = ArrayNode::create()
+            ->add($stringNode)
+        ;
+
+        $objectNode = ObjectNode::create()
+            ->add('key', $arrayNode);
+
+        $objectNodeClone1 = clone $objectNode;
+        $objectNodeClone2 = clone $objectNode;
+
+        self::assertNotSame($objectNode, $objectNodeClone1);
+        self::assertNotSame($objectNode, $objectNodeClone2);
+
+        $objectNodeReflection = new \ReflectionProperty(ObjectNode::class, 'children');
+        $objectNodeReflection->setAccessible(true);
+
+        $arrayNodeClone1 = $objectNodeReflection->getValue($objectNodeClone1)['key'];
+        $arrayNodeClone2 = $objectNodeReflection->getValue($objectNodeClone2)['key'];
+
+        self::assertNotSame($arrayNode, $arrayNodeClone1);
+        self::assertNotSame($arrayNode, $arrayNodeClone2);
+
+        $arrayNodeReflection = new \ReflectionProperty(ArrayNode::class, 'children');
+        $arrayNodeReflection->setAccessible(true);
+
+        $stringNodeClone1 = $arrayNodeReflection->getValue($arrayNodeClone1)[0];
+        $stringNodeClone2 = $arrayNodeReflection->getValue($arrayNodeClone2)[0];
+
+        self::assertNotSame($stringNode, $stringNodeClone1);
+        self::assertNotSame($stringNode, $stringNodeClone2);
+    }
+
     public function testDuplicateKeyOnObjectNode()
     {
         self::expectException(\InvalidArgumentException::class);

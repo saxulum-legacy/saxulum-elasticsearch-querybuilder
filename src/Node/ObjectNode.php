@@ -18,6 +18,19 @@ final class ObjectNode extends AbstractParentNode implements ObjectNodeSerialize
         return $node;
     }
 
+    public function __clone()
+    {
+        parent::__clone();
+
+        $children = $this->children;
+
+        $this->children = [];
+
+        foreach ($children as $key => $node) {
+            $this->add($key, clone $node);
+        }
+    }
+
     /**
      * @param string       $key
      * @param AbstractNode $node

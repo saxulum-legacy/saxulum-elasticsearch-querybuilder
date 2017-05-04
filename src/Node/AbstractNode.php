@@ -20,6 +20,11 @@ abstract class AbstractNode
     {
     }
 
+    public function __clone()
+    {
+        $this->parent = null;
+    }
+
     /**
      * @param AbstractParentNode $parent
      *
