@@ -79,7 +79,13 @@ echo $qb->json(true);
  * [Queries with QueryBuilder][2]
  * [Queries with Node][3]
 
+### Converter
+
+ * [Convert Iteratable to Node][4]
+ * [Convert Scalar to Node][5]
 
 [1]: https://packagist.org/packages/saxulum/saxulum-elasticsearch-querybuilder
 [2]: doc/QueryBuilder.md
 [3]: doc/Node.md
+[4]: doc/Converter/IteratableToNodeConverter.md
+[5]: doc/Converter/ScalarToNodeConverter.md
