@@ -312,6 +312,15 @@ EOD;
         self::assertSame('', $node->json());
     }
 
+    public function testArrayNodeWithAllowEmptySerializeChild()
+    {
+        $node = ArrayNode::create()
+            ->add(StringNode::create(null, true));
+        ;
+
+        self::assertSame([null], $node->serialize());
+    }
+
     public function testClone()
     {
         $stringNode = StringNode::create('value');
