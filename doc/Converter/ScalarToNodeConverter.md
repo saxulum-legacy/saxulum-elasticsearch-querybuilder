@@ -4,6 +4,7 @@
 
 ```php
 <?php
+
 use Saxulum\ElasticSearchQueryBuilder\Converter\ScalarToNodeConverter;
 use Saxulum\ElasticSearchQueryBuilder\Node\BoolNode;
 
@@ -15,6 +16,7 @@ $valueConverter->convert(true); // instanceof BoolNode::class
 
 ```php
 <?php
+
 use Saxulum\ElasticSearchQueryBuilder\Converter\ScalarToNodeConverter;
 use Saxulum\ElasticSearchQueryBuilder\Node\FloatNode;
 
@@ -26,6 +28,7 @@ $valueConverter->convert(1.234); // instanceof FloatNode::class
 
 ```php
 <?php
+
 use Saxulum\ElasticSearchQueryBuilder\Converter\ScalarToNodeConverter;
 use Saxulum\ElasticSearchQueryBuilder\Node\IntNode;
 
@@ -37,6 +40,7 @@ $valueConverter->convert(1); // instanceof IntNode::class
 
 ```php
 <?php
+
 use Saxulum\ElasticSearchQueryBuilder\Converter\ScalarToNodeConverter;
 use Saxulum\ElasticSearchQueryBuilder\Node\NullNode;
 
@@ -48,6 +52,7 @@ $valueConverter->convert(null); // instanceof NullNode::class
 
 ```php
 <?php
+
 use Saxulum\ElasticSearchQueryBuilder\Converter\ScalarToNodeConverter;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
