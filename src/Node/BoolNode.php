@@ -13,21 +13,19 @@ final class BoolNode extends AbstractNode
 
     /**
      * @param bool|null $value
-     * @param bool $allowSerializeEmpty
+     * @param bool      $allowSerializeEmpty
+     *
      * @return BoolNode
      */
     public static function create(bool $value = null, bool $allowSerializeEmpty = false): BoolNode
     {
-        $node = new self;
+        $node = new self();
         $node->value = $value;
         $node->allowSerializeEmpty = $allowSerializeEmpty;
 
         return $node;
     }
 
-    /**
-     * @return null
-     */
     public function serializeEmpty()
     {
         return;

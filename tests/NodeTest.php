@@ -307,7 +307,6 @@ EOD;
                     )
                 )
             );
-        ;
 
         self::assertSame('', $node->json());
     }
@@ -316,7 +315,6 @@ EOD;
     {
         $node = ArrayNode::create()
             ->add(StringNode::create(null, true));
-        ;
 
         self::assertSame([null], $node->serialize());
     }

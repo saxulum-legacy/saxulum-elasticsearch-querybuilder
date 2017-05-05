@@ -11,23 +11,17 @@ final class NullNode extends AbstractNode
      */
     public static function create(): NullNode
     {
-        $node = new self;
+        $node = new self();
         $node->allowSerializeEmpty = true;
 
         return $node;
     }
 
-    /**
-     * @return null
-     */
     public function serializeEmpty()
     {
         return;
     }
 
-    /**
-     * @return null
-     */
     public function serialize()
     {
         return;

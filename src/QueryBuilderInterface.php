@@ -18,7 +18,9 @@ interface QueryBuilderInterface extends ObjectNodeSerializeInterface
 {
     /**
      * @param array ...$arguments
+     *
      * @return QueryBuilderInterface
+     *
      * @throws \Exception
      */
     public function add(...$arguments): QueryBuilderInterface;
@@ -51,27 +53,31 @@ interface QueryBuilderInterface extends ObjectNodeSerializeInterface
 
     /**
      * @param bool $allowSerializeEmpty
+     *
      * @return ArrayNode
      */
     public function arrayNode(bool $allowSerializeEmpty = false): ArrayNode;
 
     /**
      * @param bool|null $value
-     * @param bool $allowSerializeEmpty
+     * @param bool      $allowSerializeEmpty
+     *
      * @return BoolNode
      */
     public function boolNode($value = null, bool $allowSerializeEmpty = false): BoolNode;
 
     /**
      * @param float|null $value
-     * @param bool $allowSerializeEmpty
+     * @param bool       $allowSerializeEmpty
+     *
      * @return FloatNode
      */
     public function floatNode($value = null, bool $allowSerializeEmpty = false): FloatNode;
 
     /**
      * @param int|null $value
-     * @param bool $allowSerializeEmpty
+     * @param bool     $allowSerializeEmpty
+     *
      * @return IntNode
      */
     public function intNode($value = null, bool $allowSerializeEmpty = false): IntNode;
@@ -83,13 +89,15 @@ interface QueryBuilderInterface extends ObjectNodeSerializeInterface
 
     /**
      * @param bool $allowSerializeEmpty
+     *
      * @return ObjectNode
      */
     public function objectNode(bool $allowSerializeEmpty = false): ObjectNode;
 
     /**
      * @param string|null $value
-     * @param bool $allowSerializeEmpty
+     * @param bool        $allowSerializeEmpty
+     *
      * @return StringNode
      */
     public function stringNode($value = null, bool $allowSerializeEmpty = false): StringNode;

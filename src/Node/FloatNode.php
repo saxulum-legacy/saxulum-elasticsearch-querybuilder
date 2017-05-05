@@ -13,21 +13,19 @@ final class FloatNode extends AbstractNode
 
     /**
      * @param float|null $value
-     * @param bool $allowSerializeEmpty
+     * @param bool       $allowSerializeEmpty
+     *
      * @return FloatNode
      */
     public static function create(float $value = null, bool $allowSerializeEmpty = false): FloatNode
     {
-        $node = new self;
+        $node = new self();
         $node->value = $value;
         $node->allowSerializeEmpty = $allowSerializeEmpty;
 
         return $node;
     }
 
-    /**
-     * @return null
-     */
     public function serializeEmpty()
     {
         return;

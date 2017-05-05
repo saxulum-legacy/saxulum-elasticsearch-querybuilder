@@ -12,7 +12,8 @@ interface ObjectNodeSerializeInterface
     public function serialize();
 
     /**
-     * @param boolean $beautify
+     * @param bool $beautify
+     *
      * @return string
      */
     public function json(bool $beautify = false): string;

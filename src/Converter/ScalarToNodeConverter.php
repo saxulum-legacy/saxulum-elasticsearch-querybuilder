@@ -14,9 +14,11 @@ use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 final class ScalarToNodeConverter implements ScalarToNodeConverterInterface
 {
     /**
-     * @param bool|float|integer|null|string $value
-     * @param string                         $path
+     * @param bool|float|int|null|string $value
+     * @param string                     $path
+     *
      * @return AbstractNode
+     *
      * @throws \InvalidArgumentException
      */
     public function convert($value, string $path = ''): AbstractNode

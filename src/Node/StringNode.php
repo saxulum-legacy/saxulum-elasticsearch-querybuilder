@@ -13,21 +13,19 @@ final class StringNode extends AbstractNode
 
     /**
      * @param string|null $value
-     * @param bool $allowSerializeEmpty
+     * @param bool        $allowSerializeEmpty
+     *
      * @return StringNode
      */
     public static function create(string $value = null, bool $allowSerializeEmpty = false): StringNode
     {
-        $node = new self;
+        $node = new self();
         $node->value = $value;
         $node->allowSerializeEmpty = $allowSerializeEmpty;
 
         return $node;
     }
 
-    /**
-     * @return null
-     */
     public function serializeEmpty()
     {
         return;

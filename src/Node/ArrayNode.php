@@ -8,11 +8,12 @@ final class ArrayNode extends AbstractParentNode
 {
     /**
      * @param bool $allowSerializeEmpty
+     *
      * @return ArrayNode
      */
     public static function create(bool $allowSerializeEmpty = false): ArrayNode
     {
-        $node = new self;
+        $node = new self();
         $node->allowSerializeEmpty = $allowSerializeEmpty;
 
         return $node;
@@ -73,7 +74,7 @@ final class ArrayNode extends AbstractParentNode
     }
 
     /**
-     * @param array             $serialized
+     * @param array        $serialized
      * @param AbstractNode $child
      */
     private function serializeChild(array &$serialized, AbstractNode $child)

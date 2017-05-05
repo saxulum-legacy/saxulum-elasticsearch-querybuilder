@@ -27,7 +27,9 @@ final class IteratableToNodeConverter implements IteratableToNodeConverterInterf
     /**
      * @param array|\Traversable $data
      * @param string             $path
+     *
      * @return AbstractParentNode
+     *
      * @throws \InvalidArgumentException
      */
     public function convert($data, string $path = ''): AbstractParentNode
@@ -35,9 +37,9 @@ final class IteratableToNodeConverter implements IteratableToNodeConverterInterf
         if (!is_array($data) && !$data instanceof \Traversable) {
             throw new \InvalidArgumentException(sprintf('Params need to be array or %s', \Traversable::class));
         }
-        
+
         $isArray = $this->isArray($data);
-        
+
         $dataNode = $isArray ? ArrayNode::create() : ObjectNode::create();
         foreach ($data as $key => $value) {
             $node = $this->getNode($value, $this->getSubPath($path, $key, $isArray));
@@ -54,6 +56,7 @@ final class IteratableToNodeConverter implements IteratableToNodeConverterInterf
 
     /**
      * @param array|\Traversable $data
+     *
      * @return bool
      */
     private function isArray($data): bool
@@ -64,7 +67,7 @@ final class IteratableToNodeConverter implements IteratableToNodeConverterInterf
                 return false;
             }
 
-            $counter++;
+            ++$counter;
         }
 
         return true;
@@ -74,6 +77,7 @@ final class IteratableToNodeConverter implements IteratableToNodeConverterInterf
      * @param string     $path
      * @param string|int $key
      * @param bool       $isArray
+     *
      * @return string
      */
     private function getSubPath(string $path, $key, bool $isArray): string
@@ -81,15 +85,16 @@ final class IteratableToNodeConverter implements IteratableToNodeConverterInterf
         $key = (string) $key;
 
         if ($isArray) {
-            return $path . '[' . $key . ']';
+            return $path.'['.$key.']';
         }
 
-        return $path !== '' ? $path . '.' . $key : $key;
+        return $path !== '' ? $path.'.'.$key : $key;
     }
 
     /**
      * @param mixed  $value
      * @param string $path
+     *
      * @return AbstractNode
      */
     private function getNode($value, string $path): AbstractNode

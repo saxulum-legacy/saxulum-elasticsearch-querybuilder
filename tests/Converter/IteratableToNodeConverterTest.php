@@ -28,23 +28,23 @@ class IteratableToNodeConverterTest extends \PHPUnit_Framework_TestCase
                 1 => 1.1234,
                 2 => 1,
                 3 => null,
-                4 => 'string'
+                4 => 'string',
             ],
             'arrayWithout' => [
                 true,
                 1.1234,
                 1,
                 null,
-                'string'
+                'string',
             ],
             'invalidArray' => [
                 0 => true,
                 1 => 1.1234,
                 3 => 1,
                 4 => null,
-                5 => 'string'
+                5 => 'string',
             ],
-            0 => 'value'
+            0 => 'value',
         ]);
 
         $expected = <<<EOD

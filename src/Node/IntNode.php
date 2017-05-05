@@ -13,21 +13,19 @@ final class IntNode extends AbstractNode
 
     /**
      * @param int|null $value
-     * @param bool $allowSerializeEmpty
+     * @param bool     $allowSerializeEmpty
+     *
      * @return IntNode
      */
     public static function create(int $value = null, bool $allowSerializeEmpty = false): IntNode
     {
-        $node = new self;
+        $node = new self();
         $node->value = $value;
         $node->allowSerializeEmpty = $allowSerializeEmpty;
 
         return $node;
     }
 
-    /**
-     * @return null
-     */
     public function serializeEmpty()
     {
         return;

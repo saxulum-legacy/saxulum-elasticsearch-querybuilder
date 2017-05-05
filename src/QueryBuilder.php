@@ -33,7 +33,9 @@ final class QueryBuilder implements QueryBuilderInterface
 
     /**
      * @param array ...$arguments
+     *
      * @return QueryBuilderInterface
+     *
      * @throws \Exception
      */
     public function add(...$arguments): QueryBuilderInterface
@@ -110,6 +112,7 @@ final class QueryBuilder implements QueryBuilderInterface
 
     /**
      * @param bool $allowSerializeEmpty
+     *
      * @return ArrayNode
      */
     public function arrayNode(bool $allowSerializeEmpty = false): ArrayNode
@@ -119,7 +122,8 @@ final class QueryBuilder implements QueryBuilderInterface
 
     /**
      * @param bool|null $value
-     * @param bool $allowSerializeEmpty
+     * @param bool      $allowSerializeEmpty
+     *
      * @return BoolNode
      */
     public function boolNode($value = null, bool $allowSerializeEmpty = false): BoolNode
@@ -129,7 +133,8 @@ final class QueryBuilder implements QueryBuilderInterface
 
     /**
      * @param float|null $value
-     * @param bool $allowSerializeEmpty
+     * @param bool       $allowSerializeEmpty
+     *
      * @return FloatNode
      */
     public function floatNode($value = null, bool $allowSerializeEmpty = false): FloatNode
@@ -139,7 +144,8 @@ final class QueryBuilder implements QueryBuilderInterface
 
     /**
      * @param int|null $value
-     * @param bool $allowSerializeEmpty
+     * @param bool     $allowSerializeEmpty
+     *
      * @return IntNode
      */
     public function intNode($value = null, bool $allowSerializeEmpty = false): IntNode
@@ -157,6 +163,7 @@ final class QueryBuilder implements QueryBuilderInterface
 
     /**
      * @param bool $allowSerializeEmpty
+     *
      * @return ObjectNode
      */
     public function objectNode(bool $allowSerializeEmpty = false): ObjectNode
@@ -166,7 +173,8 @@ final class QueryBuilder implements QueryBuilderInterface
 
     /**
      * @param string|null $value
-     * @param bool $allowSerializeEmpty
+     * @param bool        $allowSerializeEmpty
+     *
      * @return StringNode
      */
     public function stringNode($value = null, bool $allowSerializeEmpty = false): StringNode
@@ -183,7 +191,8 @@ final class QueryBuilder implements QueryBuilderInterface
     }
 
     /**
-     * @param boolean $beautify
+     * @param bool $beautify
+     *
      * @return string
      */
     public function json(bool $beautify = false): string

@@ -8,11 +8,12 @@ final class ObjectNode extends AbstractParentNode implements ObjectNodeSerialize
 {
     /**
      * @param bool $allowSerializeEmpty
+     *
      * @return ObjectNode
      */
     public static function create(bool $allowSerializeEmpty = false): ObjectNode
     {
-        $node = new self;
+        $node = new self();
         $node->allowSerializeEmpty = $allowSerializeEmpty;
 
         return $node;
@@ -92,7 +93,8 @@ final class ObjectNode extends AbstractParentNode implements ObjectNodeSerialize
     }
 
     /**
-     * @param boolean $beautify
+     * @param bool $beautify
+     *
      * @return string
      */
     public function json(bool $beautify = false): string

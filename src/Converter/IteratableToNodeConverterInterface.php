@@ -10,7 +10,9 @@ interface IteratableToNodeConverterInterface
 {
     /**
      * @param array|\Traversable $params
+     *
      * @return AbstractParentNode
+     *
      * @throws \InvalidArgumentException
      */
     public function convert($params): AbstractParentNode;
