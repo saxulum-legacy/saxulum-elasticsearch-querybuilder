@@ -36,7 +36,7 @@ final class ScalarToNodeConverter implements ScalarToNodeConverterInterface
         }
 
         if ($type === 'NULL') {
-            return NullNode::create($value);
+            return NullNode::create();
         }
 
         if ($type === 'string') {
