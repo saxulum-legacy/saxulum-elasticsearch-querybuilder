@@ -14,6 +14,16 @@ use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 final class ScalarToNodeConverter implements ScalarToNodeConverterInterface
 {
     /**
+     * @var array
+     */
+    private $typeMapping = [
+        'boolean' => BoolNode::class,
+        'double' => FloatNode::class,
+        'integer' => IntNode::class,
+        'string' => StringNode::class,
+    ];
+
+    /**
      * @param bool|float|int|null|string $value
      * @param string                     $path
      *
@@ -23,30 +33,20 @@ final class ScalarToNodeConverter implements ScalarToNodeConverterInterface
      */
     public function convert($value, string $path = ''): AbstractNode
     {
-        $type = gettype($value);
-
-        if ($type === 'boolean') {
-            return BoolNode::create($value);
-        }
-
-        if ($type === 'double') {
-            return FloatNode::create($value);
-        }
-
-        if ($type === 'integer') {
-            return IntNode::create($value);
-        }
-
-        if ($type === 'NULL') {
+        if (null === $value) {
             return NullNode::create();
         }
 
-        if ($type === 'string') {
-            return StringNode::create($value);
+        $type = gettype($value);
+
+        if (!isset($this->typeMapping[$type])) {
+            throw new \InvalidArgumentException(
+                sprintf('Type %s is not supported, at path %s', is_object($value) ? get_class($value) : $type, $path)
+            );
         }
 
-        throw new \InvalidArgumentException(
-            sprintf('Type %s is not supported, at path %s', is_object($value) ? get_class($value) : $type, $path)
-        );
+        $node = $this->typeMapping[$type];
+
+        return $node::create($value);
     }
 }
