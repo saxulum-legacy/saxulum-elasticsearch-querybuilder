@@ -34,6 +34,7 @@ Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-que
  * StringNode (null)
 
 This works recursive, which means theoretically a complex query builder can lead into an empty string as json query.
+
 Check the `allowSerializeEmpty` argument to prevent this if needed.
 
 ### QueryBuilder
