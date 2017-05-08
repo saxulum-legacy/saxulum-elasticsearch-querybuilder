@@ -39,19 +39,13 @@ final class IteratableToNodeConverter implements IteratableToNodeConverterInterf
         }
 
         $isArray = $this->isArray($data);
+        $parentNode = $this->getParentNode($isArray);
 
-        $dataNode = $isArray ? ArrayNode::create() : ObjectNode::create();
         foreach ($data as $key => $value) {
-            $node = $this->getNode($value, $this->getSubPath($path, $key, $isArray));
-
-            if ($isArray) {
-                $dataNode->add($node);
-            } else {
-                $dataNode->add((string) $key, $node);
-            }
+            $this->addChildNode($parentNode, $key, $value, $path, $isArray);
         }
 
-        return $dataNode;
+        return $parentNode;
     }
 
     /**
@@ -71,6 +65,39 @@ final class IteratableToNodeConverter implements IteratableToNodeConverterInterf
         }
 
         return true;
+    }
+
+    /**
+     * @param bool $isArray
+     *
+     * @return AbstractParentNode
+     */
+    private function getParentNode(bool $isArray): AbstractParentNode
+    {
+        if ($isArray) {
+            return ArrayNode::create();
+        }
+
+        return ObjectNode::create();
+    }
+
+    /**
+     * @param AbstractParentNode $parentNode
+     * @param int|string         $key
+     * @param mixed              $value
+     * @param string             $path
+     * @param bool               $isArray
+     */
+    private function addChildNode(AbstractParentNode $parentNode, $key, $value, string $path, bool $isArray)
+    {
+        $subPath = $this->getSubPath($path, $key, $isArray);
+        $node = $this->getNode($value, $subPath);
+
+        if ($isArray) {
+            $parentNode->add($node);
+        } else {
+            $parentNode->add((string) $key, $node);
+        }
     }
 
     /**
