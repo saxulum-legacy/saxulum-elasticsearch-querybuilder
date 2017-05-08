@@ -24,10 +24,17 @@ Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-que
 
 ## Usage
 
-**Important**: By default empty nodes get not serialized, which means empty arrayNode (no elemements), empty
-objectNode (no keys) and empty scalar Nodes (boolNode, floatNode, intNode, stringNode) (with null value).
-NullNode get always serialized as null. This works recursive, which means theoretically a complex query builder
-can lead into an empty string as json. Check the `allowSerializeEmpty` argument to prevent this if needed.
+**Important**: By default empty nodes get not serialized. NullNode forces null value serialization.
+
+ * ArrayNode (no elements)
+ * BoolNode (null)
+ * ObjectNode (no elements)
+ * FloatNode (null)
+ * IntNode (null)
+ * StringNode (null)
+
+This works recursive, which means theoretically a complex query builder can lead into an empty string as json.
+Check the `allowSerializeEmpty` argument to prevent this if needed.
 
 ### QueryBuilder
 
