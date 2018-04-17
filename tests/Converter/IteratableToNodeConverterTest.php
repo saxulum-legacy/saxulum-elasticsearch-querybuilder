@@ -111,23 +111,23 @@ EOD;
             function ($value, string $path = '') {
                 $type = gettype($value);
 
-                if ($type === 'boolean') {
+                if ('boolean' === $type) {
                     return BoolNode::create($value);
                 }
 
-                if ($type === 'double') {
+                if ('double' === $type) {
                     return FloatNode::create($value);
                 }
 
-                if ($type === 'integer') {
+                if ('integer' === $type) {
                     return IntNode::create($value);
                 }
 
-                if ($type === 'NULL') {
+                if ('NULL' === $type) {
                     return NullNode::create($value);
                 }
 
-                if ($type === 'string') {
+                if ('string' === $type) {
                     return StringNode::create($value);
                 }
 

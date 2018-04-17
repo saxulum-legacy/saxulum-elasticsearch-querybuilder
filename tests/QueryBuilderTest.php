@@ -20,6 +20,15 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
         ;
 
         self::assertSame('{"query":{"match_all":{}}}', $qb->json());
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
     }
 
     public function testMatchAllWithoutAllowSerializeEmpty()

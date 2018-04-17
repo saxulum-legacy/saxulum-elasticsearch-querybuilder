@@ -115,7 +115,7 @@ final class IteratableToNodeConverter implements IteratableToNodeConverterInterf
             return $path.'['.$key.']';
         }
 
-        return $path !== '' ? $path.'.'.$key : $key;
+        return '' !== $path ? $path.'.'.$key : $key;
     }
 
     /**

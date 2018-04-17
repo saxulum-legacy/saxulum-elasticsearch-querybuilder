@@ -14,6 +14,9 @@ use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNodeSerializeInterface;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
+/**
+ * @deprecated use base interface, query builder will be dropped
+ */
 interface QueryBuilderInterface extends ObjectNodeSerializeInterface
 {
     /**
