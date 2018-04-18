@@ -31,6 +31,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                 ->add('match_all', ObjectNode::create(true))
             );
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame('{"query":{"match_all":{}}}', $node->json());
     }
 
@@ -40,6 +44,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
             ->add('query', ObjectNode::create()
                 ->add('match_all', ObjectNode::create())
             );
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame('', $node->json());
     }
@@ -52,6 +60,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                     ->add('title', StringNode::create('elasticsearch'))
                 )
             );
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame('{"query":{"match":{"title":"elasticsearch"}}}', $node->json());
     }
@@ -68,6 +80,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame('{"query":{"range":{"elements":{"gte":10,"lte":20}}}}', $node->json());
     }
 
@@ -79,6 +95,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                     ->add('field', StringNode::create('text'))
                 )
             );
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame('{"query":{"exists":{"field":"text"}}}', $node->json());
     }
@@ -98,6 +118,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame(
             '{"query":{"bool":{"must_not":[{"exists":{"field":"text"}}]}}}',
             $node->json()
@@ -113,6 +137,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame('{"query":{"prefix":{"title":"elastic"}}}', $node->json());
     }
 
@@ -125,6 +153,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame('{"query":{"wildcard":{"title":"ela*c"}}}', $node->json());
     }
 
@@ -136,6 +168,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                     ->add('title', StringNode::create('search$'))
                 )
             );
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame('{"query":{"regexp":{"title":"search$"}}}', $node->json());
     }
@@ -152,6 +188,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame('{"query":{"fuzzy":{"title":{"value":"sea","fuzziness":2}}}}', $node->json());
     }
 
@@ -163,6 +203,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                     ->add('value', StringNode::create('product'))
                 )
             );
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame('{"query":{"type":{"value":"product"}}}', $node->json());
     }
@@ -180,6 +224,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame('{"query":{"ids":{"type":"product","values":[1,2]}}}', $node->json());
     }
 
@@ -192,6 +240,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame('{"query":{"term":{"is_published":true}}}', $node->json());
     }
 
@@ -203,6 +255,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                     ->add('field', NullNode::create())
                 )
             );
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame('{"query":{"term":{"field":null}}}', $node->json());
     }
@@ -246,6 +302,10 @@ class NodeTest extends \PHPUnit_Framework_TestCase
                     ->add('boost', FloatNode::create(1.1))
                 )
             );
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         $expected = <<<EOD
 {
@@ -307,6 +367,10 @@ EOD;
                     )
                 )
             );
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame('', $node->json());
     }

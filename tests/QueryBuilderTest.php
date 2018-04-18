@@ -14,12 +14,6 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testMatchAll()
     {
         $qb = new QueryBuilder();
-        $qb
-            ->add('query', $qb->objectNode())
-                ->add('match_all', $qb->objectNode(true))
-        ;
-
-        self::assertSame('{"query":{"match_all":{}}}', $qb->json());
 
         $error = error_get_last();
 
@@ -29,11 +23,28 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame(E_USER_DEPRECATED, $error['type']);
         self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
+        $qb
+            ->add('query', $qb->objectNode())
+                ->add('match_all', $qb->objectNode(true))
+        ;
+
+        self::assertSame('{"query":{"match_all":{}}}', $qb->json());
     }
 
     public function testMatchAllWithoutAllowSerializeEmpty()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('match_all', $qb->objectNode())
@@ -45,6 +56,16 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testMatch()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('match', $qb->objectNode())
@@ -57,6 +78,16 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testRange()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
         ->add('query', $qb->objectNode())
             ->add('range', $qb->objectNode())
@@ -71,6 +102,16 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testExists()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('exists', $qb->objectNode())
@@ -83,6 +124,16 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testNotExists()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('bool', $qb->objectNode())
@@ -101,6 +152,16 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testPrefix()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('prefix', $qb->objectNode())
@@ -113,6 +174,16 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testWildcard()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('wildcard', $qb->objectNode())
@@ -125,6 +196,16 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testRegexp()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('regexp', $qb->objectNode())
@@ -137,6 +218,16 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testFuzzy()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('fuzzy', $qb->objectNode())
@@ -151,6 +242,16 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testType()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('type', $qb->objectNode())
@@ -163,6 +264,16 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testIds()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('ids', $qb->objectNode())
@@ -178,6 +289,16 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testBoolTerm()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('term', $qb->objectNode())
@@ -190,6 +311,16 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testNullNode()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('term', $qb->objectNode())
@@ -202,6 +333,16 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testComplex()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('bool', $qb->objectNode())
@@ -286,6 +427,16 @@ EOD;
     public function testEmptyQuery()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->add('query', $qb->objectNode())
                 ->add('bool', $qb->objectNode())
@@ -306,6 +457,16 @@ EOD;
     public function testAddToArrayNodeIfItsNotAnActiveArrayNode()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb->addToArrayNode($qb->stringNode());
     }
 
@@ -316,6 +477,16 @@ EOD;
     public function testAddToObjectNodeIfItsNotAnActiveObjectNode()
     {
         $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
         $qb
             ->addToObjectNode('key', $qb->arrayNode())
                 ->addToObjectNode('key', $qb->stringNode())
@@ -328,6 +499,17 @@ EOD;
      */
     public function testToManyEnd()
     {
-        (new QueryBuilder())->end();
+        $qb = new QueryBuilder();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode" instead of the "Saxulum\ElasticSearchQueryBuilder\QueryBuilder"', $error['message']);
+
+        $qb->end();
     }
 }
