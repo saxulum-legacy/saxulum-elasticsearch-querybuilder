@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder;
 
+use PHPUnit\Framework\TestCase;
 use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
 
 /**
  * @covers \Saxulum\ElasticSearchQueryBuilder\QueryBuilder
  */
-class QueryBuilderTest extends \PHPUnit_Framework_TestCase
+class QueryBuilderTest extends TestCase
 {
     public function testMatchAll()
     {

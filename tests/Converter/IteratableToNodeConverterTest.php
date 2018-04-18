@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Converter;
 
+use PHPUnit\Framework\TestCase;
 use Saxulum\ElasticSearchQueryBuilder\Converter\IteratableToNodeConverter;
 use Saxulum\ElasticSearchQueryBuilder\Converter\ScalarToNodeConverterInterface;
 use Saxulum\ElasticSearchQueryBuilder\Node\BoolNode;
@@ -16,7 +17,7 @@ use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 /**
  * @covers \Saxulum\ElasticSearchQueryBuilder\Converter\IteratableToNodeConverter
  */
-class IteratableToNodeConverterTest extends \PHPUnit_Framework_TestCase
+class IteratableToNodeConverterTest extends TestCase
 {
     public function testConvert()
     {

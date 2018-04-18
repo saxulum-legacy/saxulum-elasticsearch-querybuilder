@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder;
 
+use PHPUnit\Framework\TestCase;
 use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\BoolNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\FloatNode;
@@ -22,7 +23,7 @@ use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
  * @covers \Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode
  * @covers \Saxulum\ElasticSearchQueryBuilder\Node\StringNode
  */
-class NodeTest extends \PHPUnit_Framework_TestCase
+class NodeTest extends TestCase
 {
     public function testMatchAll()
     {

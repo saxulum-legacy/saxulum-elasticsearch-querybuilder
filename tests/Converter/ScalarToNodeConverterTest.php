@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Converter;
 
+use PHPUnit\Framework\TestCase;
 use Saxulum\ElasticSearchQueryBuilder\Converter\ScalarToNodeConverter;
 use Saxulum\ElasticSearchQueryBuilder\Node\BoolNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\FloatNode;
@@ -14,7 +15,7 @@ use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 /**
  * @covers \Saxulum\ElasticSearchQueryBuilder\Converter\ScalarToNodeConverter
  */
-class ScalarToNodeConverterTest extends \PHPUnit_Framework_TestCase
+class ScalarToNodeConverterTest extends TestCase
 {
     public function testConvertBool()
     {
