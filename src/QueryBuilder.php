@@ -13,6 +13,9 @@ use Saxulum\ElasticSearchQueryBuilder\Node\NullNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
+/**
+ * @deprecated use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode
+ */
 final class QueryBuilder implements QueryBuilderInterface
 {
     /**
@@ -27,6 +30,8 @@ final class QueryBuilder implements QueryBuilderInterface
 
     public function __construct()
     {
+        @trigger_error(sprintf('Use "%s" instead of the "%s"', ObjectNode::class, self::class), E_USER_DEPRECATED);
+
         $this->rootNode = ObjectNode::create();
         $this->node = $this->rootNode;
     }

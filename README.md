@@ -22,6 +22,10 @@
 
 Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-querybuilder][1].
 
+```sh
+composer require saxulum/saxulum-elasticsearch-querybuilder "~3.2@dev"
+```
+
 ## Usage
 
 **Important**: By default empty nodes get not serialized. NullNode forces null value serialization.
@@ -40,61 +44,63 @@ Check the `allowSerializeEmpty` argument to prevent this if needed.
 ### QueryBuilder
 
 ```php
-use Saxulum\ElasticSearchQueryBuilder\QueryBuilder;
+use Saxulum\ElasticSearchQueryBuilder\Node\ArrayNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\FloatNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\IntNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
-$qb = new QueryBuilder();
-$qb
-    ->add('query', $qb->objectNode())
-        ->add('bool', $qb->objectNode())
-            ->add('must', $qb->objectNode())
-                ->add('term', $qb->objectNode())
-                    ->add('user', $qb->stringNode('kimchy'))
-                ->end()
-            ->end()
-            ->add('filter', $qb->objectNode())
-                ->add('term', $qb->objectNode())
-                    ->add('tag', $qb->stringNode('tech'))
-                ->end()
-            ->end()
-            ->add('must_not', $qb->objectNode())
-                ->add('range', $qb->objectNode())
-                    ->add('age', $qb->objectNode())
-                        ->add('from', $qb->intNode(10))
-                        ->add('to', $qb->intNode(20))
-                    ->end()
-                ->end()
-            ->end()
-            ->add('should', $qb->arrayNode())
-                ->add($qb->objectNode())
-                    ->add('term', $qb->objectNode())
-                        ->add('tag', $qb->stringNode('wow'))
-                    ->end()
-                ->end()
-                ->add($qb->objectNode())
-                    ->add('term', $qb->objectNode())
-                        ->add('tag', $qb->stringNode('elasticsearch'))
-                    ->end()
-                ->end()
-            ->end()
-            ->add('minimum_should_match', $qb->intNode(1))
-            ->add('boost', $qb->floatNode(1.1))
-;
+$node = ObjectNode::create()
+    ->add('query', ObjectNode::create()
+        ->add('bool', ObjectNode::create()
+            ->add('must', ObjectNode::create()
+                ->add('term', ObjectNode::create()
+                    ->add('user', StringNode::create('kimchy'))
+                )
+            )
+            ->add('filter', ObjectNode::create()
+                ->add('term', ObjectNode::create()
+                    ->add('tag', StringNode::create('tech'))
+                )
+            )
+            ->add('must_not', ObjectNode::create()
+                ->add('range', ObjectNode::create()
+                    ->add('age', ObjectNode::create()
+                        ->add('from', IntNode::create(10))
+                        ->add('to', IntNode::create(20))
+                    )
+                )
+            )
+            ->add('should', ArrayNode::create()
+                ->add(ObjectNode::create()
+                    ->add('term', ObjectNode::create()
+                        ->add('tag', StringNode::create('wow'))
+                    )
+                )
+                ->add(ObjectNode::create()
+                    ->add('term', ObjectNode::create()
+                        ->add('tag', StringNode::create('elasticsearch'))
+                    )
+                )
+            )
+            ->add('minimum_should_match', IntNode::create(1))
+            ->add('boost', FloatNode::create(1.1))
+        )
+    );
 
-echo $qb->json(true);
+echo $node->json(true);
 ```
 
 ### Other samples
 
- * [Queries with QueryBuilder][2]
- * [Queries with Node][3]
+ * [Queries with Node][2]
 
 ### Converter
 
- * [Convert Iteratable to Node][4]
- * [Convert Scalar to Node][5]
+ * [Convert Iteratable to Node][3]
+ * [Convert Scalar to Node][4]
 
 [1]: https://packagist.org/packages/saxulum/saxulum-elasticsearch-querybuilder
-[2]: doc/QueryBuilder.md
-[3]: doc/Node.md
-[4]: doc/Converter/IteratableToNodeConverter.md
-[5]: doc/Converter/ScalarToNodeConverter.md
+[2]: doc/Node.md
+[3]: doc/Converter/IteratableToNodeConverter.md
+[4]: doc/Converter/ScalarToNodeConverter.md
