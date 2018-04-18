@@ -23,7 +23,7 @@
 Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-querybuilder][1].
 
 ```sh
-composer require saxulum/saxulum-elasticsearch-querybuilder "~3.2@dev"
+composer require saxulum/saxulum-elasticsearch-querybuilder "~3.2"
 ```
 
 ## Usage
