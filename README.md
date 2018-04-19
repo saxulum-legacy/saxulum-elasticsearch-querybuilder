@@ -50,7 +50,7 @@ use Saxulum\ElasticSearchQueryBuilder\Node\IntNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 use Saxulum\ElasticSearchQueryBuilder\Node\StringNode;
 
-$node = ObjectNode::create()
+$qb = ObjectNode::create()
     ->add('query', ObjectNode::create()
         ->add('bool', ObjectNode::create()
             ->add('must', ObjectNode::create()
@@ -88,7 +88,7 @@ $node = ObjectNode::create()
         )
     );
 
-echo $node->json(true);
+echo $qb->json(true);
 ```
 
 ### Other samples
