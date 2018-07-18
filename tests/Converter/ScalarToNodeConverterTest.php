@@ -52,6 +52,20 @@ class ScalarToNodeConverterTest extends TestCase
         self::assertInstanceOf(StringNode::class, $valueConverter->convert('string'));
     }
 
+    public function testConvertSetsDefaultIsAllowSerializeEmpty()
+    {
+        $valueConverter = new ScalarToNodeConverter();
+
+        self::assertFalse($valueConverter->convert('string')->isAllowSerializeEmpty());
+    }
+
+    public function testConvertSetsIsAllowSerializeEmpty()
+    {
+        $valueConverter = new ScalarToNodeConverter();
+
+        self::assertTrue($valueConverter->convert('string', '', true)->isAllowSerializeEmpty());
+    }
+
     public function testConvertWithUnsupportedValueExpectException()
     {
         self::expectException(\InvalidArgumentException::class);
