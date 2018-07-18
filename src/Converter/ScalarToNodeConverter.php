@@ -26,12 +26,13 @@ final class ScalarToNodeConverter implements ScalarToNodeConverterInterface
     /**
      * @param bool|float|int|null|string $value
      * @param string                     $path
+     * @param bool                       $allowSerializeEmpty
      *
      * @return AbstractNode
      *
      * @throws \InvalidArgumentException
      */
-    public function convert($value, string $path = ''): AbstractNode
+    public function convert($value, string $path = '', bool $allowSerializeEmpty = false): AbstractNode
     {
         if (null === $value) {
             return NullNode::create();
@@ -47,6 +48,6 @@ final class ScalarToNodeConverter implements ScalarToNodeConverterInterface
 
         $node = $this->typeMapping[$type];
 
-        return $node::create($value);
+        return $node::create($value, $allowSerializeEmpty);
     }
 }
