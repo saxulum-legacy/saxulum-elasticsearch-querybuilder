@@ -13,7 +13,7 @@ This works recursive, which means theoretically a multidimensional array can lea
 
 Check the `allowSerializeEmpty` argument to prevent this if needed.
 
-## Bool value
+## Example
 
 ```php
 <?php
@@ -22,6 +22,62 @@ use Saxulum\ElasticSearchQueryBuilder\Converter\IteratableToNodeConverter;
 use Saxulum\ElasticSearchQueryBuilder\Converter\ScalarToNodeConverter;
 use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
 
-$iteratableConverter = new IteratableToNodeConverter(new ScalarToNodeConverter);
-$iteratableConverter->convert(['key' => [bool, 1.234, 1, null, 'string']]); // instanceof ObjectNode::class
+$iteratableConverter = new IteratableToNodeConverter(new ScalarToNodeConverter());
+$test = $iteratableConverter->convert(['key' => [true, 1.234, 1, null, 'string', []]])->serialize(); // instanceof ObjectNode::class
+var_dump($test);
+```
+
+Returns
+```
+{
+  ["key"]=>
+  array(5) {
+    [0]=>
+    bool(true)
+    [1]=>
+    float(1.234)
+    [2]=>
+    int(1)
+    [3]=>
+    NULL
+    [4]=>
+    string(6) "string"
+  }
+}
+```
+
+## Example with allowSerializeEmpty
+
+```php
+<?php
+
+use Saxulum\ElasticSearchQueryBuilder\Converter\IteratableToNodeConverter;
+use Saxulum\ElasticSearchQueryBuilder\Converter\ScalarToNodeConverter;
+use Saxulum\ElasticSearchQueryBuilder\Node\ObjectNode;
+
+$iteratableConverter = new IteratableToNodeConverter(new ScalarToNodeConverter());
+$test = $iteratableConverter->convert(['key' => [true, 1.234, 1, null, 'string', []]], '', true)->serialize(); // instanceof ObjectNode::class
+var_dump($test);
+```
+
+Returns
+```
+{
+  ["key"]=>
+  array(6) {
+    [0]=>
+    bool(true)
+    [1]=>
+    float(1.234)
+    [2]=>
+    int(1)
+    [3]=>
+    NULL
+    [4]=>
+    string(6) "string"
+    [5]=>
+    array(0) {
+    }
+  }
+}
 ```
