@@ -1,5 +1,16 @@
 # ScalarToNodeConverter
 
+**Important**: By default empty nodes get not serialized. NullNode forces null value serialization.
+
+ * ArrayNode (no elements)
+ * BoolNode (null)
+ * ObjectNode (no elements)
+ * FloatNode (null)
+ * IntNode (null)
+ * StringNode (null)
+
+Check the `allowSerializeEmpty` argument to prevent this if needed.
+
 ## Bool value
 
 ```php

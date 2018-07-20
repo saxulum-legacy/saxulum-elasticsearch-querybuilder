@@ -46,6 +46,7 @@ class IteratableToNodeConverterTest extends TestCase
                 5 => 'string',
             ],
             0 => 'value',
+            'emptyArray' => []
         ]);
 
         $expected = <<<EOD
@@ -77,6 +78,21 @@ EOD;
 
         self::assertInstanceOf(ObjectNode::class, $node);
         self::assertSame($expected, $node->json(true));
+    }
+
+    public function testConvertWithAllowEmptySerialze()
+    {
+        $iteratableConverter = new IteratableToNodeConverter($this->getScalarToNodeConverter());
+
+        $node = $iteratableConverter->convert(['emptyArray' => []], '', true);
+
+        $expected = <<<EOD
+{
+    "emptyArray": []
+}
+EOD;
+
+        self::assertEquals($expected, $node->json(true));
     }
 
     public function testWithoutArrayOrTraversableExpectException()

@@ -27,22 +27,23 @@ final class IteratableToNodeConverter implements IteratableToNodeConverterInterf
     /**
      * @param array|\Traversable $data
      * @param string             $path
+     * @param bool               $allowSerializeEmpty
      *
      * @return AbstractParentNode
      *
      * @throws \InvalidArgumentException
      */
-    public function convert($data, string $path = ''): AbstractParentNode
+    public function convert($data, string $path = '', bool $allowSerializeEmpty = false): AbstractParentNode
     {
         if (!is_array($data) && !$data instanceof \Traversable) {
             throw new \InvalidArgumentException(sprintf('Params need to be array or %s', \Traversable::class));
         }
 
         $isArray = $this->isArray($data);
-        $parentNode = $this->getParentNode($isArray);
+        $parentNode = $this->getParentNode($isArray, $allowSerializeEmpty);
 
         foreach ($data as $key => $value) {
-            $this->addChildNode($parentNode, $key, $value, $path, $isArray);
+            $this->addChildNode($parentNode, $key, $value, $path, $isArray, $allowSerializeEmpty);
         }
 
         return $parentNode;
@@ -69,16 +70,17 @@ final class IteratableToNodeConverter implements IteratableToNodeConverterInterf
 
     /**
      * @param bool $isArray
+     * @param bool $allowSerializeEmpty
      *
      * @return AbstractParentNode
      */
-    private function getParentNode(bool $isArray): AbstractParentNode
+    private function getParentNode(bool $isArray, bool $allowSerializeEmpty): AbstractParentNode
     {
         if ($isArray) {
-            return ArrayNode::create();
+            return ArrayNode::create($allowSerializeEmpty);
         }
 
-        return ObjectNode::create();
+        return ObjectNode::create($allowSerializeEmpty);
     }
 
     /**
@@ -87,11 +89,18 @@ final class IteratableToNodeConverter implements IteratableToNodeConverterInterf
      * @param mixed              $value
      * @param string             $path
      * @param bool               $isArray
+     * @param bool               $allowSerializeEmpty
      */
-    private function addChildNode(AbstractParentNode $parentNode, $key, $value, string $path, bool $isArray)
-    {
+    private function addChildNode(
+        AbstractParentNode $parentNode,
+        $key,
+        $value,
+        string $path,
+        bool $isArray,
+        bool $allowSerializeEmpty
+    ) {
         $subPath = $this->getSubPath($path, $key, $isArray);
-        $node = $this->getNode($value, $subPath);
+        $node = $this->getNode($value, $subPath, $allowSerializeEmpty);
 
         if ($isArray) {
             $parentNode->add($node);
@@ -121,15 +130,16 @@ final class IteratableToNodeConverter implements IteratableToNodeConverterInterf
     /**
      * @param mixed  $value
      * @param string $path
+     * @param bool   $allowSerializeEmpty
      *
      * @return AbstractNode
      */
-    private function getNode($value, string $path): AbstractNode
+    private function getNode($value, string $path, bool $allowSerializeEmpty): AbstractNode
     {
         if (is_array($value) || $value instanceof \Traversable) {
-            return $this->convert($value, $path);
+            return $this->convert($value, $path, $allowSerializeEmpty);
         }
 
-        return $this->scalarToNodeConverter->convert($value, $path);
+        return $this->scalarToNodeConverter->convert($value, $path, $allowSerializeEmpty);
     }
 }

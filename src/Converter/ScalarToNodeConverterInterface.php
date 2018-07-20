@@ -15,6 +15,8 @@ interface ScalarToNodeConverterInterface
      * @return AbstractNode
      *
      * @throws \InvalidArgumentException
+     *
+     * @todo add $allowSerializeEmpty to next major version
      */
     public function convert($value, string $path = ''): AbstractNode;
 }
